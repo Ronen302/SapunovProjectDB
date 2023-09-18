@@ -1,0 +1,166 @@
+﻿<Page x:Class="SapunovProjectDB.Pages.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:properties="clr-namespace:SapunovProjectDB.Properties"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SapunovProjectDB.Pages.AdminMain"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1080"
+      Title="MainPage">
+
+    <Border CornerRadius="10" Style="{DynamicResource mainBorder}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Margin="0,111,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="1" CornerRadius="0 50 0 10" Margin="0,-65,0,0"
+                        Style="{DynamicResource secondaryBorderMainPage}">
+                    <DockPanel>
+                        <Border Width="80" Height="80" Padding="3" Background="White"
+                                CornerRadius="100" DockPanel.Dock="Top" HorizontalAlignment="Left"
+                                Margin="20 20 0 0">
+                            <!--<Ellipse>
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/ResourceFolder/ImageFolder/AdminPhoto.png"/>
+                                </Ellipse.Fill>
+                            </Ellipse>-->
+                        </Border>
+
+                        <TextBlock Text="{Binding Source={x:Static properties:Settings.Default}, Path=CurrentUser}"
+                                   DockPanel.Dock="Top" Margin="20,25,0,0" Style="{DynamicResource loginNormalTitleText}"
+                                   TextAlignment="Left"/>
+
+                        <TextBlock Text="{Binding Source={x:Static properties:Settings.Default}, Path=UserRole}"
+                                   DockPanel.Dock="Top" Margin="20,5,0,0" Style="{DynamicResource loginNormalTitleText}"
+                                   TextAlignment="Left"/>
+
+                        <Separator Margin="25 25 25 10" DockPanel.Dock="Top" Height="1" Style="{DynamicResource mainPageSeparator}"/>
+
+                        <StackPanel DockPanel.Dock="Top">
+                            <Button x:Name="UserListBtn" Style="{StaticResource menuButton}" Click="UserListBtn_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icons:PackIconMaterial Kind="AccountMultipleOutline" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Пользователи"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="StaffListBtn" Style="{StaticResource menuButton}" Click="StaffListBtn_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icons:PackIconMaterial Kind="HumanMaleMale" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Сотрудники"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="EquipmentListBtn" Style="{StaticResource menuButton}" Click="EquipmentListBtn_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icons:PackIconMaterial Kind="NetworkOutline" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Оборудование"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="ClientListBtn" Style="{StaticResource menuButton}" Click="ClientListBtn_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icons:PackIconMaterial Kind="HumanQueue" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Клиенты"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Separator Margin="25 10 25 10" Height="1" Style="{DynamicResource mainPageSeparator}"/>
+
+                            <ToggleButton x:Name="AccountToggleButton" Checked="AccountToggleButton_Checked"
+                                           IsChecked="False" Style="{DynamicResource menuToggleButton}">
+                                <StackPanel Orientation="Horizontal" Width="184">
+                                    <Icons:PackIconMaterial Kind="AccountOutline" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Аккаунт"/>
+                                </StackPanel>
+                                <ToggleButton.Triggers>
+                                    <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="AccountSettingsGrid" BeginTime="0:0:0" Storyboard.TargetProperty="Height" To="0" Duration="0:0:0.1">
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="AccountSettingsGrid" BeginTime="0:0:0" Storyboard.TargetProperty="Height" From="0" To="130" Duration="0:0:0.1">
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </ToggleButton.Triggers>
+                            </ToggleButton>
+                            <Grid x:Name="AccountSettingsGrid" Height="0">
+                                <StackPanel Orientation="Vertical">
+                                    <Button x:Name="AccountSettingsBtn" Style="{StaticResource menuButton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Icons:PackIconMaterial Kind="AccountSettingsOutline" Style="{StaticResource menuButtonIcon}"/>
+                                            <TextBlock Text="Настройки"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button x:Name="changeThemeBtn" Style="{StaticResource menuButton}" Click="changeThemeBtn_Click">
+                                        <StackPanel Orientation="Horizontal" Width="216">
+                                            <Icons:PackIconMaterial Kind="ThemeLightDark" Style="{StaticResource menuButtonIcon}"/>
+                                            <TextBlock Text="Ночной режим"/>
+                                            <CheckBox Margin="20 0 0 0" Width="29" Name="changeThemeCeckBox"
+                                                      Click="changeThemeCeckBox_Click">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource changeThemeToggleButton}"/>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button x:Name="AccountLogOutBtn" Style="{StaticResource menuButton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Icons:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                                            <TextBlock Text="Выйти"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+
+                        <Button x:Name="LogoutBtn" Style="{StaticResource menuButton}" VerticalAlignment="Bottom"
+                                DockPanel.Dock="Bottom" Margin="15 0 15 20" Click="LogoutBtn_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icons:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Выйти из аккаунта"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+                </Border>
+            </Grid>
+
+            <StackPanel Panel.ZIndex="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,10,675" Width="94">
+                <Button x:Name="MinimizeBtn" Style="{DynamicResource topButton}" HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Click="MinimizeBtn_Click">
+                    <Icons:PackIconMaterial Kind="WindowMinimize" Width="12" Height="12"/>
+                </Button>
+                <Button x:Name="MaximizeBtn" Style="{DynamicResource topButton}" HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Click="MaximizeBtn_Click">
+                    <Icons:PackIconMaterial Kind="WindowMaximize" Width="12" Height="12"/>
+                </Button>
+                <Button x:Name="CloseBtn" Style="{DynamicResource closeButton}" HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Click="CloseBtn_Click">
+                    <Icons:PackIconMaterial Kind="WindowClose" Width="12" Height="12"/>
+                </Button>
+            </StackPanel>
+
+            <Grid Grid.Column="1" Margin="10 50 10 0">
+                <Frame x:Name="MainPageFrame" NavigationUIVisibility="Hidden"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Page>

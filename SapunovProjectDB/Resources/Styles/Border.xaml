@@ -1,0 +1,103 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:properties="clr-namespace:SapunovProjectDB.Properties">
+    <Style x:Key="mainBorder" TargetType="Border">
+        <Setter Property="Background" Value="#edeef0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Background" Value="#1a1a1a"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="mainBorderAddWindow" TargetType="Border">
+        <Setter Property="Background" Value="#edeef0"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="0" Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Background" Value="#1a1a1a"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="0" Opacity="0.3" Color="Gray"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="secondaryBorder" TargetType="Border">
+        <Setter Property="Background" Value="#f2f3f5"/>
+        <Setter Property="BorderBrush" Value="#d5d5d7"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Background" Value="#2b2d31"/>
+                <Setter Property="BorderBrush" Value="#434343"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="secondaryBorderMainPage" TargetType="Border">
+        <Setter Property="Background" Value="#ffffff"/>
+        <Setter Property="BorderBrush" Value="#d5d5d7"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Background" Value="#222222"/>
+                <Setter Property="BorderBrush" Value="#424242"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="thirdyBorderMainPage" TargetType="Border">
+        <Setter Property="Background" Value="#ffffff"/>
+        <Setter Property="BorderBrush" Value="#d5d5d7"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Background" Value="#313338"/>
+                <Setter Property="BorderBrush" Value="#424242"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="successfulRegBorder" TargetType="Border">
+        <Setter Property="Background" Value="#f2f3f5"/>
+        <Setter Property="BorderBrush" Value="#d5d5d7"/>
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark"/>
+                    <Condition Binding="{Binding ElementName=successfullRegistrationBorder, Path=Visibility}" Value="Visible"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0" To="1"
+                                        Duration="0:0:1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiDataTrigger.EnterActions>
+                <Setter Property="Background" Value="#313338"/>
+                <Setter Property="BorderBrush" Value="#434343"/>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding ElementName=successfullRegistrationBorder, Path=Visibility}" Value="Visible">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0" To="1"
+                                        Duration="0:0:1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

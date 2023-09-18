@@ -1,0 +1,291 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:properties="clr-namespace:SapunovProjectDB.Properties">
+    <Style x:Key="loginTextBox" TargetType="{x:Type TextBox}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Margin" Value="8 0 0 0"/>
+        <Setter Property="Foreground" Value="#FF7C7C7C"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border x:Name="border" Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True" BorderThickness="0" BorderBrush="#acb0af">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="#acb0af" TargetName="border"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="#acb0af" TargetName="border"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="textBoxSearch" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="#edeef0"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="#afafaf">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="#623ed0" TargetName="border"/>
+                            <Setter Property="Background" Value="#e4e5e9" TargetName="border"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="#623ed0" TargetName="border"/>
+                            <Setter Property="Background" Value="#e4e5e9" TargetName="border"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="textBoxFilter" TargetType="{x:Type TextBox}"
+           BasedOn="{StaticResource textBoxSearch}">
+        <Setter Property="Padding" Value="10 8"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="CaretBrush" Value="#000000"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True" BorderThickness="0" BorderBrush="#afafaf">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="#623ed0" TargetName="border"/>
+                            <Setter Property="Background" Value="#e4e5e9" TargetName="border"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="#623ed0" TargetName="border"/>
+                            <Setter Property="Background" Value="#e4e5e9" TargetName="border"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Foreground" Value="#e1e3e6"/>
+                <Setter Property="CaretBrush" Value="#e1e3e6"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                            <Border x:Name="border" CornerRadius="8" Background="#424242"
+                                SnapsToDevicePixels="True" BorderThickness="0" BorderBrush="#afafaf">
+                                <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#4a4a4a" TargetName="border"/>
+                                </Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                    <Setter Property="Background" Value="#4a4a4a" TargetName="border"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="inputTextBox" TargetType="TextBox">
+        <Setter Property="Background" Value="#f2f3f5"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="BorderBrush" Value="#d5d5d7"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Padding" Value="10 8"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                            <Setter Property="Background" Value="#191919"/>
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#b8b9ba"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#2688eb"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding ElementName=EmptyLoginError, Path=Visibility}" Value="Visible">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#e64646"/>
+                            <Setter Property="Background" TargetName="border" Value="#faebeb"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=EmptyRegLoginError, Path=Visibility}" Value="Visible">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#e64646"/>
+                            <Setter Property="Background" TargetName="border" Value="#faebeb"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=EmptyLoginErrorAddUser, Path=Visibility}" Value="Visible">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#e64646"/>
+                            <Setter Property="Background" TargetName="border" Value="#faebeb"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=EmptyPasswordErrorAddUser, Path=Visibility}" Value="Visible">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#e64646"/>
+                            <Setter Property="Background" TargetName="border" Value="#faebeb"/>
+                        </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=EmptyLoginError, Path=Visibility}" Value="Visible"/>
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Red"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=EmptyRegLoginError, Path=Visibility}" Value="Visible"/>
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Red"/>
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Foreground" Value="#e1e3e6"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBoxBase">
+                            <Border x:Name="border" CornerRadius="8" Background="#292929"
+                            BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="#434343"
+                            SnapsToDevicePixels="True">
+                                <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#4b4b4b"/>
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#529ef4"/>
+                                </Trigger>
+                                <DataTrigger Binding="{Binding ElementName=EmptyLoginError, Path=Visibility}" Value="Visible">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#ff5c5c"/>
+                                    <Setter Property="Background" TargetName="border" Value="#522e2e"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=EmptyRegLoginError, Path=Visibility}" Value="Visible">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#ff5c5c"/>
+                                    <Setter Property="Background" TargetName="border" Value="#522e2e"/>
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="addUserInputLoginTextBox" TargetType="TextBox">
+        <Setter Property="Background" Value="#f2f3f5"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="BorderBrush" Value="#d5d5d7"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Padding" Value="10 8"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                            <Setter Property="Background" Value="#191919"/>
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#b8b9ba"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#2688eb"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding ElementName=EmptyLoginErrorAddUser, Path=Visibility}" Value="Visible">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#e64646"/>
+                            <Setter Property="Background" TargetName="border" Value="#faebeb"/>
+                        </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=EmptyLoginError, Path=Visibility}" Value="Visible"/>
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Red"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=EmptyRegLoginError, Path=Visibility}" Value="Visible"/>
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Red"/>
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Foreground" Value="#e1e3e6"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBoxBase">
+                            <Border x:Name="border" CornerRadius="8" Background="#292929"
+                            BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="#434343"
+                            SnapsToDevicePixels="True">
+                                <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#4b4b4b"/>
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#529ef4"/>
+                                </Trigger>
+                                <DataTrigger Binding="{Binding ElementName=EmptyLoginError, Path=Visibility}" Value="Visible">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#ff5c5c"/>
+                                    <Setter Property="Background" TargetName="border" Value="#522e2e"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=EmptyRegLoginError, Path=Visibility}" Value="Visible">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#ff5c5c"/>
+                                    <Setter Property="Background" TargetName="border" Value="#522e2e"/>
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

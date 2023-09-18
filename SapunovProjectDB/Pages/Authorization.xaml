@@ -1,0 +1,90 @@
+﻿<Page x:Class="SapunovProjectDB.Pages.Authorization"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:properties="clr-namespace:SapunovProjectDB.Properties"
+      xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:local="clr-namespace:SapunovProjectDB.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1080"
+      Title="AuthorizationPage">
+
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel VerticalAlignment="Center" Grid.Column="1"
+                    Margin="124" MaxWidth="400" Style="{DynamicResource mainStackPanel}">
+
+            <TextBlock Text="Войти в приложение" Style="{DynamicResource loginBigTitleText}"
+                       Margin="0 30 0 20"/>
+            <Border Grid.Column="1"  MaxWidth="350" Height="78"
+                CornerRadius="8" BorderThickness="1.5" Margin="0 0 0 20"
+                    Style="{DynamicResource secondaryBorder}">
+                <TextBlock Text="Чтобы использовать приложение, нужно авторизоваться" Style="{DynamicResource loginNormalTitleText}"
+                           Margin="-2" MaxWidth="350" Height="50"/>
+            </Border>
+
+            <Grid MaxWidth="350">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Icons:PackIconMaterial Width="15" Height="15" Panel.ZIndex="1" Grid.Column="0"
+                                        Kind="AccountOutline" Style="{DynamicResource authPageIcon}" Margin="15,12,0,0"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource authPageTextHint}"
+                               IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
+                               Text="Логин" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=AuthLoginTb}"/>
+
+                <TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=SaveLogin}" Padding="36 8" Grid.ColumnSpan="2" x:Name="AuthLoginTb" Style="{StaticResource inputTextBox}"
+                             GotFocus="AuthLoginTb_GotFocus"/>
+            </Grid>
+
+            <TextBlock x:Name="EmptyLoginError" Text="Не указан логин" Margin="25,4,25,0"
+                       FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+
+            <Grid MaxWidth="350" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Icons:PackIconMaterial Width="15" Height="15" Panel.ZIndex="1" Grid.Column="0"
+                                        Kind="LockOutline" Style="{DynamicResource authPageIcon}" Margin="15,12,0,0"/>
+                <TextBlock Grid.Column="1" x:Name="PasswordTb" MouseDown="PasswordTb_MouseDown" VerticalAlignment="Center" Style="{DynamicResource authPageTextHint}"
+                               IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
+                               Text="Пароль" Visibility="{Binding Password.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=AuthPasswordPb}"/>
+
+                <PasswordBox x:Name="AuthPasswordPb" Padding="36 8" Grid.ColumnSpan="2" PasswordChanged="PasswordPb_PasswordChanged" Style="{StaticResource loginPasswordBox}"
+                             GotFocus="AuthPasswordPb_GotFocus"/>
+            </Grid>
+            <TextBlock x:Name="InvalidPaswwordError" Text="Неверный пароль" Margin="25,4,25,0"
+                       FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+
+            <CheckBox Content="Запомнить логин" FontSize="16" VerticalContentAlignment="Center"
+                              Style="{DynamicResource authPageCheckBox}" Cursor="Hand"
+                              x:Name="SaveLoginCb" Margin="25,20,218,0" Template="{DynamicResource CheckBoxControlTemplate}"/>
+
+            <Button x:Name="LoginBtn" Content="Войти" Style="{DynamicResource loginButton}"
+                    Click="LoginBtn_Click" IsDefault="True"/>
+            <Button x:Name="RegistrationBtn" Content="Регистрация" Style="{DynamicResource registrationButton}"
+                            Click="RegistrationBtn_Click" Margin="0 20 0 30"/>
+        </StackPanel>
+
+        <StackPanel x:Name="firstStack" VerticalAlignment="Center">
+            <TextBlock Text="Добро пожаловать" Style="{DynamicResource loginBigTitleText}"/>
+            <TextBlock Text="Введите свои данные и создайте новый аккаунт чтобы использовать приложение" Style="{DynamicResource loginNormalTitleText}"
+                               Opacity="0.8" Margin="20 30"/>
+            <Button x:Name="changeTheme" Content="Dark" HorizontalAlignment="Center"
+                    Style="{DynamicResource menuButton}" Click="changeTheme_Click"/>
+            <Button x:Name="changeThemeLight" Content="Light" HorizontalAlignment="Center"
+                    Style="{DynamicResource menuButton}" Click="changeThemeLight_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

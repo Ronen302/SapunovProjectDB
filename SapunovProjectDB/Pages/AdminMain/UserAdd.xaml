@@ -1,0 +1,97 @@
+﻿<Page x:Class="SapunovProjectDB.Pages.AdminMain.UserAdd"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:local="clr-namespace:SapunovProjectDB.Pages.AdminMain"
+      mc:Ignorable="d" 
+      Height="auto" Width="450"
+      Title="UserAdd">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Border CornerRadius="10" Style="{DynamicResource mainBorderAddWindow}"
+                Grid.Column="1" Grid.Row="1">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Form Title-->
+                <StackPanel Orientation="Horizontal" Margin="20 20 0 0">
+                    <Icons:PackIconMaterial Kind="AccountMultipleOutline" Width="25" Height="25" 
+                                        Style="{DynamicResource addWindowIcon}"/>
+                    <TextBlock Text="Детали пользователя" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"
+                           Style="{DynamicResource addWindowTitleText}"/>
+                </StackPanel>
+
+                <Separator Grid.Row="1" Grid.ColumnSpan="2" Height="1" Margin="20 0 20 20"
+                       Style="{DynamicResource mainPageSeparator}"/>
+
+                <!--Inputs-->
+                <Border Grid.Row="2" Style="{DynamicResource secondaryBorderMainPage}" Margin="10 0 10 0"
+                        CornerRadius="8">
+                    <StackPanel Orientation="Vertical" Grid.Row="2">
+                        <StackPanel Margin="20 10">
+                            <TextBlock Text="Логин*" Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"/>
+                            <TextBox Name="UserLoginTextBox" Style="{DynamicResource addUserInputLoginTextBox}"
+                                     Text="{Binding LoginUser}" GotFocus="UserLoginTextBox_GotFocus"/>
+                            <TextBlock x:Name="EmptyLoginErrorAddUser" Text="Заполните обязательное поле" Margin="0,4,50,0"
+                                        FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10">
+                            <TextBlock Text="Пароль*" Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"/>
+                            <TextBox Name="UserPasswordTextBox" Style="{DynamicResource inputTextBox}"
+                                     Text="{Binding PasswordUser}" GotFocus="UserPasswordTextBox_GotFocus"/>
+                            <TextBlock x:Name="EmptyPasswordErrorAddUser" Text="Заполните обязательное поле" Margin="0,4,50,0"
+                                        FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10">
+                            <TextBlock Text="Роль*" Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"/>
+                            <ComboBox Name="UserRoleComboBox" Style="{DynamicResource ComboBoxStyle}"
+                                    ItemContainerStyle="{DynamicResource ComboBoxItemStyle}"
+                                    Height="41" DisplayMemberPath="NameRole" SelectedItem="{Binding Role}"
+                                      SelectedValuePath="IdRole" GotFocus="UserRoleComboBox_GotFocus"/>
+                            <TextBlock x:Name="EmptyRoleErrorAddUser" Text="Заполните обязательное поле" Margin="0,4,50,0"
+                                        FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!--Form Bottom Background-->
+                <Border Grid.Row="6" Height="80" CornerRadius="0 0 10 10" Margin="0,40,0,0"
+                    Style="{DynamicResource secondaryBorderMainPage}" BorderThickness="0 1.5 0 0" Grid.ColumnSpan="2"/>
+
+                <!--Main Button-->
+                <Button x:Name="userSaveButton" Grid.Column="1" Grid.Row="6" Content="Сохранить" HorizontalAlignment="Right" Margin="0 40 20 0" Style="{DynamicResource loginButton}"
+                        Width="120" Click="userSaveButton_Click"/>
+
+                <!--Secondary Button-->
+                <Button x:Name="cancelButton" Grid.Row="6" Content="Отмена" HorizontalAlignment="Left" Margin="20 40 0 0" Style="{DynamicResource registrationButton}" Width="120"
+                        Click="cancelButton_Click"/>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
