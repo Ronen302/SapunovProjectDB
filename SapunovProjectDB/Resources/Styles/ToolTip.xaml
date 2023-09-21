@@ -10,6 +10,7 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="PlacementRectangle" Value="-110,20,0,0"/>
         <Setter Property="HasDropShadow" Value="True"/>
+        <Setter Property="ClipToBounds" Value="False"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">
@@ -20,6 +21,11 @@
                         <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Direction="-90" BlurRadius="30" ShadowDepth="0" Opacity="0.3"/>
             </Setter.Value>
         </Setter>
     </Style>
