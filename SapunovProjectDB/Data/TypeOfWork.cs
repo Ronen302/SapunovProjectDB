@@ -12,21 +12,23 @@ namespace SapunovProjectDB.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Equipment
+    public partial class TypeOfWork
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Equipment()
+        public TypeOfWork()
         {
             this.Order = new HashSet<Order>();
         }
     
-        public int IdEquipment { get; set; }
-        public string NameEquipment { get; set; }
-        public decimal PriceEquipment { get; set; }
-        public int CountEquipment { get; set; }
-        public byte[] PhotoEquipment { get; set; }
+        public int IdTypeOfWork { get; set; }
+        public string NameTypeOfWork { get; set; }
+        public int IdTypeOfService { get; set; }
+        public decimal PriceOfWork { get; set; }
+        public string DescriptionOfWork { get; set; }
+        public byte[] PhotoOfWork { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
+        public virtual TypeOfService TypeOfService { get; set; }
     }
 }

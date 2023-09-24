@@ -2,6 +2,7 @@
 using SapunovProjectDB.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,13 +51,8 @@ namespace SapunovProjectDB.Pages.AdminMain
                     };
                     DBEntities.GetContext().User.Add(addNewUser);
                     DBEntities.GetContext().SaveChanges();
-                    //NavigationService.Navigate(new UserList());
-                    DBEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(u => u.Reload());
-                    UserList userList = new UserList();
-                    userList.UserListDataGrid.ItemsSource = DBEntities.GetContext().User.ToList().OrderBy(u => u.IdUser);
-                    userList.UpdateFilter();
-                    UserLoginTextBox.Clear();
-                    UserPasswordTextBox.Clear();
+                    NavigationService.Navigate(new UserList());
+                    NavigationService.Navigate(new UserAdd());
                 }
                 catch (Exception ex)
                 {

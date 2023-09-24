@@ -10,7 +10,7 @@
       d:DesignHeight="720" d:DesignWidth="1080"
       Title="MainPage">
 
-    <Border CornerRadius="10" Style="{DynamicResource mainBorder}">
+    <Border CornerRadius="0 0 10 10" Style="{DynamicResource mainBorder}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
@@ -142,21 +142,6 @@
                     </DockPanel>
                 </Border>
             </Grid>
-
-            <StackPanel Panel.ZIndex="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,10,675" Width="94">
-                <Button x:Name="MinimizeBtn" Style="{DynamicResource topButton}" HorizontalAlignment="Right" VerticalAlignment="Top"
-                        Click="MinimizeBtn_Click">
-                    <Icons:PackIconMaterial Kind="WindowMinimize" Width="12" Height="12"/>
-                </Button>
-                <Button x:Name="MaximizeBtn" Style="{DynamicResource topButton}" HorizontalAlignment="Right" VerticalAlignment="Top"
-                        Click="MaximizeBtn_Click">
-                    <Icons:PackIconMaterial Kind="WindowMaximize" Width="12" Height="12"/>
-                </Button>
-                <Button x:Name="CloseBtn" Style="{DynamicResource closeButton}" HorizontalAlignment="Right" VerticalAlignment="Top"
-                        Click="CloseBtn_Click">
-                    <Icons:PackIconMaterial Kind="WindowClose" Width="12" Height="12"/>
-                </Button>
-            </StackPanel>
 
             <Grid Grid.Column="1" Margin="10 50 10 0">
                 <Frame x:Name="MainPageFrame" NavigationUIVisibility="Hidden"/>

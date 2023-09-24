@@ -207,6 +207,9 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="true">
+                <Setter Property="IsSelected" Value="True" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 

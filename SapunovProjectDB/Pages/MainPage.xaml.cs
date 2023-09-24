@@ -5,9 +5,6 @@ using System.Windows.Navigation;
 
 namespace SapunovProjectDB.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для MainPage.xaml
-    /// </summary>
     public partial class MainPage : Page
     {
         public MainPage()
@@ -32,7 +29,7 @@ namespace SapunovProjectDB.Pages
 
         private void EquipmentListBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            MainPageFrame.Navigate(new TypeOfServiceList());
         }
 
         private void ClientListBtn_Click(object sender, RoutedEventArgs e)
@@ -43,23 +40,6 @@ namespace SapunovProjectDB.Pages
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Authorization());
-        }
-        private void MinimizeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
-        }
-
-        private void MaximizeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (Application.Current.MainWindow.WindowState == WindowState.Normal)
-                Application.Current.MainWindow.WindowState = WindowState.Maximized;
-            else
-                Application.Current.MainWindow.WindowState = WindowState.Normal;
-        }
-
-        private void CloseBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
 
         private void AccountToggleButton_Checked(object sender, RoutedEventArgs e)

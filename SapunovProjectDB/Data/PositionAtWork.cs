@@ -12,12 +12,18 @@ namespace SapunovProjectDB.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class PositionAtWork
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PositionAtWork()
+        {
+            this.Staff = new HashSet<Staff>();
+        }
+    
+        public int IdPositionAtWork { get; set; }
+        public string NameOfPosition { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Staff> Staff { get; set; }
     }
 }

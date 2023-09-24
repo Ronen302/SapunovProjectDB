@@ -7,9 +7,6 @@ using System.Windows.Controls;
 
 namespace SapunovProjectDB.Pages.AdminMain
 {
-    /// <summary>
-    /// Логика взаимодействия для UserList.xaml
-    /// </summary>
     public partial class UserList : Page
     {
         public UserList()
@@ -57,7 +54,7 @@ namespace SapunovProjectDB.Pages.AdminMain
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)

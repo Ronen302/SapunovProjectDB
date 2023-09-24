@@ -87,6 +87,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\Error.cs" />
+    <Compile Include="Data\CategoryOfService.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Client.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -106,10 +109,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Data\Equipment.cs">
+    <Compile Include="Data\Education.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\GenderStaff.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Order.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\PositionAtWork.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Role.cs">
@@ -121,11 +130,26 @@
     <Compile Include="Data\StatusOrder.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\sysdiagrams.cs">
+    <Compile Include="Data\TypeOfService.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\TypeOfWork.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\User.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminMain\TypeOfServiceList.xaml.cs">
+      <DependentUpon>TypeOfServiceList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminMain\TypeOfWork\TypeOfWorkListID0.xaml.cs">
+      <DependentUpon>TypeOfWorkListID0.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminMain\TypeOfWork\TypeOfWorkListID1.xaml.cs">
+      <DependentUpon>TypeOfWorkListID1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminMain\TypeOfWork\TypeOfWorkListID2.xaml.cs">
+      <DependentUpon>TypeOfWorkListID2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AdminMain\UserAdd.xaml.cs">
       <DependentUpon>UserAdd.xaml</DependentUpon>
@@ -152,6 +176,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AdminMain\TypeOfServiceList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminMain\TypeOfWork\TypeOfWorkListID0.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminMain\TypeOfWork\TypeOfWorkListID1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminMain\TypeOfWork\TypeOfWorkListID2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AdminMain\UserAdd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -280,18 +320,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\DBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DBModel.Context.cs</LastGenOutput>
-      <DependentUpon>DBModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Data\DBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBModel.edmx</DependentUpon>
-      <LastGenOutput>DBModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
@@ -305,6 +333,21 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\stroy-basis-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\DBModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBModel.edmx</DependentUpon>
+      <LastGenOutput>DBModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\DBModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBModel.edmx</DependentUpon>
+      <LastGenOutput>DBModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

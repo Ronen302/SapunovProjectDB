@@ -15,14 +15,13 @@ namespace SapunovProjectDB.Data
     public partial class Order
     {
         public int IdOrder { get; set; }
+        public System.DateTime DateOfCreate { get; set; }
         public int IdClient { get; set; }
-        public int IdEquipment { get; set; }
-        public int IdStaff { get; set; }
+        public int IdTypeOfWork { get; set; }
         public int IdStatusOrder { get; set; }
     
         public virtual Client Client { get; set; }
-        public virtual Equipment Equipment { get; set; }
-        public virtual Staff Staff { get; set; }
         public virtual StatusOrder StatusOrder { get; set; }
+        public virtual TypeOfWork TypeOfWork { get; set; }
     }
 }

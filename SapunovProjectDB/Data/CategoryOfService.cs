@@ -12,22 +12,18 @@ namespace SapunovProjectDB.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Client
+    public partial class CategoryOfService
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Client()
+        public CategoryOfService()
         {
-            this.Order = new HashSet<Order>();
+            this.TypeOfService = new HashSet<TypeOfService>();
         }
     
-        public int IdClient { get; set; }
-        public string NameClient { get; set; }
-        public string PhoneNumberClient { get; set; }
-        public string EmailClient { get; set; }
-        public System.DateTime DateOfRegistration { get; set; }
-        public int IdUser { get; set; }
+        public int IdCategory { get; set; }
+        public string NameCategory { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Order { get; set; }
+        public virtual ICollection<TypeOfService> TypeOfService { get; set; }
     }
 }

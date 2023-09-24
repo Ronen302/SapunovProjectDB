@@ -12,23 +12,18 @@ namespace SapunovProjectDB.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Staff
+    public partial class Education
     {
-        public int IdStaff { get; set; }
-        public string NameStaff { get; set; }
-        public int IdGenderStaff { get; set; }
-        public int IdEducationStaff { get; set; }
-        public System.DateTime DateOfBirthStaff { get; set; }
-        public string AdressStaff { get; set; }
-        public string PhoneNumberStaff { get; set; }
-        public string EmailStaff { get; set; }
-        public int IdPositionAtWork { get; set; }
-        public decimal SalaryStaff { get; set; }
-        public System.DateTime HireDateStaff { get; set; }
-        public int IdUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Education()
+        {
+            this.Staff = new HashSet<Staff>();
+        }
     
-        public virtual Education Education { get; set; }
-        public virtual GenderStaff GenderStaff { get; set; }
-        public virtual PositionAtWork PositionAtWork { get; set; }
+        public int IdEducationStaff { get; set; }
+        public string NameEducation { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Staff> Staff { get; set; }
     }
 }

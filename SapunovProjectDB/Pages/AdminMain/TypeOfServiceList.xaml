@@ -1,10 +1,10 @@
-﻿<Page x:Class="SapunovProjectDB.Pages.AdminMain.UserList"
+﻿<Page x:Class="SapunovProjectDB.Pages.AdminMain.TypeOfServiceList"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      xmlns:local="clr-namespace:SapunovProjectDB.Pages.AdminMain" xmlns:data="clr-namespace:SapunovProjectDB.Data" d:DataContext="{d:DesignInstance Type=data:User}"
+      xmlns:local="clr-namespace:SapunovProjectDB.Pages.AdminMain"
       mc:Ignorable="d" 
       d:DesignHeight="660" d:DesignWidth="810"
       Title="UserListPage">
@@ -24,7 +24,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Frame x:Name="UserListFrame" NavigationUIVisibility="Hidden"
+        <Frame x:Name="TypeOfServiceListFrame" NavigationUIVisibility="Hidden"
                Grid.RowSpan="6" Panel.ZIndex="1"/>
 
         <TextBlock Text="Пользователи" FontSize="32" FontWeight="SemiBold"
@@ -62,10 +62,10 @@
                           ItemContainerStyle="{DynamicResource ComboBoxItemStyle}" HorizontalAlignment="Left"
                           DisplayMemberPath="NameRole" SelectionChanged="FilterRoleCb_SelectionChanged" Grid.Row="4" Margin="270,22,0,22"/>
 
-        <!--<ListView x:Name="UserListView" Grid.Row="5" HorizontalContentAlignment="Stretch" Style="{DynamicResource ListViewStyle}" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
+        <ListView x:Name="TypeOfServiceListView" Grid.Row="5" HorizontalContentAlignment="Stretch" Style="{DynamicResource ListViewStyle}" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -73,7 +73,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                    Panel.ZIndex="1">
+                                    Panel.ZIndex="2">
                             <Button x:Name="EditBtn" Style="{StaticResource gridEditButton}" Click="EditBtn_Click">
                                 <Icons:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
                             </Button>
@@ -81,24 +81,39 @@
                                 <Icons:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
                             </Button>
                         </StackPanel>
-                        <TextBlock>
-                        <Run Text="Логин: " Style="{DynamicResource boldTextListView}"/>
-                        <Run Text="{Binding LoginUser}" Style="{DynamicResource normalTextListView}"/>
+                        <TextBlock Width="350" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0 0 0 10">
+                            <Run Text="{Binding NameTypeOfServise}" Style="{DynamicResource boldTextListView}" FontSize="22"/>
                         </TextBlock>
-                        <TextBlock Grid.Row="1">
-                        <Run Text="Пароль: " Style="{DynamicResource boldTextListView}"/>
-                        <Run Text="{Binding PasswordUser}" Style="{DynamicResource normalTextListView}"/>
-                        </TextBlock>
-                        <TextBlock Grid.Row="2">
-                        <Run Text="Роль: " Style="{DynamicResource boldTextListView}"/>
-                        <Run Text="{Binding Role.NameRole}" Style="{DynamicResource normalTextListView}"/>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 15">
+                            <Icons:PackIconMaterial Kind="LabelMultipleOutline" Margin="0 0 10 0"
+                                                    Style="{DynamicResource listViewIcon}"/>
+                            <TextBlock>
+                                <Run Text="{Binding PriceOfService, StringFormat={}от {0:N0} руб.}" Style="{DynamicResource normalTextListView}" FontWeight="SemiBold"/>
+                            </TextBlock>
+                            <Separator Style="{DynamicResource listViewSeparator}">
+                                <Separator.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="2" />
+                                        <RotateTransform Angle="90"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                                </Separator.RenderTransform>
+                            </Separator>
+                            <Icons:PackIconMaterial Kind="FolderOpenOutline" Margin="-20 0 10 0"
+                                                    Style="{DynamicResource listViewIcon}"/>
+                            <TextBlock Margin="0 0 0 0" Opacity="0.5">
+                                <Run Text="{Binding CategoryOfService.NameCategory}" Style="{DynamicResource normalTextListView}"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBlock Grid.Row="2" Width="350" TextWrapping="Wrap" HorizontalAlignment="Left">
+                            <Run Text="{Binding Description}" Style="{DynamicResource normalTextListView}"/>
                         </TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>-->
+        </ListView>
 
-        <DataGrid Grid.Row="5" x:Name="UserListDataGrid" ItemsSource="{Binding User}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
+        <!--<DataGrid Grid.Row="5" x:Name="UserListDataGrid" ItemsSource="{Binding User}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" IsReadOnly="True" Binding="{Binding IdUser}" CanUserResize="False" Width="*"/>
                 <DataGridTextColumn Header="Логин" IsReadOnly="True" Binding="{Binding LoginUser}" Width="*"/>
@@ -120,6 +135,6 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid>-->
     </Grid>
 </Page>

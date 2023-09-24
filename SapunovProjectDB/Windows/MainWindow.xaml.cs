@@ -11,6 +11,10 @@ namespace SapunovProjectDB.Windows
         {
             InitializeComponent();
             MainWindowFrame.Navigate(new Authorization());
+            var primaryMonitorArea = SystemParameters.WorkArea;
+            this.Left = primaryMonitorArea.Right - this.Width;
+            this.Top = primaryMonitorArea.Bottom - this.Height;
+
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -48,6 +52,20 @@ namespace SapunovProjectDB.Windows
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void ChangeThemeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (Properties.Settings.Default.ColorMode == "Light")
+            {
+                Properties.Settings.Default.ColorMode = "Dark";
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                Properties.Settings.Default.ColorMode = "Light";
+                Properties.Settings.Default.Save();
+            }
         }
     }
 }

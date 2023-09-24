@@ -13,5 +13,6 @@ namespace SapunovProjectDB
     /// </summary>
     public partial class App : Application
     {
+
     }
 }
