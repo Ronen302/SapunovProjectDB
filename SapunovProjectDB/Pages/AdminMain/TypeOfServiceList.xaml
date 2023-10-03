@@ -74,10 +74,10 @@
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center"
                                     Panel.ZIndex="2">
-                            <Button x:Name="EditBtn" Style="{StaticResource gridEditButton}" Click="EditBtn_Click">
+                            <Button x:Name="EditBtn" Style="{DynamicResource gridButton}" Click="EditBtn_Click">
                                 <Icons:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
                             </Button>
-                            <Button x:Name="DeleteBtn" Style="{StaticResource gridRemoveButton}" Click="DeleteBtn_Click">
+                            <Button x:Name="DeleteBtn" Style="{DynamicResource gridButton}" Click="DeleteBtn_Click">
                                 <Icons:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
                             </Button>
                         </StackPanel>

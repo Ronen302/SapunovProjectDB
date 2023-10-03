@@ -52,9 +52,10 @@
                                         Kind="Magnify" Style="{DynamicResource textSearchIcon}" Margin="15,12,0,0"/>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource textHintSearchTextBox}"
                                IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
-                               Text="Быстрый поиск" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=textFilter}"/>
+                               Text="Быстрый поиск" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=FilterTextBox}"/>
 
-                <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="textFilter" Style="{StaticResource textBoxFilter}"/>
+                <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="FilterTextBox" Style="{StaticResource textBoxFilter}"
+                         TextChanged="FilterTextBox_TextChanged"/>
             </Grid>
         </Border>
 
@@ -98,22 +99,25 @@
             </ListView.ItemTemplate>
         </ListView>-->
 
-        <DataGrid Grid.Row="5" x:Name="UserListDataGrid" ItemsSource="{Binding User}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
+        <DataGrid Grid.Row="5" x:Name="UserListDataGrid" ItemsSource="{Binding User}" IsReadOnly="True"
+                  CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" IsReadOnly="True" Binding="{Binding IdUser}" CanUserResize="False" Width="*"/>
-                <DataGridTextColumn Header="Логин" IsReadOnly="True" Binding="{Binding LoginUser}" Width="*"/>
-                <DataGridTextColumn Header="Пароль" IsReadOnly="True" Binding="{Binding PasswordUser}" Width="*"/>
-                <DataGridTextColumn x:Name="roleTextColumn" Header="Роль" IsReadOnly="True" Binding="{Binding Role.NameRole}" Width="*"/>
+                <DataGridTextColumn Header="#" Binding="{Binding IdUser}" CanUserResize="False" Width="*"/>
+                <DataGridTextColumn Header="Логин" Binding="{Binding LoginUser}" Width="*"/>
+                <DataGridTextColumn Header="Пароль" Binding="{Binding PasswordUser}" Width="*"/>
+                <DataGridTextColumn x:Name="roleTextColumn" Header="Роль" Binding="{Binding Role.NameRole}" Width="*"/>
 
-                <DataGridTemplateColumn Header="Действия" IsReadOnly="True" Width="auto">
+                <DataGridTemplateColumn Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button x:Name="EditBtn" Style="{StaticResource gridEditButton}" Click="EditBtn_Click">
-                                    <Icons:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
+                                <Button x:Name="EditBtn" Style="{DynamicResource gridButton}" Click="EditBtn_Click">
+                                    <Icons:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"
+                                                            Foreground="#529ef4"/>
                                 </Button>
-                                <Button x:Name="DeleteBtn" Style="{StaticResource gridRemoveButton}" Click="DeleteBtn_Click">
-                                    <Icons:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
+                                <Button x:Name="DeleteBtn" Style="{DynamicResource gridButton}" Click="DeleteBtn_Click">
+                                    <Icons:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"
+                                                            Foreground="#ff5c5c"/>
                                 </Button>
                             </StackPanel>
                         </DataTemplate>

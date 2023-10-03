@@ -10,6 +10,15 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="mainAuthBorder" TargetType="Border">
+        <Setter Property="Background" Value="#edeef0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Background" Value="#141414"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="topBorder" TargetType="Border">
         <Setter Property="Background" Value="#ffffff"/>
         <Style.Triggers>
@@ -49,6 +58,18 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="secondaryAuthBorder" TargetType="Border">
+        <Setter Property="Background" Value="#ffffff"/>
+        <Setter Property="BorderBrush" Value="#d5d5d7"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Background" Value="#222222"/>
+                <Setter Property="BorderBrush" Value="#292929"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="secondaryBorderMainPage" TargetType="Border">
         <Setter Property="Background" Value="#ffffff"/>
         <Setter Property="BorderBrush" Value="#d5d5d7"/>
@@ -69,6 +90,18 @@
             <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
                 <Setter Property="Background" Value="#313338"/>
                 <Setter Property="BorderBrush" Value="#424242"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="thirdyAuthBorder" TargetType="Border">
+        <Setter Property="Background" Value="#f2f3f5"/>
+        <Setter Property="BorderBrush" Value="#d5d5d7"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Background" Value="#292929"/>
+                <Setter Property="BorderBrush" Value="#434343"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>

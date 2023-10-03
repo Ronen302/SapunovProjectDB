@@ -41,8 +41,8 @@
     </Style>
 
     <Style x:Key="gridButtonIcon" TargetType="{x:Type Icons:PackIconMaterial}">
-        <Setter Property="Width" Value="12"/>
-        <Setter Property="Height" Value="12"/>
+        <Setter Property="Width" Value="15"/>
+        <Setter Property="Height" Value="15"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 

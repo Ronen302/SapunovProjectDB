@@ -34,6 +34,7 @@ namespace SapunovProjectDB.Pages.AdminMain
                     currentUser = currentUser.Where(u => u.IdRole.ToString()
                     .Contains(FilterRoleCb.SelectedIndex.ToString())).ToList();
                 }
+                currentUser = currentUser.Where(u => u.LoginUser.StartsWith(FilterTextBox.Text)).ToList();
                 UserListDataGrid.ItemsSource = currentUser.OrderBy(u => u.IdUser);
             }
             catch (Exception ex)
@@ -47,14 +48,9 @@ namespace SapunovProjectDB.Pages.AdminMain
             UserListFrame.Navigate(new UserAdd());
         }
 
-        private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            UserListFrame.Navigate(new UserEdit(UserListDataGrid.SelectedItem as User));
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
@@ -75,6 +71,11 @@ namespace SapunovProjectDB.Pages.AdminMain
         }
 
         private void FilterRoleCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateFilter();
+        }
+
+        private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateFilter();
         }

@@ -119,6 +119,11 @@ namespace SapunovProjectDB.Pages
                                 Properties.Settings.Default.Save();
                                 NavigationService.Navigate(new MainPage());
                                 break;
+                            case 4:
+                                Properties.Settings.Default.UserRole = "Клиент";
+                                Properties.Settings.Default.Save();
+                                NavigationService.Navigate(new MainPage());
+                                break;
                         }
                     }
                 }
@@ -149,6 +154,11 @@ namespace SapunovProjectDB.Pages
         {
             Properties.Settings.Default.ColorMode = "Light";
             Properties.Settings.Default.Save();
+        }
+
+        private void MainAuthStackPannel_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            MainAuthBorder.Height = MainAuthStackPannel.ActualHeight;
         }
     }
 }

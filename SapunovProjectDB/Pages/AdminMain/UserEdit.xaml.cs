@@ -1,29 +1,22 @@
 ﻿using SapunovProjectDB.Classes;
 using SapunovProjectDB.Data;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SapunovProjectDB.Pages.AdminMain
 {
-    public partial class UserAdd : Page
+    public partial class UserEdit : Page
     {
-        public UserAdd()
+        User user = new User();
+        public UserEdit(User user)
         {
             InitializeComponent();
+            DataContext = user;
             UserRoleComboBox.ItemsSource = DBEntities.GetContext().Role.ToList();
+            this.user.IdUser = user.IdUser;
         }
 
         private void userSaveButton_Click(object sender, RoutedEventArgs e)
@@ -36,7 +29,7 @@ namespace SapunovProjectDB.Pages.AdminMain
                 EmptyPasswordErrorAddUser.Visibility = Visibility.Visible;
                 EmptyRoleErrorAddUser.Visibility = Visibility.Visible;
             }
-            else if(string.IsNullOrWhiteSpace(UserLoginTextBox.Text))
+            else if (string.IsNullOrWhiteSpace(UserLoginTextBox.Text))
             {
                 EmptyLoginErrorAddUser.Visibility = Visibility.Visible;
             }
@@ -52,13 +45,10 @@ namespace SapunovProjectDB.Pages.AdminMain
             {
                 try
                 {
-                    var addNewUser = new User()
-                    {
-                        LoginUser = UserLoginTextBox.Text,
-                        PasswordUser = UserPasswordTextBox.Text,
-                        IdRole = Int32.Parse(UserRoleComboBox.SelectedValue.ToString())
-                    };
-                    DBEntities.GetContext().User.Add(addNewUser);
+                    user = DBEntities.GetContext().User.FirstOrDefault(u => u.IdUser == user.IdUser);
+                    user.LoginUser = UserLoginTextBox.Text;
+                    user.PasswordUser = UserPasswordTextBox.Text;
+                    user.IdRole = Int32.Parse(UserRoleComboBox.SelectedValue.ToString());
                     DBEntities.GetContext().SaveChanges();
                     NavigationService.Navigate(new UserList());
                 }

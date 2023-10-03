@@ -29,6 +29,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -130,6 +132,9 @@
     <Compile Include="Data\StatusOrder.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\sysdiagrams.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\TypeOfService.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -153,6 +158,9 @@
     </Compile>
     <Compile Include="Pages\AdminMain\UserAdd.xaml.cs">
       <DependentUpon>UserAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminMain\UserEdit.xaml.cs">
+      <DependentUpon>UserEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AdminMain\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
@@ -193,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AdminMain\UserAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminMain\UserEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

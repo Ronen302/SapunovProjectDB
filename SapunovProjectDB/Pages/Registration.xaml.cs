@@ -172,5 +172,10 @@ namespace SapunovProjectDB.Pages
         {
             EmptyRepeatPasswordError.Visibility = Visibility.Collapsed;
         }
+
+        private void MainStackPannel_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            MainRegBorder.Height = MainStackPannel.ActualHeight;
+        }
     }
 }

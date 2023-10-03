@@ -30,5 +30,6 @@ namespace SapunovProjectDB.Data
         public virtual Education Education { get; set; }
         public virtual GenderStaff GenderStaff { get; set; }
         public virtual PositionAtWork PositionAtWork { get; set; }
+        public virtual User User { get; set; }
     }
 }
