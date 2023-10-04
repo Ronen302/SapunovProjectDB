@@ -15,11 +15,18 @@
 
     <Grid>
         <Border CornerRadius="10" Width="400" x:Name="MainRegBorder"
-                Style="{DynamicResource secondaryAuthBorder}" Height="410">
+                Style="{DynamicResource secondaryAuthBorder}" Height="511">
             <StackPanel x:Name="MainStackPannel" VerticalAlignment="Center"
                         SizeChanged="MainStackPannel_SizeChanged">
                 <TextBlock Text="Введите данные" Style="{DynamicResource loginBigTitleText}"
                        Margin="0 30 0 20"/>
+
+                <Border Grid.Column="1"  MaxWidth="350" Height="78"
+                CornerRadius="8" BorderThickness="1.5" Margin="0 0 0 20"
+                    Style="{DynamicResource thirdyAuthBorder}">
+                    <TextBlock Text="Введите свои данные, чтобы начать пользоваться приложением" Style="{DynamicResource loginNormalTitleText}"
+                           Margin="-2" MaxWidth="450" Height="50"/>
+                </Border>
 
                 <Border x:Name="successfullRegistrationBorder" Grid.Column="1"  MaxWidth="350" Height="90"
                 CornerRadius="8" BorderThickness="1.5" Margin="0 0 0 20" Visibility="Collapsed"

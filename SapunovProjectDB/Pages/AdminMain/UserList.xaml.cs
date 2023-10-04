@@ -1,6 +1,7 @@
 ﻿using SapunovProjectDB.Classes;
 using SapunovProjectDB.Data;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ namespace SapunovProjectDB.Pages.AdminMain
         public UserList()
         {
             InitializeComponent();
+
             var allRoleComboBox = DBEntities.GetContext().Role.ToList();
 
             allRoleComboBox.Insert(0, new Role
