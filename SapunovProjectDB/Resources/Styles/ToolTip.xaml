@@ -17,7 +17,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ToolTip">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="1" CornerRadius="8">
+                            BorderThickness="1" CornerRadius="8" Margin="30">
                         <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -25,7 +25,7 @@
         </Setter>
         <Setter Property="Effect">
             <Setter.Value>
-                <DropShadowEffect Direction="-90" BlurRadius="30" ShadowDepth="0" Opacity="0.3"/>
+                <DropShadowEffect Direction="270" BlurRadius="30" ShadowDepth="10" Opacity="0.3"/>
             </Setter.Value>
         </Setter>
     </Style>
