@@ -126,6 +126,9 @@
     <Compile Include="Data\Role.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Service.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Staff.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -135,14 +138,20 @@
     <Compile Include="Data\sysdiagrams.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\TypeOfService.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Data\TypeOfWork.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\User.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminMain\StaffAdd.xaml.cs">
+      <DependentUpon>StaffAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminMain\StaffEdit.xaml.cs">
+      <DependentUpon>StaffEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminMain\StaffList.xaml.cs">
+      <DependentUpon>StaffList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AdminMain\TypeOfServiceList.xaml.cs">
       <DependentUpon>TypeOfServiceList.xaml</DependentUpon>
@@ -184,6 +193,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AdminMain\StaffAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminMain\StaffEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminMain\StaffList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AdminMain\TypeOfServiceList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -241,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\DatePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

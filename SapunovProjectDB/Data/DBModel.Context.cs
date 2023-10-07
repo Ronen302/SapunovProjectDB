@@ -32,10 +32,10 @@ namespace SapunovProjectDB.Data
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<PositionAtWork> PositionAtWork { get; set; }
         public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Service> Service { get; set; }
         public virtual DbSet<Staff> Staff { get; set; }
         public virtual DbSet<StatusOrder> StatusOrder { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<TypeOfService> TypeOfService { get; set; }
         public virtual DbSet<TypeOfWork> TypeOfWork { get; set; }
         public virtual DbSet<User> User { get; set; }
     }

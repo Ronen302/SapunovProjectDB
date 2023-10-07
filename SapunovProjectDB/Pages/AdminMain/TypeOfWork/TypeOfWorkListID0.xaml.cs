@@ -23,7 +23,7 @@ namespace SapunovProjectDB.Pages.AdminMain.TypeOfWork
         {
             InitializeComponent();
             TypeOfWorkListView.ItemsSource = DBEntities.GetContext().TypeOfWork.
-                Where(u => u.IdTypeOfService == 1).ToList();
+                Where(u => u.IdService == 1).ToList();
         }
 
         private void UserAddBtn_Click(object sender, RoutedEventArgs e)

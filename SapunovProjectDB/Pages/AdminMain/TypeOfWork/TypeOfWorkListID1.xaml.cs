@@ -15,7 +15,7 @@ namespace SapunovProjectDB.Pages.AdminMain.TypeOfWork
         {
             InitializeComponent();
             TypeOfWorkListView.ItemsSource = DBEntities.GetContext().TypeOfWork.
-                Where(u => u.IdTypeOfService == 2).ToList();
+                Where(u => u.IdService == 2).ToList();
         }
 
         private void UserAddBtn_Click(object sender, RoutedEventArgs e)

@@ -20,7 +20,7 @@ namespace SapunovProjectDB.Data
             this.Staff = new HashSet<Staff>();
         }
     
-        public int IdEducationStaff { get; set; }
+        public int IdEducation { get; set; }
         public string NameEducation { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

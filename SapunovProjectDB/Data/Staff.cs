@@ -15,11 +15,12 @@ namespace SapunovProjectDB.Data
     public partial class Staff
     {
         public int IdStaff { get; set; }
-        public string NameStaff { get; set; }
+        public string FirstNameStaff { get; set; }
+        public string LastNameStaff { get; set; }
+        public string MiddleNameStaff { get; set; }
         public int IdGenderStaff { get; set; }
-        public int IdEducationStaff { get; set; }
+        public int IdEducation { get; set; }
         public System.DateTime DateOfBirthStaff { get; set; }
-        public string AdressStaff { get; set; }
         public string PhoneNumberStaff { get; set; }
         public string EmailStaff { get; set; }
         public int IdPositionAtWork { get; set; }

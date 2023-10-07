@@ -18,16 +18,16 @@
           </Key>
           <Property Name="IdClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameClient" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PhoneNumberClient" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumberClient" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="EmailClient" Type="nvarchar" MaxLength="50" />
           <Property Name="DateOfRegistration" Type="date" Nullable="false" />
           <Property Name="IdUser" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Education">
           <Key>
-            <PropertyRef Name="IdEducationStaff" />
+            <PropertyRef Name="IdEducation" />
           </Key>
-          <Property Name="IdEducationStaff" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEducation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameEducation" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="GenderStaff">
@@ -61,17 +61,28 @@
           <Property Name="IdRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameRole" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="IdService" />
+          </Key>
+          <Property Name="IdService" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameServise" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdCategory" Type="int" Nullable="false" />
+          <Property Name="PriceOfService" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Staff">
           <Key>
             <PropertyRef Name="IdStaff" />
           </Key>
           <Property Name="IdStaff" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NameStaff" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FirstNameStaff" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastNameStaff" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleNameStaff" Type="nvarchar" MaxLength="50" />
           <Property Name="IdGenderStaff" Type="int" Nullable="false" />
-          <Property Name="IdEducationStaff" Type="int" Nullable="false" />
+          <Property Name="IdEducation" Type="int" Nullable="false" />
           <Property Name="DateOfBirthStaff" Type="date" Nullable="false" />
-          <Property Name="AdressStaff" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="PhoneNumberStaff" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumberStaff" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="EmailStaff" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IdPositionAtWork" Type="int" Nullable="false" />
           <Property Name="SalaryStaff" Type="decimal" Precision="10" Scale="2" Nullable="false" />
@@ -95,26 +106,15 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="TypeOfService">
-          <Key>
-            <PropertyRef Name="IdTypeOfService" />
-          </Key>
-          <Property Name="IdTypeOfService" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NameTypeOfServise" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="IdCategory" Type="int" Nullable="false" />
-          <Property Name="PriceOfService" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="Description" Type="nvarchar(max)" />
-        </EntityType>
         <EntityType Name="TypeOfWork">
           <Key>
             <PropertyRef Name="IdTypeOfWork" />
           </Key>
           <Property Name="IdTypeOfWork" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameTypeOfWork" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="IdTypeOfService" Type="int" Nullable="false" />
+          <Property Name="IdService" Type="int" Nullable="false" />
           <Property Name="PriceOfWork" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="DescriptionOfWork" Type="nvarchar(max)" />
-          <Property Name="PhotoOfWork" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -122,7 +122,7 @@
           </Key>
           <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LoginUser" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PasswordUser" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="PasswordUser" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IdRole" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Client_User">
@@ -173,15 +173,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Service_CategoryOfService">
+          <End Role="CategoryOfService" Type="Self.CategoryOfService" Multiplicity="1" />
+          <End Role="Service" Type="Self.Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryOfService">
+              <PropertyRef Name="IdCategory" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="IdCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Staff_Education">
           <End Role="Education" Type="Self.Education" Multiplicity="1" />
           <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Education">
-              <PropertyRef Name="IdEducationStaff" />
+              <PropertyRef Name="IdEducation" />
             </Principal>
             <Dependent Role="Staff">
-              <PropertyRef Name="IdEducationStaff" />
+              <PropertyRef Name="IdEducation" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -221,27 +233,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TypeOfService_CategoryOfService">
-          <End Role="CategoryOfService" Type="Self.CategoryOfService" Multiplicity="1" />
-          <End Role="TypeOfService" Type="Self.TypeOfService" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CategoryOfService">
-              <PropertyRef Name="IdCategory" />
-            </Principal>
-            <Dependent Role="TypeOfService">
-              <PropertyRef Name="IdCategory" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TypeOfWork_TypeOfService">
-          <End Role="TypeOfService" Type="Self.TypeOfService" Multiplicity="1" />
+        <Association Name="FK_TypeOfWork_Service">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
           <End Role="TypeOfWork" Type="Self.TypeOfWork" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TypeOfService">
-              <PropertyRef Name="IdTypeOfService" />
+            <Principal Role="Service">
+              <PropertyRef Name="IdService" />
             </Principal>
             <Dependent Role="TypeOfWork">
-              <PropertyRef Name="IdTypeOfService" />
+              <PropertyRef Name="IdService" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -265,10 +265,10 @@
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PositionAtWork" EntityType="Self.PositionAtWork" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusOrder" EntityType="Self.StatusOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TypeOfService" EntityType="Self.TypeOfService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeOfWork" EntityType="Self.TypeOfWork" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Client_User" Association="Self.FK_Client_User">
@@ -287,6 +287,10 @@
             <End Role="TypeOfWork" EntitySet="TypeOfWork" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
+          <AssociationSet Name="FK_Service_CategoryOfService" Association="Self.FK_Service_CategoryOfService">
+            <End Role="CategoryOfService" EntitySet="CategoryOfService" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
           <AssociationSet Name="FK_Staff_Education" Association="Self.FK_Staff_Education">
             <End Role="Education" EntitySet="Education" />
             <End Role="Staff" EntitySet="Staff" />
@@ -303,12 +307,8 @@
             <End Role="User" EntitySet="User" />
             <End Role="Staff" EntitySet="Staff" />
           </AssociationSet>
-          <AssociationSet Name="FK_TypeOfService_CategoryOfService" Association="Self.FK_TypeOfService_CategoryOfService">
-            <End Role="CategoryOfService" EntitySet="CategoryOfService" />
-            <End Role="TypeOfService" EntitySet="TypeOfService" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TypeOfWork_TypeOfService" Association="Self.FK_TypeOfWork_TypeOfService">
-            <End Role="TypeOfService" EntitySet="TypeOfService" />
+          <AssociationSet Name="FK_TypeOfWork_Service" Association="Self.FK_TypeOfWork_Service">
+            <End Role="Service" EntitySet="Service" />
             <End Role="TypeOfWork" EntitySet="TypeOfWork" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
@@ -327,7 +327,7 @@
           </Key>
           <Property Name="IdCategory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="TypeOfService" Relationship="Self.FK_TypeOfService_CategoryOfService" FromRole="CategoryOfService" ToRole="TypeOfService" />
+          <NavigationProperty Name="Service" Relationship="Self.FK_Service_CategoryOfService" FromRole="CategoryOfService" ToRole="Service" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -335,7 +335,7 @@
           </Key>
           <Property Name="IdClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameClient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNumberClient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumberClient" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailClient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateOfRegistration" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IdUser" Type="Int32" Nullable="false" />
@@ -344,9 +344,9 @@
         </EntityType>
         <EntityType Name="Education">
           <Key>
-            <PropertyRef Name="IdEducationStaff" />
+            <PropertyRef Name="IdEducation" />
           </Key>
-          <Property Name="IdEducationStaff" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEducation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameEducation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Staff" Relationship="Self.FK_Staff_Education" FromRole="Education" ToRole="Staff" />
         </EntityType>
@@ -387,17 +387,30 @@
           <Property Name="NameRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="IdService" />
+          </Key>
+          <Property Name="IdService" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameServise" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdCategory" Type="Int32" Nullable="false" />
+          <Property Name="PriceOfService" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CategoryOfService" Relationship="Self.FK_Service_CategoryOfService" FromRole="Service" ToRole="CategoryOfService" />
+          <NavigationProperty Name="TypeOfWork" Relationship="Self.FK_TypeOfWork_Service" FromRole="Service" ToRole="TypeOfWork" />
+        </EntityType>
         <EntityType Name="Staff">
           <Key>
             <PropertyRef Name="IdStaff" />
           </Key>
           <Property Name="IdStaff" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameStaff" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstNameStaff" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastNameStaff" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleNameStaff" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IdGenderStaff" Type="Int32" Nullable="false" />
-          <Property Name="IdEducationStaff" Type="Int32" Nullable="false" />
+          <Property Name="IdEducation" Type="Int32" Nullable="false" />
           <Property Name="DateOfBirthStaff" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="AdressStaff" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNumberStaff" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumberStaff" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailStaff" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IdPositionAtWork" Type="Int32" Nullable="false" />
           <Property Name="SalaryStaff" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
@@ -426,30 +439,17 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="TypeOfService">
-          <Key>
-            <PropertyRef Name="IdTypeOfService" />
-          </Key>
-          <Property Name="IdTypeOfService" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameTypeOfServise" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdCategory" Type="Int32" Nullable="false" />
-          <Property Name="PriceOfService" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CategoryOfService" Relationship="Self.FK_TypeOfService_CategoryOfService" FromRole="TypeOfService" ToRole="CategoryOfService" />
-          <NavigationProperty Name="TypeOfWork" Relationship="Self.FK_TypeOfWork_TypeOfService" FromRole="TypeOfService" ToRole="TypeOfWork" />
-        </EntityType>
         <EntityType Name="TypeOfWork">
           <Key>
             <PropertyRef Name="IdTypeOfWork" />
           </Key>
           <Property Name="IdTypeOfWork" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameTypeOfWork" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdTypeOfService" Type="Int32" Nullable="false" />
+          <Property Name="IdService" Type="Int32" Nullable="false" />
           <Property Name="PriceOfWork" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="DescriptionOfWork" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhotoOfWork" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_TypeOfWork" FromRole="TypeOfWork" ToRole="Order" />
-          <NavigationProperty Name="TypeOfService" Relationship="Self.FK_TypeOfWork_TypeOfService" FromRole="TypeOfWork" ToRole="TypeOfService" />
+          <NavigationProperty Name="Service" Relationship="Self.FK_TypeOfWork_Service" FromRole="TypeOfWork" ToRole="Service" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -457,20 +457,20 @@
           </Key>
           <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LoginUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PasswordUser" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IdRole" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Client_User" FromRole="User" ToRole="Client" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="Staff" Relationship="Self.FK_Staff_User" FromRole="User" ToRole="Staff" />
         </EntityType>
-        <Association Name="FK_TypeOfService_CategoryOfService">
+        <Association Name="FK_Service_CategoryOfService">
           <End Role="CategoryOfService" Type="Self.CategoryOfService" Multiplicity="1" />
-          <End Role="TypeOfService" Type="Self.TypeOfService" Multiplicity="*" />
+          <End Role="Service" Type="Self.Service" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CategoryOfService">
               <PropertyRef Name="IdCategory" />
             </Principal>
-            <Dependent Role="TypeOfService">
+            <Dependent Role="Service">
               <PropertyRef Name="IdCategory" />
             </Dependent>
           </ReferentialConstraint>
@@ -504,10 +504,10 @@
           <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Education">
-              <PropertyRef Name="IdEducationStaff" />
+              <PropertyRef Name="IdEducation" />
             </Principal>
             <Dependent Role="Staff">
-              <PropertyRef Name="IdEducationStaff" />
+              <PropertyRef Name="IdEducation" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -571,6 +571,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TypeOfWork_Service">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
+          <End Role="TypeOfWork" Type="Self.TypeOfWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="IdService" />
+            </Principal>
+            <Dependent Role="TypeOfWork">
+              <PropertyRef Name="IdService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Staff_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
@@ -583,18 +595,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TypeOfWork_TypeOfService">
-          <End Role="TypeOfService" Type="Self.TypeOfService" Multiplicity="1" />
-          <End Role="TypeOfWork" Type="Self.TypeOfWork" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TypeOfService">
-              <PropertyRef Name="IdTypeOfService" />
-            </Principal>
-            <Dependent Role="TypeOfWork">
-              <PropertyRef Name="IdTypeOfService" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CategoryOfService" EntityType="Self.CategoryOfService" />
           <EntitySet Name="Client" EntityType="Self.Client" />
@@ -603,15 +603,15 @@
           <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="PositionAtWork" EntityType="Self.PositionAtWork" />
           <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Service" EntityType="Self.Service" />
           <EntitySet Name="Staff" EntityType="Self.Staff" />
           <EntitySet Name="StatusOrder" EntityType="Self.StatusOrder" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="TypeOfService" EntityType="Self.TypeOfService" />
           <EntitySet Name="TypeOfWork" EntityType="Self.TypeOfWork" />
           <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_TypeOfService_CategoryOfService" Association="Self.FK_TypeOfService_CategoryOfService">
+          <AssociationSet Name="FK_Service_CategoryOfService" Association="Self.FK_Service_CategoryOfService">
             <End Role="CategoryOfService" EntitySet="CategoryOfService" />
-            <End Role="TypeOfService" EntitySet="TypeOfService" />
+            <End Role="Service" EntitySet="Service" />
           </AssociationSet>
           <AssociationSet Name="FK_Client_User" Association="Self.FK_Client_User">
             <End Role="User" EntitySet="User" />
@@ -645,13 +645,13 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <AssociationSet Name="FK_TypeOfWork_Service" Association="Self.FK_TypeOfWork_Service">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="TypeOfWork" EntitySet="TypeOfWork" />
+          </AssociationSet>
           <AssociationSet Name="FK_Staff_User" Association="Self.FK_Staff_User">
             <End Role="User" EntitySet="User" />
             <End Role="Staff" EntitySet="Staff" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TypeOfWork_TypeOfService" Association="Self.FK_TypeOfWork_TypeOfService">
-            <End Role="TypeOfService" EntitySet="TypeOfService" />
-            <End Role="TypeOfWork" EntitySet="TypeOfWork" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -683,7 +683,7 @@
           <EntitySetMapping Name="Education">
             <EntityTypeMapping TypeName="DBModel.Education">
               <MappingFragment StoreEntitySet="Education">
-                <ScalarProperty Name="IdEducationStaff" ColumnName="IdEducationStaff" />
+                <ScalarProperty Name="IdEducation" ColumnName="IdEducation" />
                 <ScalarProperty Name="NameEducation" ColumnName="NameEducation" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -723,15 +723,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Service">
+            <EntityTypeMapping TypeName="DBModel.Service">
+              <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="IdService" ColumnName="IdService" />
+                <ScalarProperty Name="NameServise" ColumnName="NameServise" />
+                <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
+                <ScalarProperty Name="PriceOfService" ColumnName="PriceOfService" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Staff">
             <EntityTypeMapping TypeName="DBModel.Staff">
               <MappingFragment StoreEntitySet="Staff">
                 <ScalarProperty Name="IdStaff" ColumnName="IdStaff" />
-                <ScalarProperty Name="NameStaff" ColumnName="NameStaff" />
+                <ScalarProperty Name="FirstNameStaff" ColumnName="FirstNameStaff" />
+                <ScalarProperty Name="LastNameStaff" ColumnName="LastNameStaff" />
+                <ScalarProperty Name="MiddleNameStaff" ColumnName="MiddleNameStaff" />
                 <ScalarProperty Name="IdGenderStaff" ColumnName="IdGenderStaff" />
-                <ScalarProperty Name="IdEducationStaff" ColumnName="IdEducationStaff" />
+                <ScalarProperty Name="IdEducation" ColumnName="IdEducation" />
                 <ScalarProperty Name="DateOfBirthStaff" ColumnName="DateOfBirthStaff" />
-                <ScalarProperty Name="AdressStaff" ColumnName="AdressStaff" />
                 <ScalarProperty Name="PhoneNumberStaff" ColumnName="PhoneNumberStaff" />
                 <ScalarProperty Name="EmailStaff" ColumnName="EmailStaff" />
                 <ScalarProperty Name="IdPositionAtWork" ColumnName="IdPositionAtWork" />
@@ -760,26 +772,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TypeOfService">
-            <EntityTypeMapping TypeName="DBModel.TypeOfService">
-              <MappingFragment StoreEntitySet="TypeOfService">
-                <ScalarProperty Name="IdTypeOfService" ColumnName="IdTypeOfService" />
-                <ScalarProperty Name="NameTypeOfServise" ColumnName="NameTypeOfServise" />
-                <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
-                <ScalarProperty Name="PriceOfService" ColumnName="PriceOfService" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TypeOfWork">
             <EntityTypeMapping TypeName="DBModel.TypeOfWork">
               <MappingFragment StoreEntitySet="TypeOfWork">
                 <ScalarProperty Name="IdTypeOfWork" ColumnName="IdTypeOfWork" />
                 <ScalarProperty Name="NameTypeOfWork" ColumnName="NameTypeOfWork" />
-                <ScalarProperty Name="IdTypeOfService" ColumnName="IdTypeOfService" />
+                <ScalarProperty Name="IdService" ColumnName="IdService" />
                 <ScalarProperty Name="PriceOfWork" ColumnName="PriceOfWork" />
                 <ScalarProperty Name="DescriptionOfWork" ColumnName="DescriptionOfWork" />
-                <ScalarProperty Name="PhotoOfWork" ColumnName="PhotoOfWork" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

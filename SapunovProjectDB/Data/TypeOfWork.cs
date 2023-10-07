@@ -22,13 +22,12 @@ namespace SapunovProjectDB.Data
     
         public int IdTypeOfWork { get; set; }
         public string NameTypeOfWork { get; set; }
-        public int IdTypeOfService { get; set; }
+        public int IdService { get; set; }
         public decimal PriceOfWork { get; set; }
         public string DescriptionOfWork { get; set; }
-        public byte[] PhotoOfWork { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
-        public virtual TypeOfService TypeOfService { get; set; }
+        public virtual Service Service { get; set; }
     }
 }

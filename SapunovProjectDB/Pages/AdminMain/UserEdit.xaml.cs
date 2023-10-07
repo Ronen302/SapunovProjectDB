@@ -21,25 +21,20 @@ namespace SapunovProjectDB.Pages.AdminMain
 
         private void userSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(UserLoginTextBox.Text) &&
-                string.IsNullOrWhiteSpace(UserPasswordTextBox.Text) &&
-                UserRoleComboBox.SelectedItem == null)
+            if (string.IsNullOrWhiteSpace(UserLoginTextBox.Text))
             {
-                EmptyLoginErrorAddUser.Visibility = Visibility.Visible;
-                EmptyPasswordErrorAddUser.Visibility = Visibility.Visible;
-                EmptyRoleErrorAddUser.Visibility = Visibility.Visible;
-            }
-            else if (string.IsNullOrWhiteSpace(UserLoginTextBox.Text))
-            {
-                EmptyLoginErrorAddUser.Visibility = Visibility.Visible;
+                ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
+                ValidationErrorMsg.Visibility = Visibility.Visible;
             }
             else if (string.IsNullOrWhiteSpace(UserPasswordTextBox.Text))
             {
-                EmptyPasswordErrorAddUser.Visibility = Visibility.Visible;
+                ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
+                ValidationErrorMsg.Visibility = Visibility.Visible;
             }
             else if (UserRoleComboBox.SelectedItem == null)
             {
-                EmptyRoleErrorAddUser.Visibility = Visibility.Visible;
+                ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
+                ValidationErrorMsg.Visibility = Visibility.Visible;
             }
             else
             {
@@ -62,21 +57,6 @@ namespace SapunovProjectDB.Pages.AdminMain
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             Content = null;
-        }
-
-        private void UserLoginTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            EmptyLoginErrorAddUser.Visibility = Visibility.Collapsed;
-        }
-
-        private void UserPasswordTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            EmptyPasswordErrorAddUser.Visibility = Visibility.Collapsed;
-        }
-
-        private void UserRoleComboBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            EmptyRoleErrorAddUser.Visibility = Visibility.Collapsed;
         }
     }
 }

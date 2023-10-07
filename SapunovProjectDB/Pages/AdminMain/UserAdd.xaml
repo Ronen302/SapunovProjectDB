@@ -6,15 +6,10 @@
       xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:local="clr-namespace:SapunovProjectDB.Pages.AdminMain"
       mc:Ignorable="d" 
-      Height="auto" Width="450"
+      d:DesignHeight="660" d:DesignWidth="810"
       Title="UserAdd">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="30"/>
-        </Grid.ColumnDefinitions>
+    <Grid Margin="20 0 20 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
@@ -22,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <Border CornerRadius="10" Style="{DynamicResource mainBorderAddWindow}"
-                Grid.Column="1" Grid.Row="1">
+                Grid.Row="1">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -36,45 +31,53 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <Border Style="{DynamicResource thirdyAuthBorder}"
+                        Grid.Row="2" Margin="20 -10 20 -30" CornerRadius="10"/>
+
                 <!--Form Title-->
-                <StackPanel Orientation="Horizontal" Margin="20 20 0 0">
+                <StackPanel Orientation="Horizontal" Margin="20 20 20 0">
                     <Icons:PackIconMaterial Kind="AccountMultipleOutline" Width="25" Height="25" 
                                         Style="{DynamicResource addWindowIcon}"/>
                     <TextBlock Text="Детали пользователя" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"
                            Style="{DynamicResource addWindowTitleText}"/>
+                    <TextBlock x:Name="ValidationErrorMsg" Margin="15 5 0 0"
+                                        FontSize="14" Foreground="#e64646" Visibility="Collapsed"
+                               VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <Separator Grid.Row="1" Grid.ColumnSpan="2" Height="1" Margin="20 0 20 20"
                        Style="{DynamicResource mainPageSeparator}"/>
 
                 <!--Inputs-->
-                <Border Grid.Row="2" Style="{DynamicResource secondaryBorderMainPage}" Margin="10 0 10 0"
-                        CornerRadius="8">
-                    <StackPanel Orientation="Vertical" Grid.Row="2">
+                <Border Style="{DynamicResource secondaryBorderMainPage}" Margin="0 0 0 -20"
+                        CornerRadius="8" Width="450" HorizontalAlignment="Center"
+                        VerticalAlignment="Top" Grid.Row="2">
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Height="450">
+
                         <StackPanel Margin="20 10">
-                            <TextBlock Text="Логин*" Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"/>
-                            <TextBox Name="UserLoginTextBox" Style="{DynamicResource addUserInputLoginTextBox}"
-                                     Text="{Binding LoginUser}" GotFocus="UserLoginTextBox_GotFocus"/>
-                            <TextBlock x:Name="EmptyLoginErrorAddUser" Text="Заполните обязательное поле" Margin="0,4,50,0"
-                                        FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Логин*" Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"/>
+                            </StackPanel>
+                            <TextBox Name="UserLoginTextBox" Style="{DynamicResource inputTextBox}"
+                                     Text="{Binding LoginUser}"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
-                            <TextBlock Text="Пароль*" Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"/>
-                            <TextBox Name="UserPasswordTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding PasswordUser}" GotFocus="UserPasswordTextBox_GotFocus"/>
-                            <TextBlock x:Name="EmptyPasswordErrorAddUser" Text="Заполните обязательное поле" Margin="0,4,50,0"
-                                        FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Пароль*" Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"/>
+                            </StackPanel>
+                            <TextBox Name="UserPasswordTextBox" Style="{DynamicResource inputTextBox}"
+                                     Text="{Binding PasswordUser}"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
-                            <TextBlock Text="Роль*" Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Роль*" Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"/>
+                            </StackPanel>
                             <ComboBox Name="UserRoleComboBox" Style="{DynamicResource ComboBoxStyle}"
                                     ItemContainerStyle="{DynamicResource ComboBoxItemStyle}"
                                     Height="41" DisplayMemberPath="NameRole" SelectedItem="{Binding Role}"
-                                      SelectedValuePath="IdRole" GotFocus="UserRoleComboBox_GotFocus"/>
-                            <TextBlock x:Name="EmptyRoleErrorAddUser" Text="Заполните обязательное поле" Margin="0,4,50,0"
-                                        FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                                      SelectedValuePath="IdRole"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>

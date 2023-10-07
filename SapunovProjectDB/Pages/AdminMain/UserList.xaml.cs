@@ -25,7 +25,7 @@ namespace SapunovProjectDB.Pages.AdminMain
             UpdateFilter();
         }
 
-        public void UpdateFilter()
+        private void UpdateFilter()
         {
             try
             {

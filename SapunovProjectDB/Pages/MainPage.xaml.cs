@@ -19,12 +19,12 @@ namespace SapunovProjectDB.Pages
 
         private void UserListBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            MainPageFrame.Navigate(new UserList());
         }
 
         private void StaffListBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            MainPageFrame.Navigate(new StaffList());
         }
 
         private void EquipmentListBtn_Click(object sender, RoutedEventArgs e)

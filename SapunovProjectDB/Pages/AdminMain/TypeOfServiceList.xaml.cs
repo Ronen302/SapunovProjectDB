@@ -25,7 +25,7 @@ namespace SapunovProjectDB.Pages.AdminMain
         public TypeOfServiceList()
         {
             InitializeComponent();
-            TypeOfServiceListView.ItemsSource = DBEntities.GetContext().TypeOfService.ToList();
+            TypeOfServiceListView.ItemsSource = DBEntities.GetContext().Service.ToList();
         }
 
         private void FilterRoleCb_SelectionChanged(object sender, SelectionChangedEventArgs e)

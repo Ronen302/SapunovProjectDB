@@ -12,18 +12,18 @@ namespace SapunovProjectDB.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class TypeOfService
+    public partial class Service
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TypeOfService()
+        public Service()
         {
             this.TypeOfWork = new HashSet<TypeOfWork>();
         }
     
-        public int IdTypeOfService { get; set; }
-        public string NameTypeOfServise { get; set; }
+        public int IdService { get; set; }
+        public string NameServise { get; set; }
         public int IdCategory { get; set; }
-        public Nullable<decimal> PriceOfService { get; set; }
+        public decimal PriceOfService { get; set; }
         public string Description { get; set; }
     
         public virtual CategoryOfService CategoryOfService { get; set; }

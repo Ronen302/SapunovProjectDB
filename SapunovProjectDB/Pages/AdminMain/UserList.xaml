@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      xmlns:local="clr-namespace:SapunovProjectDB.Pages.AdminMain" xmlns:data="clr-namespace:SapunovProjectDB.Data" d:DataContext="{d:DesignInstance Type=data:User}"
+      xmlns:local="clr-namespace:SapunovProjectDB.Pages.AdminMain"
       mc:Ignorable="d" 
       d:DesignHeight="660" d:DesignWidth="810"
       Title="UserListPage">
@@ -59,7 +59,7 @@
             </Grid>
         </Border>
 
-        <ComboBox Width="250" x:Name="FilterRoleCb" Style="{DynamicResource UserPageComboBoxStyle}"
+        <ComboBox Width="250" x:Name="FilterRoleCb" Style="{DynamicResource ComboBoxStyle}" Template="{DynamicResource UserPageComboBoxTemplate}"
                           ItemContainerStyle="{DynamicResource ComboBoxItemStyle}" HorizontalAlignment="Left"
                           DisplayMemberPath="NameRole" SelectionChanged="FilterRoleCb_SelectionChanged" Grid.Row="4" Margin="270,22,0,22"/>
 

@@ -17,13 +17,13 @@ namespace SapunovProjectDB.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CategoryOfService()
         {
-            this.TypeOfService = new HashSet<TypeOfService>();
+            this.Service = new HashSet<Service>();
         }
     
         public int IdCategory { get; set; }
         public string NameCategory { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TypeOfService> TypeOfService { get; set; }
+        public virtual ICollection<Service> Service { get; set; }
     }
 }
