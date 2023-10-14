@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapunovProjectDB", "SapunovProjectDB\SapunovProjectDB.csproj", "{691BEE7B-53A0-4127-AE2C-D80F73981EA9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5CAF5031-B02E-48A5-887A-E04C6F979C9F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Desktop\DBScript.sql = ..\..\..\Desktop\DBScript.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
