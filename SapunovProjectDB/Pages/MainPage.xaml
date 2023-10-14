@@ -61,17 +61,17 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button x:Name="EquipmentListBtn" Style="{StaticResource menuButton}" Click="EquipmentListBtn_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icons:PackIconMaterial Kind="NetworkOutline" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Оборудование"/>
-                                </StackPanel>
-                            </Button>
-
                             <Button x:Name="ClientListBtn" Style="{StaticResource menuButton}" Click="ClientListBtn_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icons:PackIconMaterial Kind="HumanQueue" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Клиенты"/>
+                                    <TextBlock Text="Наши клиенты"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="EquipmentListBtn" Style="{StaticResource menuButton}" Click="EquipmentListBtn_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icons:PackIconMaterial Kind="Greenhouse" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Каталог услуг"/>
                                 </StackPanel>
                             </Button>
 

@@ -21,7 +21,7 @@ namespace SapunovProjectDB.Data
         }
     
         public int IdService { get; set; }
-        public string NameServise { get; set; }
+        public string NameService { get; set; }
         public int IdCategory { get; set; }
         public decimal PriceOfService { get; set; }
         public string Description { get; set; }

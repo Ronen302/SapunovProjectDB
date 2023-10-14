@@ -1,0 +1,106 @@
+﻿<Page x:Class="SapunovProjectDB.Pages.AdminMain.ClientList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:local="clr-namespace:SapunovProjectDB.Pages.AdminMain"
+      mc:Ignorable="d" 
+      d:DesignHeight="660" d:DesignWidth="810"
+      Title="UserListPage">
+
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Frame x:Name="StaffListFrame" NavigationUIVisibility="Hidden"
+               Grid.RowSpan="6" Panel.ZIndex="1"/>
+
+        <TextBlock Text="Клиенты" FontSize="32" FontWeight="SemiBold"
+                           Margin="0 20 0 0" HorizontalAlignment="Left" Style="{DynamicResource loginNormalTitleText}"/>
+
+        <Separator Height="1" Grid.Row="2" Margin="0 -1 0 0" Style="{DynamicResource mainPageSeparator}"/>
+
+        <Border Grid.Row="4" Style="{DynamicResource secondaryBorderMainPage}"
+                Margin="0 10" CornerRadius="8">
+            <StackPanel Orientation="Horizontal">
+                <Grid Width="250" HorizontalAlignment="Left" Grid.Row="3" Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Icons:PackIconMaterial Width="15" Height="15" Panel.ZIndex="1" Grid.Column="0"
+                                        Kind="Magnify" Style="{DynamicResource textSearchIcon}" Margin="15,12,0,0"/>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource textHintSearchTextBox}"
+                               IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
+                               Text="Быстрый поиск" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=FilterTextBox}"/>
+
+                    <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="FilterTextBox" Style="{StaticResource textBoxFilter}"
+                         TextChanged="FilterTextBox_TextChanged"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <DataGrid Grid.Row="5" x:Name="ClientListDataGrid" ItemsSource="{Binding Client}" IsReadOnly="True"
+                  CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя" Binding="{Binding NameClient}" Width="*"/>
+                <DataGridTextColumn Header="Номер телефона" Binding="{Binding PhoneNumberClient}" Width="*"/>
+                <DataGridTextColumn Header="Эл. почта" Binding="{Binding EmailClient}" Width="*"/>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
+                                <Button x:Name="DeleteBtn" Style="{DynamicResource gridButton}" Click="DeleteBtn_Click">
+                                    <Icons:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"
+                                                            Foreground="#ff5c5c"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Grid Margin="18 10 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="0 0 0 5">
+                            <Run Text="Логин: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding User.LoginUser}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="0 0 0 5" Grid.Row="1">
+                            <Run Text="Пароль: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding User.PasswordUser}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="1">
+                            <Run Text="Код клиента: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding IdClient}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Row="1" Grid.Column="1">
+                            <Run Text="Дата регистрации: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding DateOfRegistration, StringFormat=dd/MM/yyyy}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+    </Grid>
+</Page>

@@ -1,0 +1,51 @@
+﻿<Window x:Class="SapunovProjectDB.Windows.RemoveDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SapunovProjectDB.Windows" xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="RemoveDialogWindow" Height="260" Width="490" WindowStartupLocation="CenterScreen"
+        WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent">
+    <Border Margin="30" x:Name="MainBorder" Style="{DynamicResource thirdyDialogBorder}"
+            MouseLeftButtonDown="MainBorder_MouseLeftButtonDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <StackPanel Panel.ZIndex="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="CloseBtn" Style="{DynamicResource closeButtonDialogWindow}" HorizontalAlignment="Right"
+                                Width="45" Height="35" IsCancel="True">
+                        <Icons:PackIconMaterial Kind="WindowClose" Width="12" Height="12"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Icons:PackIconMaterial Kind="DatabaseRemoveOutline" Width="18" Height="18"
+                                        VerticalAlignment="Center" Style="{DynamicResource addWindowIcon}"
+                                        Margin="10 0 0 0"/>
+                    <TextBlock Text="Удалить" Style="{DynamicResource loginNormalTitleText}"
+                       HorizontalAlignment="Left" Margin="10 6 0 0"
+                           VerticalAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Grid>
+            <Border Style="{DynamicResource secondaryAuthBorder}"
+                    Grid.Row="1" BorderThickness="0">
+                <TextBlock x:Name="removeMessage" Style="{DynamicResource loginNormalTitleText}"
+                           Margin="20" TextWrapping="Wrap"
+                           VerticalAlignment="Center"
+                           TextAlignment="Left" FontSize="14"/>
+            </Border>
+            <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="10 14 10 10">
+                <Button IsDefault="True" Click="Accept_Click" Margin="0" FontSize="14"
+                        Style="{DynamicResource ResourceKey=loginButton}" Width="80" Height="25" Content="Удалить"/>
+                <Button IsCancel="True" MinWidth="60" Margin="10 0 0 0" FontSize="14"
+                        Style="{DynamicResource registrationButton}" Width="80" Height="25"
+                        Content="Отмена"/>
+            </WrapPanel>
+        </Grid>
+    </Border>
+</Window>

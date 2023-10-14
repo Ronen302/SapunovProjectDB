@@ -70,5 +70,16 @@ namespace SapunovProjectDB.Properties {
                 this["UserRole"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int SelectedIdService {
+            get {
+                return ((int)(this["SelectedIdService"]));
+            }
+            set {
+                this["SelectedIdService"] = value;
+            }
+        }
     }
 }

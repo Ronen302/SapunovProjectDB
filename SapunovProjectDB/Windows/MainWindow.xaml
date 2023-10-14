@@ -14,7 +14,7 @@
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
     </WindowChrome.WindowChrome>
 
-    <Border CornerRadius="10" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown"
+    <Border x:Name="MainBorder" CornerRadius="10" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown"
             Style="{DynamicResource mainAuthBorder}">
         <Grid>
             <Grid.RowDefinitions>
@@ -22,7 +22,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border Style="{DynamicResource topBorder}"
+            <Border x:Name="topBorder" Style="{DynamicResource topBorder}"
                     CornerRadius="10 10 0 0">
                 <Grid>
                     <StackPanel Panel.ZIndex="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -36,7 +36,7 @@
                         </Button>
                         <Button x:Name="MaximizeBtn" Style="{DynamicResource topButton}" HorizontalAlignment="Right"
                         Click="MaximizeBtn_Click" Width="45" Height="35">
-                            <Icons:PackIconMaterial Kind="WindowMaximize" Width="12" Height="12"/>
+                            <Icons:PackIconMaterial x:Name="maximizeIcon" Kind="WindowMaximize" Width="12" Height="12"/>
                         </Button>
                         <Button x:Name="CloseBtn" Style="{DynamicResource closeButton}" HorizontalAlignment="Right"
                                 Width="45" Height="35"

@@ -66,7 +66,7 @@
             <PropertyRef Name="IdService" />
           </Key>
           <Property Name="IdService" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NameServise" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NameService" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IdCategory" Type="int" Nullable="false" />
           <Property Name="PriceOfService" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
@@ -392,7 +392,7 @@
             <PropertyRef Name="IdService" />
           </Key>
           <Property Name="IdService" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameServise" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NameService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IdCategory" Type="Int32" Nullable="false" />
           <Property Name="PriceOfService" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -727,7 +727,7 @@
             <EntityTypeMapping TypeName="DBModel.Service">
               <MappingFragment StoreEntitySet="Service">
                 <ScalarProperty Name="IdService" ColumnName="IdService" />
-                <ScalarProperty Name="NameServise" ColumnName="NameServise" />
+                <ScalarProperty Name="NameService" ColumnName="NameService" />
                 <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
                 <ScalarProperty Name="PriceOfService" ColumnName="PriceOfService" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

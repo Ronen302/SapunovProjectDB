@@ -29,12 +29,12 @@ namespace SapunovProjectDB.Pages
 
         private void EquipmentListBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainPageFrame.Navigate(new TypeOfServiceList());
+            MainPageFrame.Navigate(new ServiceList());
         }
 
         private void ClientListBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            MainPageFrame.Navigate(new ClientList());
         }
 
         private void LogoutBtn_Click(object sender, RoutedEventArgs e)

@@ -10,8 +10,11 @@
                 <ResourceDictionary Source="/Resources/Styles/Button.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/CheckBox.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/ComboBox.xaml"/>
+                <ResourceDictionary Source="/Resources/Styles/ContextMenu.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/DataGrid.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/DatePicker.xaml"/>
+                <ResourceDictionary Source="/Resources/Styles/DropDownMenu.xaml"/>
+                <ResourceDictionary Source="/Resources/Styles/GroupBox.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/Icon.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/ListView.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/PasswordBox.xaml"/>

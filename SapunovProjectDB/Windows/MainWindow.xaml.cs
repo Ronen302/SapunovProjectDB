@@ -22,9 +22,15 @@ namespace SapunovProjectDB.Windows
             if (e.ClickCount == 2)
             {
                 if (WindowState == WindowState.Normal)
+                {
+                    maximizeIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.WindowRestore;
                     WindowState = WindowState.Maximized;
+                }
                 else
+                {
+                    maximizeIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.WindowMaximize;
                     WindowState = WindowState.Normal;
+                }
             }
         }
 
@@ -44,9 +50,15 @@ namespace SapunovProjectDB.Windows
         private void MaximizeBtn_Click(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Normal)
+            {
+                maximizeIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.WindowRestore;
                 WindowState = WindowState.Maximized;
+            }
             else
+            {
+                maximizeIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.WindowMaximize;
                 WindowState = WindowState.Normal;
+            }
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)

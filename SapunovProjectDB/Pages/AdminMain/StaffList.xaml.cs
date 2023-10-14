@@ -1,5 +1,7 @@
 ﻿using SapunovProjectDB.Classes;
 using SapunovProjectDB.Data;
+using SapunovProjectDB.Windows;
+using SapunovProjectDB.Windows.AdminMain;
 using System;
 using System.Linq;
 using System.Windows;
@@ -37,30 +39,40 @@ namespace SapunovProjectDB.Pages.AdminMain
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
-            StaffListFrame.Navigate(new StaffEdit(StaffListDataGrid.SelectedItem as Staff));
+            StaffAddEdit staffEdit = new StaffAddEdit(StaffListDataGrid.SelectedItem as Staff);
+            if (staffEdit.ShowDialog() == true)
+                UpdateFilter();
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            try
+            Staff staff = StaffListDataGrid.SelectedItem as Staff;
+            User user = DBEntities.GetContext().User
+                        .FirstOrDefault(u => u.IdUser == staff.IdUser);
+            RemoveDialogWindow removeDialog = new RemoveDialogWindow();
+            removeDialog.removeMessage.Text = $"\"{staff.LastNameStaff} {staff.FirstNameStaff} {staff.MiddleNameStaff}\" будет удален без возможности восстановления." +
+                        $" Вы действительно желаете это сделать?";
+            if (removeDialog.ShowDialog() == true)
             {
-                Staff staffForRemove = StaffListDataGrid.SelectedItem as Staff;
-                var userForRemove = DBEntities.GetContext().User.FirstOrDefault(u => u.IdUser == staffForRemove.IdUser);
-                DBEntities.GetContext().Staff.Remove(staffForRemove);
-                DBEntities.GetContext().SaveChanges();
-                DBEntities.GetContext().User.Remove(userForRemove);
-                DBEntities.GetContext().SaveChanges();
-                UpdateFilter();
-            }
-            catch (Exception ex)
-            {
-                Error.ErrorMB(ex);
+                try
+                {
+                    DBEntities.GetContext().Staff.Remove(staff);
+                    DBEntities.GetContext().User.Remove(user);
+                    DBEntities.GetContext().SaveChanges();
+                    UpdateFilter();
+                }
+                catch (Exception ex)
+                {
+                    Error.ErrorMB(ex);
+                }
             }
         }
 
         private void UserAddBtn_Click(object sender, RoutedEventArgs e)
         {
-            StaffListFrame.Navigate(new StaffAdd());
+            StaffAddEdit staffEdit = new StaffAddEdit(null);
+            if (staffEdit.ShowDialog() == true)
+                UpdateFilter();
         }
 
         private void FilterRoleCb_SelectionChanged(object sender, SelectionChangedEventArgs e)

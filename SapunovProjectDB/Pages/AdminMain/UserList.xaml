@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      xmlns:local="clr-namespace:SapunovProjectDB.Pages.AdminMain"
+      xmlns:local="clr-namespace:SapunovProjectDB.Pages.AdminMain" xmlns:classes="clr-namespace:SapunovProjectDB.Classes"
       mc:Ignorable="d" 
       d:DesignHeight="660" d:DesignWidth="810"
       Title="UserListPage">
@@ -24,9 +24,6 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Frame x:Name="UserListFrame" NavigationUIVisibility="Hidden"
-               Grid.RowSpan="6" Panel.ZIndex="1"/>
-
         <TextBlock Text="Пользователи" FontSize="32" FontWeight="SemiBold"
                            Margin="0 20 0 0" HorizontalAlignment="Left" Style="{DynamicResource loginNormalTitleText}"/>
 
@@ -43,25 +40,38 @@
 
         <Border Grid.Row="4" Style="{DynamicResource secondaryBorderMainPage}"
                 Margin="0 10" CornerRadius="8">
-            <Grid Width="250" HorizontalAlignment="Left" Grid.Row="3" Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Icons:PackIconMaterial Width="15" Height="15" Panel.ZIndex="1" Grid.Column="0"
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Grid Width="250" HorizontalAlignment="Left" Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Icons:PackIconMaterial Width="15" Height="15" Panel.ZIndex="1" Grid.Column="0"
                                         Kind="Magnify" Style="{DynamicResource textSearchIcon}" Margin="15,12,0,0"/>
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource textHintSearchTextBox}"
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource textHintSearchTextBox}"
                                IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
                                Text="Быстрый поиск" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=FilterTextBox}"/>
 
-                <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="FilterTextBox" Style="{StaticResource textBoxFilter}"
+                        <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="FilterTextBox" Style="{StaticResource textBoxFilter}"
                          TextChanged="FilterTextBox_TextChanged"/>
+                    </Grid>
+                    <!--<ComboBox Width="250" x:Name="FilterRoleCb" Style="{DynamicResource ComboBoxStyle}" Template="{DynamicResource UserPageComboBoxTemplate}"
+                          ItemContainerStyle="{DynamicResource ComboBoxItemStyle}" HorizontalAlignment="Left" Margin="10"
+                          DisplayMemberPath="NameRole" SelectionChanged="FilterRoleCb_SelectionChanged"/>-->
+                </StackPanel>
+                <classes:DropDownMenu HorizontalAlignment="Right" Width="30" Margin="0 0 10 0">
+                    <Border Style="{DynamicResource secondaryBorderMainPage}" CornerRadius="8 0 8 0">
+                        <StackPanel Orientation="Vertical">
+                            <ComboBox Width="250" x:Name="FilterRoleCb" Style="{DynamicResource ComboBoxStyle}" Template="{DynamicResource UserPageComboBoxTemplate}"
+                          ItemContainerStyle="{DynamicResource ComboBoxItemStyle}" HorizontalAlignment="Left" Height="41"
+                          DisplayMemberPath="NameRole" SelectionChanged="FilterRoleCb_SelectionChanged"/>
+                        </StackPanel>
+                    </Border>
+                </classes:DropDownMenu>
             </Grid>
-        </Border>
 
-        <ComboBox Width="250" x:Name="FilterRoleCb" Style="{DynamicResource ComboBoxStyle}" Template="{DynamicResource UserPageComboBoxTemplate}"
-                          ItemContainerStyle="{DynamicResource ComboBoxItemStyle}" HorizontalAlignment="Left"
-                          DisplayMemberPath="NameRole" SelectionChanged="FilterRoleCb_SelectionChanged" Grid.Row="4" Margin="270,22,0,22"/>
+        </Border>
 
         <!--<ListView x:Name="UserListView" Grid.Row="5" HorizontalContentAlignment="Stretch" Style="{DynamicResource ListViewStyle}" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
             <ListView.ItemTemplate>

@@ -1,7 +1,8 @@
 ﻿using SapunovProjectDB.Classes;
 using SapunovProjectDB.Data;
+using SapunovProjectDB.Windows;
+using SapunovProjectDB.Windows.AdminMain;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,28 +48,36 @@ namespace SapunovProjectDB.Pages.AdminMain
 
         private void UserAddBtn_Click(object sender, RoutedEventArgs e)
         {
-            UserListFrame.Navigate(new UserAdd());
+            UserAddEdit userAdd = new UserAddEdit(null);
+            if (userAdd.ShowDialog() == true)
+                UpdateFilter();
         }
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
-            UserListFrame.Navigate(new UserEdit(UserListDataGrid.SelectedItem as User));
+            UserAddEdit userEdit = new UserAddEdit(UserListDataGrid.SelectedItem as User);
+            if (userEdit.ShowDialog() == true)
+                UpdateFilter();
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            try
+            User user = UserListDataGrid.SelectedItem as User;
+            RemoveDialogWindow removeDialog = new RemoveDialogWindow();
+            removeDialog.removeMessage.Text = $"\"{user.LoginUser}\" будет удален без возможности восстановления." +
+                        $" Вы действительно желаете это сделать?";
+            if (removeDialog.ShowDialog() == true)
             {
-                User user = UserListDataGrid.SelectedItem as User;
-
-                DBEntities.GetContext().User
-                    .Remove(user);
-                DBEntities.GetContext().SaveChanges();
-                UpdateFilter();
-            }
-            catch (Exception ex)
-            {
-                Error.ErrorMB(ex);
+                try
+                {
+                    DBEntities.GetContext().User.Remove(user);
+                    DBEntities.GetContext().SaveChanges();
+                    UpdateFilter();
+                }
+                catch (Exception ex)
+                {
+                    Error.ErrorMB(ex);
+                }
             }
         }
 
@@ -80,6 +89,13 @@ namespace SapunovProjectDB.Pages.AdminMain
         private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateFilter();
+        }
+
+        private void FiltersBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ContextMenu cm = FindResource("cmButton") as ContextMenu;
+            cm.PlacementTarget = sender as Button;
+            cm.IsOpen = true;
         }
     }
 }

@@ -88,6 +88,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\DropDownMenu.cs" />
     <Compile Include="Classes\Error.cs" />
     <Compile Include="Data\CategoryOfService.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
@@ -144,32 +145,17 @@
     <Compile Include="Data\User.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AdminMain\StaffAdd.xaml.cs">
-      <DependentUpon>StaffAdd.xaml</DependentUpon>
+    <Compile Include="Pages\AdminMain\ClientList.xaml.cs">
+      <DependentUpon>ClientList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AdminMain\StaffEdit.xaml.cs">
-      <DependentUpon>StaffEdit.xaml</DependentUpon>
+    <Compile Include="Pages\AdminMain\ServiceList.xaml.cs">
+      <DependentUpon>ServiceList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AdminMain\StaffList.xaml.cs">
       <DependentUpon>StaffList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AdminMain\TypeOfServiceList.xaml.cs">
-      <DependentUpon>TypeOfServiceList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\AdminMain\TypeOfWork\TypeOfWorkListID0.xaml.cs">
-      <DependentUpon>TypeOfWorkListID0.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\AdminMain\TypeOfWork\TypeOfWorkListID1.xaml.cs">
-      <DependentUpon>TypeOfWorkListID1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\AdminMain\TypeOfWork\TypeOfWorkListID2.xaml.cs">
-      <DependentUpon>TypeOfWorkListID2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\AdminMain\UserAdd.xaml.cs">
-      <DependentUpon>UserAdd.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\AdminMain\UserEdit.xaml.cs">
-      <DependentUpon>UserEdit.xaml</DependentUpon>
+    <Compile Include="Pages\AdminMain\TypeOfWorkList.xaml.cs">
+      <DependentUpon>TypeOfWorkList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AdminMain\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
@@ -183,8 +169,14 @@
     <Compile Include="Pages\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\AdminMain\UserAdd.xaml.cs">
-      <DependentUpon>UserAdd.xaml</DependentUpon>
+    <Compile Include="Windows\AdminMain\ServiceAddEdit.xaml.cs">
+      <DependentUpon>ServiceAddEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AdminMain\StaffAddEdit.xaml.cs">
+      <DependentUpon>StaffAddEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AdminMain\UserAddEdit.xaml.cs">
+      <DependentUpon>UserAddEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -193,11 +185,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\AdminMain\StaffAdd.xaml">
+    <Compile Include="Windows\RemoveDialogWindow.xaml.cs">
+      <DependentUpon>RemoveDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Pages\AdminMain\ClientList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AdminMain\StaffEdit.xaml">
+    <Page Include="Pages\AdminMain\ServiceList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,27 +200,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AdminMain\TypeOfServiceList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\AdminMain\TypeOfWork\TypeOfWorkListID0.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\AdminMain\TypeOfWork\TypeOfWorkListID1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\AdminMain\TypeOfWork\TypeOfWorkListID2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\AdminMain\UserAdd.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\AdminMain\UserEdit.xaml">
+    <Page Include="Pages\AdminMain\TypeOfWorkList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -261,11 +236,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Styles\ContextMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Styles\DataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\DatePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\DropDownMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\GroupBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -313,11 +300,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\AdminMain\UserAdd.xaml">
+    <Page Include="Windows\AdminMain\ServiceAddEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AdminMain\StaffAddEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AdminMain\UserAddEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RemoveDialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -106,6 +106,28 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="thirdyDialogBorder" TargetType="Border">
+        <Setter Property="Background" Value="#f2f3f5"/>
+        <Setter Property="BorderBrush" Value="#d5d5d7"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="0" Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Background" Value="#292929"/>
+                <Setter Property="BorderBrush" Value="#434343"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="0" Opacity="0.5"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="successfulRegBorder" TargetType="Border">
         <Setter Property="Background" Value="#f2f3f5"/>
         <Setter Property="BorderBrush" Value="#d5d5d7"/>
