@@ -3,7 +3,9 @@ using SapunovProjectDB.Data;
 using SapunovProjectDB.Windows;
 using SapunovProjectDB.Windows.AdminMain;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -41,14 +43,21 @@ namespace SapunovProjectDB.Pages.AdminMain
         {
             StaffAddEdit staffEdit = new StaffAddEdit(StaffListDataGrid.SelectedItem as Staff);
             if (staffEdit.ShowDialog() == true)
+            {
                 UpdateFilter();
+                DataIsSaved();
+            }
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             Staff staff = StaffListDataGrid.SelectedItem as Staff;
             User user = DBEntities.GetContext().User
+                                .FirstOrDefault(u => u.IdUser == staff.IdUser);
+            Client client = DBEntities.GetContext().Client
                         .FirstOrDefault(u => u.IdUser == staff.IdUser);
+            int _currentClient = DBEntities.GetContext().Client
+                    .FirstOrDefault(u => u.IdUser == user.IdUser).IdClient;
             RemoveDialogWindow removeDialog = new RemoveDialogWindow();
             removeDialog.removeMessage.Text = $"\"{staff.LastNameStaff} {staff.FirstNameStaff} {staff.MiddleNameStaff}\" будет удален без возможности восстановления." +
                         $" Вы действительно желаете это сделать?";
@@ -56,9 +65,24 @@ namespace SapunovProjectDB.Pages.AdminMain
             {
                 try
                 {
-                    DBEntities.GetContext().Staff.Remove(staff);
-                    DBEntities.GetContext().User.Remove(user);
-                    DBEntities.GetContext().SaveChanges();
+                    if (DBEntities.GetContext().Order
+                        .FirstOrDefault(u => u.IdClient == _currentClient) != null)
+                    {
+                        List<Order> order = DBEntities.GetContext().Order
+                        .Where(u => u.IdClient == client.IdClient).ToList();
+                        DBEntities.GetContext().Order.RemoveRange(order);
+                        DBEntities.GetContext().Staff.Remove(staff);
+                        DBEntities.GetContext().Client.Remove(client);
+                        DBEntities.GetContext().User.Remove(user);
+                        DBEntities.GetContext().SaveChanges();
+                    }
+                    else
+                    {
+                        DBEntities.GetContext().Staff.Remove(staff);
+                        DBEntities.GetContext().Client.Remove(client);
+                        DBEntities.GetContext().User.Remove(user);
+                        DBEntities.GetContext().SaveChanges();
+                    }
                     UpdateFilter();
                 }
                 catch (Exception ex)
@@ -70,9 +94,12 @@ namespace SapunovProjectDB.Pages.AdminMain
 
         private void UserAddBtn_Click(object sender, RoutedEventArgs e)
         {
-            StaffAddEdit staffEdit = new StaffAddEdit(null);
-            if (staffEdit.ShowDialog() == true)
+            StaffAddEdit staffAdd = new StaffAddEdit(null);
+            if (staffAdd.ShowDialog() == true)
+            {
                 UpdateFilter();
+                DataIsSaved();
+            }
         }
 
         private void FilterRoleCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -109,6 +136,12 @@ namespace SapunovProjectDB.Pages.AdminMain
             {
                 Error.ErrorMB(ex);
             }
+        }
+        private async void DataIsSaved()
+        {
+            dataIsSavedMessage.Visibility = Visibility.Visible;
+            await Task.Delay(TimeSpan.FromSeconds(2.6));
+            dataIsSavedMessage.Visibility = Visibility.Collapsed;
         }
     }
 }

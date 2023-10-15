@@ -27,6 +27,10 @@
         <TextBlock Text="Сотрудники" FontSize="32" FontWeight="SemiBold"
                            Margin="0 20 0 0" HorizontalAlignment="Left" Style="{DynamicResource loginNormalTitleText}"/>
 
+        <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="14" FontWeight="SemiBold"
+                           Margin="511,39,0,77" HorizontalAlignment="Left" Style="{DynamicResource dataIsSavedTextBlock}" Grid.RowSpan="5"
+                   Opacity="0" Visibility="Collapsed"/>
+
         <Button x:Name="UserAddBtn" Style="{StaticResource loginButton}" Click="UserAddBtn_Click"
                 Grid.Row="0" HorizontalAlignment="Right" Width="150" Height="34">
             <StackPanel Orientation="Horizontal">

@@ -3,6 +3,7 @@ using SapunovProjectDB.Data;
 using SapunovProjectDB.Windows.AdminMain;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -49,7 +50,10 @@ namespace SapunovProjectDB.Pages.AdminMain
         {
             ServiceAddEdit serviceAdd = new ServiceAddEdit(null);
             if (serviceAdd.ShowDialog() == true)
+            {
                 UpdateFilter();
+                DataIsSaved();
+            }
         }
 
         private void FilterRoleCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -59,9 +63,12 @@ namespace SapunovProjectDB.Pages.AdminMain
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
-            ServiceAddEdit serviceAdd = new ServiceAddEdit((sender as Button).DataContext as Service);
-            if (serviceAdd.ShowDialog() == true)
+            ServiceAddEdit serviceEdit = new ServiceAddEdit((sender as Button).DataContext as Service);
+            if (serviceEdit.ShowDialog() == true)
+            {
                 UpdateFilter();
+                DataIsSaved();
+            }
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
@@ -79,6 +86,12 @@ namespace SapunovProjectDB.Pages.AdminMain
         private void textFilter_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateFilter();
+        }
+        private async void DataIsSaved()
+        {
+            dataIsSavedMessage.Visibility = Visibility.Visible;
+            await Task.Delay(TimeSpan.FromSeconds(2.6));
+            dataIsSavedMessage.Visibility = Visibility.Collapsed;
         }
     }
 }

@@ -19,9 +19,6 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Role.NameRole}" Value="Администратор">
-                <Setter Property="Foreground" Value="Red"/>
-            </DataTrigger>
             <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
                 <Setter Property="Foreground" Value="#d8dee1"/>
             </DataTrigger>

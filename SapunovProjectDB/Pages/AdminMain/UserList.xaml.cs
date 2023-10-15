@@ -3,7 +3,9 @@ using SapunovProjectDB.Data;
 using SapunovProjectDB.Windows;
 using SapunovProjectDB.Windows.AdminMain;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -50,19 +52,29 @@ namespace SapunovProjectDB.Pages.AdminMain
         {
             UserAddEdit userAdd = new UserAddEdit(null);
             if (userAdd.ShowDialog() == true)
+            {
                 UpdateFilter();
+                DataIsSaved();
+            }
         }
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
             UserAddEdit userEdit = new UserAddEdit(UserListDataGrid.SelectedItem as User);
             if (userEdit.ShowDialog() == true)
+            {
                 UpdateFilter();
+                DataIsSaved();
+            }
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             User user = UserListDataGrid.SelectedItem as User;
+            Staff staff = DBEntities.GetContext().Staff
+                .FirstOrDefault(u => u.IdUser == user.IdUser);
+            Client client = DBEntities.GetContext().Client
+                .FirstOrDefault(u => u.IdUser == user.IdUser);
             RemoveDialogWindow removeDialog = new RemoveDialogWindow();
             removeDialog.removeMessage.Text = $"\"{user.LoginUser}\" будет удален без возможности восстановления." +
                         $" Вы действительно желаете это сделать?";
@@ -70,8 +82,41 @@ namespace SapunovProjectDB.Pages.AdminMain
             {
                 try
                 {
-                    DBEntities.GetContext().User.Remove(user);
-                    DBEntities.GetContext().SaveChanges();
+                    int _currentClient = DBEntities.GetContext().Client
+                            .FirstOrDefault(u => u.IdUser == user.IdUser).IdClient;
+                    if (DBEntities.GetContext().Staff
+                        .FirstOrDefault(u => u.IdUser == user.IdUser) != null &&
+                        DBEntities.GetContext().Order
+                        .FirstOrDefault(u => u.IdClient == _currentClient) != null)
+                    {
+                        List<Order> order = DBEntities.GetContext().Order
+                        .Where(u => u.IdClient == client.IdClient).ToList();
+                        DBEntities.GetContext().Order.RemoveRange(order);
+                        DBEntities.GetContext().Staff.Remove(staff);
+                        DBEntities.GetContext().Client.Remove(client);
+                        DBEntities.GetContext().User.Remove(user);
+                        DBEntities.GetContext().SaveChanges();
+                    }
+                    else if(DBEntities.GetContext().Staff
+                        .FirstOrDefault(u => u.IdUser == user.IdUser) != null)
+                    {
+                        DBEntities.GetContext().Staff.Remove(staff);
+                        DBEntities.GetContext().Client.Remove(client);
+                        DBEntities.GetContext().User.Remove(user);
+                        DBEntities.GetContext().SaveChanges();
+                    }
+                    else if(DBEntities.GetContext().Client
+                        .FirstOrDefault(u => u.IdUser == user.IdUser) != null)
+                    {
+                        DBEntities.GetContext().Client.Remove(client);
+                        DBEntities.GetContext().User.Remove(user);
+                        DBEntities.GetContext().SaveChanges();
+                    }
+                    else
+                    {
+                        DBEntities.GetContext().User.Remove(user);
+                        DBEntities.GetContext().SaveChanges();
+                    }
                     UpdateFilter();
                 }
                 catch (Exception ex)
@@ -91,11 +136,11 @@ namespace SapunovProjectDB.Pages.AdminMain
             UpdateFilter();
         }
 
-        private void FiltersBtn_Click(object sender, RoutedEventArgs e)
+        private async void DataIsSaved()
         {
-            ContextMenu cm = FindResource("cmButton") as ContextMenu;
-            cm.PlacementTarget = sender as Button;
-            cm.IsOpen = true;
+            dataIsSavedMessage.Visibility = Visibility.Visible;
+            await Task.Delay(TimeSpan.FromSeconds(2.6));
+            dataIsSavedMessage.Visibility = Visibility.Collapsed;
         }
     }
 }

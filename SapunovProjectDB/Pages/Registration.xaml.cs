@@ -1,5 +1,6 @@
 ﻿using SapunovProjectDB.Classes;
 using SapunovProjectDB.Data;
+using SapunovProjectDB.Windows;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace SapunovProjectDB.Pages
 {
     public partial class Registration : Page
     {
+        private readonly Client _currentClient = new Client();
+        private readonly User _currentUser = new User();
         public Registration()
         {
             InitializeComponent();
@@ -132,21 +135,39 @@ namespace SapunovProjectDB.Pages
                         Properties.Settings.Default.Save();
                     }
 
-                    DBEntities.GetContext().User.Add(new User()
+                    User newUser = new User()
                     {
                         LoginUser = RegLoginTb.Text,
                         PasswordUser = RegPasswordPb.Password,
-                        IdRole = 1
-                    });
+                        IdRole = 4
+                    };
+                    DBEntities.GetContext().User.Add(newUser);
                     DBEntities.GetContext().SaveChanges();
-                    successfullRegistrationBorder.Visibility = Visibility.Visible;
+                    _currentUser.IdUser = newUser.IdUser;
+
+                    Client newClient = new Client()
+                    {
+                        NameClient = RegNameTb.Text,
+                        PhoneNumberClient = RegPhoneTb.Text,
+                        EmailClient = RegEmailTb.Text,
+                        DateOfRegistration = DateTime.Now,
+                        IdUser = _currentUser.IdUser
+                    };
+                    DBEntities.GetContext().Client.Add(newClient);
+                    DBEntities.GetContext().SaveChanges();
+                    Content = null;
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.WelcomeMessage.Text = "Добро пожаловать";
+                    mainWindow.WelcomeMessage.Visibility = Visibility.Visible;
+                    //successfullRegistrationBorder.Visibility = Visibility.Visible;
                     await Task.Delay(TimeSpan.FromSeconds(2.5));
-                    var user = DBEntities.GetContext()
-                        .User
+                    User user = DBEntities.GetContext().User
                         .FirstOrDefault(u => u.LoginUser == RegLoginTb.Text);
                     switch (user.IdRole)
                     {
-                        case 1:
+                        case 4:
+                            Properties.Settings.Default.UserRole = "Клиент";
+                            Properties.Settings.Default.Save();
                             NavigationService.Navigate(new MainPage());
                             break;
                     }
@@ -176,6 +197,21 @@ namespace SapunovProjectDB.Pages
         private void MainStackPannel_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             MainRegBorder.Height = MainStackPannel.ActualHeight;
+        }
+
+        private void RegNameTb_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RegPhoneTb_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RegEmailTb_GotFocus(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

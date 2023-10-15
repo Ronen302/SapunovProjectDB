@@ -148,6 +148,9 @@
     <Compile Include="Pages\AdminMain\ClientList.xaml.cs">
       <DependentUpon>ClientList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AdminMain\OrderList.xaml.cs">
+      <DependentUpon>OrderList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AdminMain\ServiceList.xaml.cs">
       <DependentUpon>ServiceList.xaml</DependentUpon>
     </Compile>
@@ -175,6 +178,9 @@
     <Compile Include="Windows\AdminMain\StaffAddEdit.xaml.cs">
       <DependentUpon>StaffAddEdit.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\AdminMain\TypeOfWorkAddEdit.xaml.cs">
+      <DependentUpon>TypeOfWorkAddEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AdminMain\UserAddEdit.xaml.cs">
       <DependentUpon>UserAddEdit.xaml</DependentUpon>
     </Compile>
@@ -189,6 +195,10 @@
       <DependentUpon>RemoveDialogWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Pages\AdminMain\ClientList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminMain\OrderList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -264,6 +274,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Styles\MenuItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Styles\PasswordBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -305,6 +319,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AdminMain\StaffAddEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AdminMain\TypeOfWorkAddEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

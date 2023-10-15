@@ -86,4 +86,27 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="dataIsSavedTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#626d7a"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Foreground" Value="#939393"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=dataIsSavedMessage, Path=Visibility}" Value="Visible">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard AutoReverse="True">
+                            <DoubleAnimation
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0" To="1"
+                                        Duration="0:0:1.3"
+                                AccelerationRatio="0.2"
+                                DecelerationRatio="0.8"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

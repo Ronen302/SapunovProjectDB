@@ -47,6 +47,11 @@
                 </Grid>
             </Border>
 
+            <TextBlock x:Name="WelcomeMessage" Grid.Row="1"
+                       Style="{DynamicResource loginNormalTitleText}"
+                       FontSize="24" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" Visibility="Collapsed"/>
+
             <Frame Panel.ZIndex="1" x:Name="MainWindowFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2"
                    Grid.Row="1"/>
         </Grid>

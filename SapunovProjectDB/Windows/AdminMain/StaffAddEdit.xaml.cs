@@ -128,6 +128,17 @@ namespace SapunovProjectDB.Windows.AdminMain
                         };
                         DBEntities.GetContext().Staff.Add(newStaff);
                         DBEntities.GetContext().SaveChanges();
+
+                        var newClient = new Client()
+                        {
+                            NameClient = StaffFirstNameTextBox.Text,
+                            PhoneNumberClient = StaffPhoneNumberTextBox.Text,
+                            EmailClient = StaffEmailTextBox.Text,
+                            DateOfRegistration = DateTime.Now,
+                            IdUser = _currentUser.IdUser
+                        };
+                        DBEntities.GetContext().Client.Add(newClient);
+                        DBEntities.GetContext().SaveChanges();
                     }
                     catch (Exception ex)
                     {

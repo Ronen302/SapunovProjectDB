@@ -77,5 +77,10 @@ namespace SapunovProjectDB.Pages
                 changeThemeCeckBox.IsChecked = false;
             }
         }
+
+        private void OrderListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainPageFrame.Navigate(new OrderList());
+        }
     }
 }

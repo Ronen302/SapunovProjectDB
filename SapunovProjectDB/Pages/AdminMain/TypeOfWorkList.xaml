@@ -30,6 +30,10 @@
         <TextBlock Text="Виды работ и стоимость" FontSize="32" FontWeight="SemiBold"
                            Margin="0 20 0 0" HorizontalAlignment="Left" Style="{DynamicResource loginNormalTitleText}"/>
 
+        <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="14" FontWeight="SemiBold"
+                           Margin="511,39,0,77" HorizontalAlignment="Left" Style="{DynamicResource dataIsSavedTextBlock}" Grid.RowSpan="5"
+                   Opacity="0" Visibility="Collapsed"/>
+
         <Button x:Name="UserAddBtn" Style="{StaticResource loginButton}" Click="UserAddBtn_Click"
                 Grid.Row="0" HorizontalAlignment="Right" Width="150" Height="34">
             <StackPanel Orientation="Horizontal">
@@ -54,7 +58,8 @@
                                IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
                                Text="Быстрый поиск" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=textFilter}"/>
 
-                <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="textFilter" Style="{StaticResource textBoxFilter}"/>
+                <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="textFilter" Style="{StaticResource textBoxFilter}"
+                         TextChanged="textFilter_TextChanged"/>
             </Grid>
         </Border>
 
@@ -85,8 +90,8 @@
                                 <Run Text="{Binding PriceOfWork, StringFormat={}от {0:N0} руб.}" Style="{DynamicResource boldTextListView}" FontSize="20"/>
                             </TextBlock>
                             <Button x:Name="addOrderButton" Style="{DynamicResource loginButton}"
-                                    Tag="{Binding IdTypeOfWork}" Content="ЗАКАЗАТЬ УСЛУГУ"
-                                    Width="200" Height="44" FontSize="14" FontWeight="SemiBold" Margin="0 0 0 10"/>
+                                    Tag="{Binding IdTypeOfWork}" Content="ЗАКАЗАТЬ УСЛУГУ" Click="addOrderButton_Click"
+                                    Width="150" Height="34" FontSize="14" FontWeight="SemiBold" Margin="0 0 0 10"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" Grid.RowSpan="2">
                             <TextBlock Width="350" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0 0 0 10">

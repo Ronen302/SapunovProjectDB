@@ -1,51 +1,113 @@
-﻿using SapunovProjectDB.Data;
+﻿using SapunovProjectDB.Classes;
+using SapunovProjectDB.Data;
+using SapunovProjectDB.Windows;
+using SapunovProjectDB.Windows.AdminMain;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SapunovProjectDB.Pages.AdminMain
 {
-    /// <summary>
-    /// Логика взаимодействия для TypeOfWorkList.xaml
-    /// </summary>
     public partial class TypeOfWorkList : Page
     {
         public TypeOfWorkList()
         {
             InitializeComponent();
-            TypeOfWorkListView.ItemsSource = DBEntities.GetContext().TypeOfWork.
-                Where(u => u.IdService == Properties.Settings.Default.SelectedIdService).ToList();
+            UpdateFilter();
         }
-
-        private void FilterRoleCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void UpdateFilter()
         {
-
+            try
+            {
+                var currentTypeOfWork = DBEntities.GetContext().TypeOfWork.
+                Where(u => u.IdService == Properties.Settings.Default.SelectedIdService).ToList();
+                currentTypeOfWork = currentTypeOfWork.Where(u => u.NameTypeOfWork
+                .StartsWith(textFilter.Text)).ToList();
+                TypeOfWorkListView.ItemsSource = currentTypeOfWork.OrderBy(u => u.IdTypeOfWork);
+            }
+            catch (Exception ex)
+            {
+                Error.ErrorMB(ex);
+            }
         }
 
         private void UserAddBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            TypeOfWorkAddEdit typeOfWorkEdit = new TypeOfWorkAddEdit(null);
+            if (typeOfWorkEdit.ShowDialog() == true)
+            {
+                UpdateFilter();
+                DataIsSaved();
+            }
         }
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            TypeOfWorkAddEdit typeOfWorkEdit = new TypeOfWorkAddEdit((sender as Button).DataContext as TypeOfWork);
+            if (typeOfWorkEdit.ShowDialog() == true)
+            {
+                UpdateFilter();
+                DataIsSaved();
+            }
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
+            TypeOfWork typeOfWork = TypeOfWorkListView.SelectedItem as TypeOfWork;
+            RemoveDialogWindow removeDialog = new RemoveDialogWindow();
+            removeDialog.removeMessage.Text = $"Услуга будет удалена без возможности восстановления." +
+                        $" Вы действительно желаете это сделать?";
+            if (removeDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    DBEntities.GetContext().TypeOfWork.Remove(typeOfWork);
+                    DBEntities.GetContext().SaveChanges();
+                    UpdateFilter();
+                }
+                catch (Exception ex)
+                {
+                    Error.ErrorMB(ex);
+                }
+            }
+        }
 
+        private void addOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int _currentIdUser = DBEntities.GetContext().User
+                    .FirstOrDefault(u => u.LoginUser == Properties.Settings.Default.CurrentUser).IdUser;
+                int _currentIdClient = DBEntities.GetContext().Client
+                    .FirstOrDefault(u => u.IdUser == _currentIdUser).IdClient;
+                int _currentIdTypeOfWork = (int)(sender as Button).Tag;
+                var newOrder = new Order()
+                {
+                    IdClient = _currentIdClient,
+                    IdTypeOfWork = _currentIdTypeOfWork,
+                    IdStatusOrder = 1,
+                    DateOfCreate = DateTime.Now,
+                };
+                DBEntities.GetContext().Order.Add(newOrder);
+                DBEntities.GetContext().SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Error.ErrorMB(ex);
+            }
+        }
+        private async void DataIsSaved()
+        {
+            dataIsSavedMessage.Visibility = Visibility.Visible;
+            await Task.Delay(TimeSpan.FromSeconds(2.6));
+            dataIsSavedMessage.Visibility = Visibility.Collapsed;
+        }
+
+        private void textFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateFilter();
         }
     }
 }
