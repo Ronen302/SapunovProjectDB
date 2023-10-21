@@ -1,6 +1,7 @@
 ﻿using SapunovProjectDB.Classes;
 using SapunovProjectDB.Data;
-using SapunovProjectDB.Windows.AdminMain;
+using SapunovProjectDB.Windows;
+using SapunovProjectDB.Windows.AddEditWindows;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace SapunovProjectDB.Pages.AdminMain
+namespace SapunovProjectDB.Pages
 {
     public partial class ServiceList : Page
     {
@@ -73,7 +74,26 @@ namespace SapunovProjectDB.Pages.AdminMain
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            Service service = TypeOfServiceListView.SelectedItem as Service;
+            var typeOfWorks = DBEntities.GetContext().TypeOfWork
+                .Where(u => u.IdService == Properties.Settings.Default.SelectedIdService).ToList();
+            RemoveDialogWindow removeDialog = new RemoveDialogWindow();
+            removeDialog.removeMessage.Text = $"Услуга будет удалена без возможности восстановления." +
+                        $" Вы действительно желаете это сделать?";
+            if (removeDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    DBEntities.GetContext().TypeOfWork.RemoveRange(typeOfWorks);
+                    DBEntities.GetContext().Service.Remove(service);
+                    DBEntities.GetContext().SaveChanges();
+                    UpdateFilter();
+                }
+                catch (Exception ex)
+                {
+                    Error.ErrorMB(ex);
+                }
+            }
         }
         public void openServiceButton_Click(object sender, RoutedEventArgs e)
         {

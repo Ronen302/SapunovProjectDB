@@ -126,12 +126,12 @@ namespace SapunovProjectDB.Pages
 
                     if (SaveLoginCb.IsChecked == true)
                     {
-                        Properties.Settings.Default.SaveLogin = RegLoginTb.Text;
+                        Properties.Settings.Default.IsLoginSaved = true;
                         Properties.Settings.Default.Save();
                     }
                     else
                     {
-                        Properties.Settings.Default.SaveLogin = "";
+                        Properties.Settings.Default.IsLoginSaved = false;
                         Properties.Settings.Default.Save();
                     }
 
@@ -166,7 +166,7 @@ namespace SapunovProjectDB.Pages
                     switch (user.IdRole)
                     {
                         case 4:
-                            Properties.Settings.Default.UserRole = "Клиент";
+                            Properties.Settings.Default.UserRole = 4;
                             Properties.Settings.Default.Save();
                             NavigationService.Navigate(new MainPage());
                             break;

@@ -43,8 +43,8 @@
           </Key>
           <Property Name="IdOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DateOfCreate" Type="date" Nullable="false" />
-          <Property Name="IdClient" Type="int" Nullable="false" />
-          <Property Name="IdTypeOfWork" Type="int" Nullable="false" />
+          <Property Name="IdClient" Type="int" />
+          <Property Name="IdTypeOfWork" Type="int" />
           <Property Name="IdStatusOrder" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PositionAtWork">
@@ -66,7 +66,7 @@
             <PropertyRef Name="IdService" />
           </Key>
           <Property Name="IdService" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NameService" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NameService" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IdCategory" Type="int" Nullable="false" />
           <Property Name="PriceOfService" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
@@ -111,7 +111,7 @@
             <PropertyRef Name="IdTypeOfWork" />
           </Key>
           <Property Name="IdTypeOfWork" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NameTypeOfWork" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NameTypeOfWork" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IdService" Type="int" Nullable="false" />
           <Property Name="PriceOfWork" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="DescriptionOfWork" Type="nvarchar(max)" />
@@ -138,7 +138,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -162,7 +162,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_TypeOfWork">
-          <End Role="TypeOfWork" Type="Self.TypeOfWork" Multiplicity="1" />
+          <End Role="TypeOfWork" Type="Self.TypeOfWork" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TypeOfWork">
@@ -364,8 +364,8 @@
           </Key>
           <Property Name="IdOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateOfCreate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IdClient" Type="Int32" Nullable="false" />
-          <Property Name="IdTypeOfWork" Type="Int32" Nullable="false" />
+          <Property Name="IdClient" Type="Int32" />
+          <Property Name="IdTypeOfWork" Type="Int32" />
           <Property Name="IdStatusOrder" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Order_Client" FromRole="Order" ToRole="Client" />
           <NavigationProperty Name="StatusOrder" Relationship="Self.FK_Order_StatusOrder" FromRole="Order" ToRole="StatusOrder" />
@@ -392,7 +392,7 @@
             <PropertyRef Name="IdService" />
           </Key>
           <Property Name="IdService" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NameService" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IdCategory" Type="Int32" Nullable="false" />
           <Property Name="PriceOfService" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -444,7 +444,7 @@
             <PropertyRef Name="IdTypeOfWork" />
           </Key>
           <Property Name="IdTypeOfWork" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameTypeOfWork" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NameTypeOfWork" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IdService" Type="Int32" Nullable="false" />
           <Property Name="PriceOfWork" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="DescriptionOfWork" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -488,7 +488,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -536,7 +536,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_TypeOfWork">
-          <End Role="TypeOfWork" Type="Self.TypeOfWork" Multiplicity="1" />
+          <End Role="TypeOfWork" Type="Self.TypeOfWork" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TypeOfWork">

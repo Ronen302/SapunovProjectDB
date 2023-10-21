@@ -1,14 +1,14 @@
 ﻿using SapunovProjectDB.Classes;
 using SapunovProjectDB.Data;
 using SapunovProjectDB.Windows;
-using SapunovProjectDB.Windows.AdminMain;
+using SapunovProjectDB.Windows.AddEditWindows;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SapunovProjectDB.Pages.AdminMain
+namespace SapunovProjectDB.Pages
 {
     public partial class TypeOfWorkList : Page
     {

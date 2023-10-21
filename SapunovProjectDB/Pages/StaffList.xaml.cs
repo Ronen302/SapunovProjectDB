@@ -1,7 +1,7 @@
 ﻿using SapunovProjectDB.Classes;
 using SapunovProjectDB.Data;
 using SapunovProjectDB.Windows;
-using SapunovProjectDB.Windows.AdminMain;
+using SapunovProjectDB.Windows.AddEditWindows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SapunovProjectDB.Pages.AdminMain
+namespace SapunovProjectDB.Pages
 {
     public partial class StaffList : Page
     {
@@ -130,7 +130,7 @@ namespace SapunovProjectDB.Pages.AdminMain
                 .StartsWith(FilterTextBox.Text) || u.LastNameStaff
                 .StartsWith(FilterTextBox.Text) || u.MiddleNameStaff
                 .StartsWith(FilterTextBox.Text)).ToList();
-                StaffListDataGrid.ItemsSource = currentStaff.OrderBy(u => u.IdStaff);
+                StaffListDataGrid.ItemsSource = currentStaff.OrderByDescending(u => u.IdStaff);
             }
             catch (Exception ex)
             {

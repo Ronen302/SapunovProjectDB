@@ -37,13 +37,13 @@ namespace SapunovProjectDB.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SaveLogin {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsLoginSaved {
             get {
-                return ((string)(this["SaveLogin"]));
+                return ((bool)(this["IsLoginSaved"]));
             }
             set {
-                this["SaveLogin"] = value;
+                this["IsLoginSaved"] = value;
             }
         }
         
@@ -61,10 +61,9 @@ namespace SapunovProjectDB.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UserRole {
+        public int UserRole {
             get {
-                return ((string)(this["UserRole"]));
+                return ((int)(this["UserRole"]));
             }
             set {
                 this["UserRole"] = value;

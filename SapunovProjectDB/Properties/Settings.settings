@@ -5,13 +5,13 @@
     <Setting Name="ColorMode" Type="System.String" Scope="User">
       <Value Profile="(Default)">Light</Value>
     </Setting>
-    <Setting Name="SaveLogin" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="IsLoginSaved" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="CurrentUser" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="UserRole" Type="System.String" Scope="User">
+    <Setting Name="UserRole" Type="System.Int32" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SelectedIdService" Type="System.Int32" Scope="User">

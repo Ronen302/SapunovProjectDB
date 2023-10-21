@@ -164,4 +164,18 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="statusOrderBorder" TargetType="Border">
+        <Setter Property="Background" Value="#ff8b00"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding StatusOrder.IdStatusOrder}" Value="3">
+                <Setter Property="Background" Value="#e1163f"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding StatusOrder.IdStatusOrder}" Value="2">
+                <Setter Property="Background" Value="#05b450"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

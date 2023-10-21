@@ -1,8 +1,8 @@
 ﻿using SapunovProjectDB.Classes;
 using SapunovProjectDB.Data;
-using SapunovProjectDB.Pages;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,14 +15,15 @@ namespace SapunovProjectDB.Pages
         {
             InitializeComponent();
 
-            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.SaveLogin))
+            if (Properties.Settings.Default.IsLoginSaved == false)
             {
                 AuthLoginTb.Focus();
             }
 
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.SaveLogin))
+            if (Properties.Settings.Default.IsLoginSaved)
             {
                 SaveLoginCb.IsChecked = true;
+                AuthLoginTb.Text = Properties.Settings.Default.CurrentUser;
                 AuthPasswordPb.Focus();
             }
         }
@@ -49,7 +50,7 @@ namespace SapunovProjectDB.Pages
             }
         }
 
-        private void LoginBtn_Click(object sender, RoutedEventArgs e)
+        private async void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(AuthLoginTb.Text) && string.IsNullOrWhiteSpace(AuthPasswordPb.Password))
             {
@@ -71,7 +72,7 @@ namespace SapunovProjectDB.Pages
             {
                 try
                 {
-                    var user = DBEntities.GetContext()
+                    User user = DBEntities.GetContext()
                         .User
                         .FirstOrDefault(u => u.LoginUser == AuthLoginTb.Text);
 
@@ -94,33 +95,42 @@ namespace SapunovProjectDB.Pages
 
                         if (SaveLoginCb.IsChecked == true)
                         {
-                            Properties.Settings.Default.SaveLogin = AuthLoginTb.Text;
+                            Properties.Settings.Default.IsLoginSaved = true;
                             Properties.Settings.Default.Save();
                         }
                         else
                         {
-                            Properties.Settings.Default.SaveLogin = "";
+                            Properties.Settings.Default.IsLoginSaved = false;
                             Properties.Settings.Default.Save();
                         }
+                        int _currentIdUser = DBEntities.GetContext().User
+                            .FirstOrDefault(u => u.LoginUser == Properties.Settings.Default.CurrentUser).IdUser;
+                        string _currentNameClient = DBEntities.GetContext().Client
+                            .FirstOrDefault(u => u.IdUser == _currentIdUser).NameClient;
+                        WelcomeMessage.Text = $"Здравствуйте, {_currentNameClient}!";
+                        MainAuthBorder.Visibility = Visibility.Collapsed;
+                        WelcomeMessage.Visibility = Visibility.Visible;
+                        await Task.Delay(TimeSpan.FromSeconds(2.6));
+                        WelcomeMessage.Visibility = Visibility.Collapsed;
                         switch (user.IdRole)
                         {
                             case 1:
-                                Properties.Settings.Default.UserRole = "Администратор";
+                                Properties.Settings.Default.UserRole = 1;
                                 Properties.Settings.Default.Save();
                                 NavigationService.Navigate(new MainPage());
                                 break;
                             case 2:
-                                Properties.Settings.Default.UserRole = "Менеджер";
+                                Properties.Settings.Default.UserRole = 2;
                                 Properties.Settings.Default.Save();
                                 NavigationService.Navigate(new MainPage());
                                 break;
                             case 3:
-                                Properties.Settings.Default.UserRole = "Сотрудник";
+                                Properties.Settings.Default.UserRole = 3;
                                 Properties.Settings.Default.Save();
                                 NavigationService.Navigate(new MainPage());
                                 break;
                             case 4:
-                                Properties.Settings.Default.UserRole = "Клиент";
+                                Properties.Settings.Default.UserRole = 4;
                                 Properties.Settings.Default.Save();
                                 NavigationService.Navigate(new MainPage());
                                 break;

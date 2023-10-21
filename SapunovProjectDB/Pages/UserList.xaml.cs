@@ -1,15 +1,14 @@
 ﻿using SapunovProjectDB.Classes;
 using SapunovProjectDB.Data;
 using SapunovProjectDB.Windows;
-using SapunovProjectDB.Windows.AdminMain;
+using SapunovProjectDB.Windows.AddEditWindows;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SapunovProjectDB.Pages.AdminMain
+namespace SapunovProjectDB.Pages
 {
     public partial class UserList : Page
     {
@@ -40,7 +39,7 @@ namespace SapunovProjectDB.Pages.AdminMain
                     .Contains(FilterRoleCb.SelectedIndex.ToString())).ToList();
                 }
                 currentUser = currentUser.Where(u => u.LoginUser.StartsWith(FilterTextBox.Text)).ToList();
-                UserListDataGrid.ItemsSource = currentUser.OrderBy(u => u.IdUser);
+                UserListDataGrid.ItemsSource = currentUser.OrderByDescending(u => u.IdUser);
             }
             catch (Exception ex)
             {
@@ -82,22 +81,7 @@ namespace SapunovProjectDB.Pages.AdminMain
             {
                 try
                 {
-                    int _currentClient = DBEntities.GetContext().Client
-                            .FirstOrDefault(u => u.IdUser == user.IdUser).IdClient;
-                    if (DBEntities.GetContext().Staff
-                        .FirstOrDefault(u => u.IdUser == user.IdUser) != null &&
-                        DBEntities.GetContext().Order
-                        .FirstOrDefault(u => u.IdClient == _currentClient) != null)
-                    {
-                        List<Order> order = DBEntities.GetContext().Order
-                        .Where(u => u.IdClient == client.IdClient).ToList();
-                        DBEntities.GetContext().Order.RemoveRange(order);
-                        DBEntities.GetContext().Staff.Remove(staff);
-                        DBEntities.GetContext().Client.Remove(client);
-                        DBEntities.GetContext().User.Remove(user);
-                        DBEntities.GetContext().SaveChanges();
-                    }
-                    else if(DBEntities.GetContext().Staff
+                    if(DBEntities.GetContext().Staff
                         .FirstOrDefault(u => u.IdUser == user.IdUser) != null)
                     {
                         DBEntities.GetContext().Staff.Remove(staff);

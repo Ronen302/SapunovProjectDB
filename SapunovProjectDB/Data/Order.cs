@@ -16,8 +16,8 @@ namespace SapunovProjectDB.Data
     {
         public int IdOrder { get; set; }
         public System.DateTime DateOfCreate { get; set; }
-        public int IdClient { get; set; }
-        public int IdTypeOfWork { get; set; }
+        public Nullable<int> IdClient { get; set; }
+        public Nullable<int> IdTypeOfWork { get; set; }
         public int IdStatusOrder { get; set; }
     
         public virtual Client Client { get; set; }

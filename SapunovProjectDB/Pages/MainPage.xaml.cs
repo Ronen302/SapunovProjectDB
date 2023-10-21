@@ -1,4 +1,5 @@
-﻿using SapunovProjectDB.Pages.AdminMain;
+﻿using SapunovProjectDB.Data;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -10,11 +11,33 @@ namespace SapunovProjectDB.Pages
         public MainPage()
         {
             InitializeComponent();
-            MainPageFrame.Navigate(new UserList());
-            if (Properties.Settings.Default.ColorMode == "Dark")
-                changeThemeCeckBox.IsChecked = true;
-            else
-                changeThemeCeckBox.IsChecked = false;
+            User user = DBEntities.GetContext().User
+                .FirstOrDefault(u => u.LoginUser == Properties.Settings.Default.CurrentUser);
+            switch (user.IdRole)
+            {
+                case 1:
+                    userRoleTextBlock.Text = "Админитсратор";
+                    MainPageFrame.Navigate(new UserList());
+                    break;
+                case 2:
+                    userRoleTextBlock.Text = "Менеджер";
+                    MainPageFrame.Navigate(new UserList());
+                    break;
+                case 3:
+                    userRoleTextBlock.Text = "Сотрудник";
+                    UserListBtn.Visibility = Visibility.Collapsed;
+                    StaffListBtn.Visibility = Visibility.Collapsed;
+                    MainPageFrame.Navigate(new OrderList());
+                    break;
+                case 4:
+                    userRoleTextBlock.Text = "Клиент";
+                    UserListBtn.Visibility = Visibility.Collapsed;
+                    StaffListBtn.Visibility = Visibility.Collapsed;
+                    ClientListBtn.Visibility = Visibility.Collapsed;
+                    OrderListBtn.Visibility = Visibility.Collapsed;
+                    MainPageFrame.Navigate(new ServiceList());
+                    break;
+            }
         }
 
         private void UserListBtn_Click(object sender, RoutedEventArgs e)
@@ -42,45 +65,14 @@ namespace SapunovProjectDB.Pages
             NavigationService.Navigate(new Authorization());
         }
 
-        private void AccountToggleButton_Checked(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void changeThemeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (changeThemeCeckBox.IsChecked == false)
-            {
-                Properties.Settings.Default.ColorMode = "Dark";
-                Properties.Settings.Default.Save();
-                changeThemeCeckBox.IsChecked = true;
-            }
-            else if (changeThemeCeckBox.IsChecked == true)
-            {
-                Properties.Settings.Default.ColorMode = "Light";
-                Properties.Settings.Default.Save();
-                changeThemeCeckBox.IsChecked = false;
-            }
-        }
-
-        private void changeThemeCeckBox_Click(object sender, RoutedEventArgs e)
-        {
-            if (changeThemeCeckBox.IsChecked == false)
-            {
-                Properties.Settings.Default.ColorMode = "Dark";
-                Properties.Settings.Default.Save();
-                changeThemeCeckBox.IsChecked = true;
-            }
-            else if (changeThemeCeckBox.IsChecked == true)
-            {
-                Properties.Settings.Default.ColorMode = "Light";
-                Properties.Settings.Default.Save();
-                changeThemeCeckBox.IsChecked = false;
-            }
-        }
-
         private void OrderListBtn_Click(object sender, RoutedEventArgs e)
         {
             MainPageFrame.Navigate(new OrderList());
+        }
+
+        private void MyOrdersBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainPageFrame.Navigate(new MyOrdersList());
         }
     }
 }

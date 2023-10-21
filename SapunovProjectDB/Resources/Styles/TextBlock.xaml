@@ -109,4 +109,14 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="statusOrder" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#ffffff"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding StatusOrder.IdStatusOrder}" Value="3">
+                <Setter Property="Foreground" Value="#ff5c5c"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

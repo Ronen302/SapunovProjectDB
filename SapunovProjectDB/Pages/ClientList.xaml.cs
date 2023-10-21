@@ -7,7 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SapunovProjectDB.Pages.AdminMain
+namespace SapunovProjectDB.Pages
 {
     public partial class ClientList : Page
     {
@@ -36,20 +36,7 @@ namespace SapunovProjectDB.Pages.AdminMain
             {
                 try
                 {
-                    if(DBEntities.GetContext().Order
-                        .FirstOrDefault(u => u.IdClient == client.IdClient) != null &&
-                        DBEntities.GetContext().Staff
-                        .FirstOrDefault(u => u.IdUser == staff.IdUser) != null)
-                    {
-                        List<Order> order = DBEntities.GetContext().Order
-                        .Where(u => u.IdClient == client.IdClient).ToList();
-                        DBEntities.GetContext().Order.RemoveRange(order);
-                        DBEntities.GetContext().Staff.Remove(staff);
-                        DBEntities.GetContext().Client.Remove(client);
-                        DBEntities.GetContext().User.Remove(user);
-                        DBEntities.GetContext().SaveChanges();
-                    }
-                    else if(DBEntities.GetContext().Staff
+                    if(DBEntities.GetContext().Staff
                         .FirstOrDefault(u => u.IdUser == staff.IdUser) != null)
                     {
                         DBEntities.GetContext().Staff.Remove(staff);

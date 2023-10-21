@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SapunovProjectDB.Pages.AdminMain
+namespace SapunovProjectDB.Pages
 {
     public partial class OrderList : Page
     {
@@ -22,7 +22,7 @@ namespace SapunovProjectDB.Pages.AdminMain
         {
             InitializeComponent();
             OrderListDataGrid.ItemsSource = DBEntities.GetContext().Order.ToList()
-                .OrderBy(u => u.DateOfCreate);
+                .OrderByDescending(u => u.DateOfCreate).ThenBy(u => u.IdStatusOrder);
         }
 
         private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)

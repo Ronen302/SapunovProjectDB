@@ -5,20 +5,21 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
-namespace SapunovProjectDB.Windows.AdminMain
+namespace SapunovProjectDB.Windows.AddEditWindows
 {
-    public partial class TypeOfWorkAddEdit : Window
+    public partial class ServiceAddEdit : Window
     {
-        private readonly TypeOfWork _currentTypeOfWork = new TypeOfWork();
-        private readonly TypeOfWork _newTypeOfWork = new TypeOfWork();
-        public TypeOfWorkAddEdit(TypeOfWork selectedTypeOfWork)
+        private readonly Service _currentService = new Service();
+        private readonly Service _newService = new Service();
+        public ServiceAddEdit(Service selectedService)
         {
             InitializeComponent();
-            if (selectedTypeOfWork != null)
-                _currentTypeOfWork = selectedTypeOfWork;
+            if (selectedService != null)
+                _currentService = selectedService;
             else
-                _currentTypeOfWork = null;
-            DataContext = _currentTypeOfWork;
+                _currentService = null;
+            DataContext = _currentService;
+            ServiceCategoryComboBox.ItemsSource = DBEntities.GetContext().CategoryOfService.ToList();
         }
         private void MainBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -27,7 +28,7 @@ namespace SapunovProjectDB.Windows.AdminMain
 
         private void userSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentTypeOfWork == null)
+            if (_currentService == null)
             {
                 if (string.IsNullOrWhiteSpace(ServiceNameTextBox.Text))
                 {
@@ -39,8 +40,13 @@ namespace SapunovProjectDB.Windows.AdminMain
                     ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
                 }
-                else if (DBEntities.GetContext().TypeOfWork.
-                    FirstOrDefault(u => u.NameTypeOfWork == ServiceNameTextBox.Text) != null)
+                else if (ServiceCategoryComboBox.SelectedItem == null)
+                {
+                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
+                    ValidationErrorMsg.Visibility = Visibility.Visible;
+                }
+                else if (DBEntities.GetContext().Service.
+                    FirstOrDefault(u => u.NameService == ServiceNameTextBox.Text) != null)
                 {
                     ValidationErrorMsg.Text = "Такая услуга уже существует";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
@@ -49,14 +55,12 @@ namespace SapunovProjectDB.Windows.AdminMain
                 {
                     try
                     {
-                        _newTypeOfWork.NameTypeOfWork = ServiceNameTextBox.Text;
-                        _newTypeOfWork.PriceOfWork = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
-                        _newTypeOfWork.IdService = Properties.Settings.Default.SelectedIdService;
-                        if (string.IsNullOrEmpty(ServiceDescriptionTextBox.Text))
-                            _newTypeOfWork.DescriptionOfWork = null;
-                        else
-                            _newTypeOfWork.DescriptionOfWork = ServiceDescriptionTextBox.Text;
-                        DBEntities.GetContext().TypeOfWork.Add(_newTypeOfWork);
+                        _newService.NameService = ServiceNameTextBox.Text;
+                        _newService.PriceOfService = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
+                        _newService.IdCategory = Int32.Parse(ServiceCategoryComboBox.SelectedValue.ToString());
+                        if (!string.IsNullOrWhiteSpace(ServiceDescriptionTextBox.Text))
+                            _newService.Description = ServiceDescriptionTextBox.Text;
+                        DBEntities.GetContext().Service.Add(_newService);
                         DBEntities.GetContext().SaveChanges();
                     }
                     catch (Exception ex)
@@ -78,17 +82,20 @@ namespace SapunovProjectDB.Windows.AdminMain
                     ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
                 }
+                else if (ServiceCategoryComboBox.SelectedItem == null)
+                {
+                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
+                    ValidationErrorMsg.Visibility = Visibility.Visible;
+                }
                 else
                 {
                     try
                     {
-                        _currentTypeOfWork.NameTypeOfWork = ServiceNameTextBox.Text;
-                        _currentTypeOfWork.PriceOfWork = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
-                        _newTypeOfWork.IdService = Properties.Settings.Default.SelectedIdService;
-                        if (string.IsNullOrEmpty(ServiceDescriptionTextBox.Text))
-                            _currentTypeOfWork.DescriptionOfWork = null;
-                        else
-                            _currentTypeOfWork.DescriptionOfWork = ServiceDescriptionTextBox.Text;
+                        _currentService.NameService = ServiceNameTextBox.Text;
+                        _currentService.PriceOfService = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
+                        _currentService.IdCategory = Int32.Parse(ServiceCategoryComboBox.SelectedValue.ToString());
+                        if (!string.IsNullOrWhiteSpace(ServiceDescriptionTextBox.Text))
+                            _currentService.Description = ServiceDescriptionTextBox.Text;
                         DBEntities.GetContext().SaveChanges();
                     }
                     catch (Exception ex)

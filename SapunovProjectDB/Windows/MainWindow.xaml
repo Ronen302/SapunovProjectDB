@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SapunovProjectDB.Windows"
         mc:Ignorable="d"
-        Title="AuthorizationWindow" Height="720" Width="1080" ResizeMode="CanMinimize"
+        Title="СТРОЙ-БАЗИС" Height="720" Width="1080" ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
         Background="Transparent">
 
@@ -25,6 +25,8 @@
             <Border x:Name="topBorder" Style="{DynamicResource topBorder}"
                     CornerRadius="10 10 0 0">
                 <Grid>
+                    <Image Source="/Resources/Images/stroy-basis-logo-small.png"
+                           HorizontalAlignment="Left" Margin="10 7 0 7"/>
                     <StackPanel Panel.ZIndex="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button x:Name="ChangeThemeBtn" Style="{DynamicResource topButton}" HorizontalAlignment="Right"
                                 Width="45" Height="35" Click="ChangeThemeBtn_Click">

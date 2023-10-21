@@ -5,12 +5,15 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
-namespace SapunovProjectDB.Windows.AdminMain
+namespace SapunovProjectDB.Windows.AddEditWindows
 {
     public partial class StaffAddEdit : Window
     {
         private readonly Staff _currentStaff = new Staff();
         private readonly User _currentUser = new User();
+        private readonly Staff _newStaff = new Staff();
+        private readonly User _newUser = new User();
+        private readonly Client _newClient = new Client();
         public StaffAddEdit(Staff selectedStaff)
         {
             InitializeComponent();
@@ -25,7 +28,9 @@ namespace SapunovProjectDB.Windows.AdminMain
             GenderStaffComboBox.ItemsSource = DBEntities.GetContext().GenderStaff.ToList();
             EducationStaffComboBox.ItemsSource = DBEntities.GetContext().Education.ToList();
             PositionAtWorkStaffComboBox.ItemsSource = DBEntities.GetContext().PositionAtWork.ToList();
-            RoleStaffComboBox.ItemsSource = DBEntities.GetContext().Role.ToList();
+            var role = DBEntities.GetContext().Role.ToList();
+            role.RemoveAt(3);
+            RoleStaffComboBox.ItemsSource = role;
         }
 
         private void userSaveButton_Click(object sender, RoutedEventArgs e)
@@ -101,43 +106,35 @@ namespace SapunovProjectDB.Windows.AdminMain
                 {
                     try
                     {
-                        var newUser = new User()
-                        {
-                            LoginUser = StaffLoginTextBox.Text,
-                            PasswordUser = StaffPasswordTextBox.Text,
-                            IdRole = Int32.Parse(RoleStaffComboBox.SelectedValue.ToString())
-                        };
-                        DBEntities.GetContext().User.Add(newUser);
+                        _newUser.LoginUser = StaffLoginTextBox.Text;
+                        _newUser.PasswordUser = StaffPasswordTextBox.Text;
+                        _newUser.IdRole = Int32.Parse(RoleStaffComboBox.SelectedValue.ToString());
+                        DBEntities.GetContext().User.Add(_newUser);
                         DBEntities.GetContext().SaveChanges();
-                        _currentUser.IdUser = newUser.IdUser;
+                        _currentUser.IdUser = _newUser.IdUser;
 
-                        var newStaff = new Staff()
-                        {
-                            FirstNameStaff = StaffFirstNameTextBox.Text,
-                            LastNameStaff = StaffLastNameTextBox.Text,
-                            MiddleNameStaff = StaffMiddleNameTextBox.Text,
-                            IdGenderStaff = Int32.Parse(GenderStaffComboBox.SelectedValue.ToString()),
-                            IdEducation = Int32.Parse(EducationStaffComboBox.SelectedValue.ToString()),
-                            DateOfBirthStaff = DateTime.Parse(StaffDateOfBirthDatePicker.SelectedDate.ToString()),
-                            PhoneNumberStaff = StaffPhoneNumberTextBox.Text,
-                            EmailStaff = StaffEmailTextBox.Text,
-                            IdPositionAtWork = Int32.Parse(PositionAtWorkStaffComboBox.SelectedValue.ToString()),
-                            SalaryStaff = Decimal.Parse(StaffSalaryTextBox.Text.Replace(".", ",")),
-                            HireDateStaff = DateTime.Parse(StaffHireDateDatePicker.SelectedDate.ToString()),
-                            IdUser = _currentUser.IdUser
-                        };
-                        DBEntities.GetContext().Staff.Add(newStaff);
+                        _newStaff.FirstNameStaff = StaffFirstNameTextBox.Text;
+                        _newStaff.LastNameStaff = StaffLastNameTextBox.Text;
+                        if (!string.IsNullOrWhiteSpace(StaffMiddleNameTextBox.Text))
+                            _newStaff.MiddleNameStaff = StaffMiddleNameTextBox.Text;
+                        _newStaff.IdGenderStaff = Int32.Parse(GenderStaffComboBox.SelectedValue.ToString());
+                        _newStaff.IdEducation = Int32.Parse(EducationStaffComboBox.SelectedValue.ToString());
+                        _newStaff.DateOfBirthStaff = DateTime.Parse(StaffDateOfBirthDatePicker.SelectedDate.ToString());
+                        _newStaff.PhoneNumberStaff = StaffPhoneNumberTextBox.Text;
+                        _newStaff.EmailStaff = StaffEmailTextBox.Text;
+                        _newStaff.IdPositionAtWork = Int32.Parse(PositionAtWorkStaffComboBox.SelectedValue.ToString());
+                        _newStaff.SalaryStaff = Decimal.Parse(StaffSalaryTextBox.Text.Replace(".", ","));
+                        _newStaff.HireDateStaff = DateTime.Parse(StaffHireDateDatePicker.SelectedDate.ToString());
+                        _newStaff.IdUser = _currentUser.IdUser;
+                        DBEntities.GetContext().Staff.Add(_newStaff);
                         DBEntities.GetContext().SaveChanges();
 
-                        var newClient = new Client()
-                        {
-                            NameClient = StaffFirstNameTextBox.Text,
-                            PhoneNumberClient = StaffPhoneNumberTextBox.Text,
-                            EmailClient = StaffEmailTextBox.Text,
-                            DateOfRegistration = DateTime.Now,
-                            IdUser = _currentUser.IdUser
-                        };
-                        DBEntities.GetContext().Client.Add(newClient);
+                        _newClient.NameClient = StaffFirstNameTextBox.Text;
+                        _newClient.PhoneNumberClient = StaffPhoneNumberTextBox.Text;
+                        _newClient.EmailClient = StaffEmailTextBox.Text;
+                        _newClient.DateOfRegistration = DateTime.Now;
+                        _newClient.IdUser = _currentUser.IdUser;
+                        DBEntities.GetContext().Client.Add(_newClient);
                         DBEntities.GetContext().SaveChanges();
                     }
                     catch (Exception ex)
@@ -215,7 +212,8 @@ namespace SapunovProjectDB.Windows.AdminMain
                     {
                         _currentStaff.FirstNameStaff = StaffFirstNameTextBox.Text;
                         _currentStaff.LastNameStaff = StaffLastNameTextBox.Text;
-                        _currentStaff.MiddleNameStaff = StaffMiddleNameTextBox.Text;
+                        if (!string.IsNullOrWhiteSpace(StaffMiddleNameTextBox.Text))
+                            _currentStaff.MiddleNameStaff = StaffMiddleNameTextBox.Text;
                         _currentStaff.IdGenderStaff = Int32.Parse(GenderStaffComboBox.SelectedValue.ToString());
                         _currentStaff.IdEducation = Int32.Parse(EducationStaffComboBox.SelectedValue.ToString());
                         _currentStaff.DateOfBirthStaff = DateTime.Parse(StaffDateOfBirthDatePicker.SelectedDate.ToString());
@@ -238,11 +236,6 @@ namespace SapunovProjectDB.Windows.AdminMain
                     DialogResult = true;
                 }
             }
-        }
-
-        private void CloseBtn_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void MainBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

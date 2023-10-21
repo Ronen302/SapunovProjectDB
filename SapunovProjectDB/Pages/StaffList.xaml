@@ -1,10 +1,10 @@
-﻿<Page x:Class="SapunovProjectDB.Pages.AdminMain.StaffList"
+﻿<Page x:Class="SapunovProjectDB.Pages.StaffList"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      xmlns:local="clr-namespace:SapunovProjectDB.Pages.AdminMain"
+      xmlns:local="clr-namespace:SapunovProjectDB.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="660" d:DesignWidth="810"
       Title="UserListPage">
@@ -27,18 +27,21 @@
         <TextBlock Text="Сотрудники" FontSize="32" FontWeight="SemiBold"
                            Margin="0 20 0 0" HorizontalAlignment="Left" Style="{DynamicResource loginNormalTitleText}"/>
 
-        <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="14" FontWeight="SemiBold"
-                           Margin="511,39,0,77" HorizontalAlignment="Left" Style="{DynamicResource dataIsSavedTextBlock}" Grid.RowSpan="5"
-                   Opacity="0" Visibility="Collapsed"/>
-
-        <Button x:Name="UserAddBtn" Style="{StaticResource loginButton}" Click="UserAddBtn_Click"
-                Grid.Row="0" HorizontalAlignment="Right" Width="150" Height="34">
-            <StackPanel Orientation="Horizontal">
-                <Icons:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="15"
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                    Margin="0 0 0 5">
+            <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="14" FontWeight="SemiBold"
+                            HorizontalAlignment="Left" Style="{DynamicResource dataIsSavedTextBlock}" Grid.RowSpan="5"
+                   Opacity="0" Visibility="Collapsed" VerticalAlignment="Bottom"/>
+            <Button x:Name="UserAddBtn" Style="{DynamicResource dataAddButton}" Click="UserAddBtn_Click"
+                Grid.Row="0" HorizontalAlignment="Right" Width="150" Height="34" VerticalAlignment="Bottom"
+                    Margin="10 0 0 0">
+                <StackPanel Orientation="Horizontal">
+                    <Icons:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="15"
                                                 Height="15" Margin="0 1 8 0"/>
-                <TextBlock Text="Добавить"/>
-            </StackPanel>
-        </Button>
+                    <TextBlock Text="Добавить"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
 
         <Separator Height="1" Grid.Row="2" Margin="0 -1 0 0" Style="{DynamicResource mainPageSeparator}"/>
 
@@ -68,23 +71,30 @@
             </StackPanel>
         </Border>
 
-        <DataGrid Grid.Row="5" x:Name="StaffListDataGrid" ItemsSource="{Binding Staff}" IsReadOnly="True"
+        <DataGrid Grid.Row="5" x:Name="StaffListDataGrid" ItemsSource="{Binding Staff}" IsReadOnly="True" 
                   CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding IdStaff}" Width="auto"/>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding LastNameStaff}" Width="*"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding FirstNameStaff}" Width="*"/>
                 <DataGridTextColumn Header="Отчество" Binding="{Binding MiddleNameStaff}" Width="*"/>
-                <DataGridTextColumn Header="Образование" Binding="{Binding Education.NameEducation}" Width="*"/>
+                <DataGridTextColumn Header="Должность" Binding="{Binding PositionAtWork.NameOfPosition}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Оклад" Binding="{Binding SalaryStaff, StringFormat={}{0:C0}, ConverterCulture=ru-RU}" Width="*"/>
                 <DataGridTemplateColumn Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
-                                <Button x:Name="EditBtn" Style="{DynamicResource gridButton}" Click="EditBtn_Click">
+                                <Button x:Name="EditBtn" Style="{DynamicResource gridEditButton}" Click="EditBtn_Click">
                                     <Icons:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"
                                                             Foreground="#529ef4"/>
                                 </Button>
-                                <Button x:Name="DeleteBtn" Style="{DynamicResource gridButton}" Click="DeleteBtn_Click">
+                                <Button x:Name="DeleteBtn" Style="{DynamicResource gridRemoveButton}" Click="DeleteBtn_Click">
                                     <Icons:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"
                                                             Foreground="#ff5c5c"/>
                                 </Button>
@@ -106,46 +116,43 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Margin="0 0 0 5">
-                            <Run Text="Код сотрудника: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding IdStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="0 0 0 5" Grid.Row="1">
                             <Run Text="Пол: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
                             <Run Text="{Binding GenderStaff.NameGender}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>
-                        <TextBlock Margin="0 0 0 5" Grid.Row="2">
+                        <TextBlock Margin="0 0 0 5" Grid.Row="1">
                             <Run Text="Дата рождения: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
                             <Run Text="{Binding DateOfBirthStaff, StringFormat=dd/MM/yyyy}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>
-                        <TextBlock Grid.Row="3">
+                        <TextBlock Margin="0 0 0 5" Grid.Row="2">
                             <Run Text="Номер телефона: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
                             <Run Text="{Binding PhoneNumberStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1">
+                        <TextBlock Margin="0 0 0 5" Grid.Row="3">
                             <Run Text="Эл.почта: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
                             <Run Text="{Binding EmailStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="1">
-                            <Run Text="Логин: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding User.LoginUser}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="2">
-                            <Run Text="Пароль: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding User.PasswordUser}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="3">
-                            <Run Text="Роль: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding User.Role.NameRole}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="2">
+                        <TextBlock Grid.Row="4">
                             <Run Text="Дата принятия на работу: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
                             <Run Text="{Binding HireDateStaff, StringFormat=dd/MM/yyyy}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="2" Grid.Row="1">
-                            <Run Text="Должность: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding PositionAtWork.NameOfPosition}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="1">
+                            <Run Text="Логин: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding User.LoginUser}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="1">
+                            <Run Text="Пароль: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding User.PasswordUser}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="2">
+                            <Run Text="Роль: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding User.Role.NameRole}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="3">
+                            <Run Text="Образование: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding Education.NameEducation}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>
                     </Grid>
                 </DataTemplate>

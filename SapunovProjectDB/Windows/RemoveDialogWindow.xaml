@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SapunovProjectDB.Windows" xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:SapunovProjectDB.Windows" 
+        xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="RemoveDialogWindow" Height="260" Width="490" WindowStartupLocation="CenterScreen"
+        Title="Удалить" Height="260" Width="490" WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True"
         Background="Transparent">
     <Border Margin="30" x:Name="MainBorder" Style="{DynamicResource thirdyDialogBorder}"

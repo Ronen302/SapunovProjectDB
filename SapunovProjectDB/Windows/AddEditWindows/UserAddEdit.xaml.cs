@@ -5,21 +5,23 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
-namespace SapunovProjectDB.Windows.AdminMain
+namespace SapunovProjectDB.Windows.AddEditWindows
 {
-    public partial class ServiceAddEdit : Window
+    public partial class UserAddEdit : Window
     {
-        private readonly Service _currentService = new Service();
-        public ServiceAddEdit(Service selectedService)
+        private readonly User _currentUser = new User();
+        private readonly User _newUser = new User();
+        public UserAddEdit(User selectedUser)
         {
             InitializeComponent();
-            if (selectedService != null)
-                _currentService = selectedService;
+            if (selectedUser != null)
+                _currentUser = selectedUser;
             else
-                _currentService = null;
-            DataContext = _currentService;
-            ServiceCategoryComboBox.ItemsSource = DBEntities.GetContext().CategoryOfService.ToList();
+                _currentUser = null;
+            DataContext = _currentUser;
+            UserRoleComboBox.ItemsSource = DBEntities.GetContext().Role.ToList();
         }
+
         private void MainBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -27,41 +29,36 @@ namespace SapunovProjectDB.Windows.AdminMain
 
         private void userSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentService == null)
+            if (_currentUser == null)
             {
-                if (string.IsNullOrWhiteSpace(ServiceNameTextBox.Text))
+                if (string.IsNullOrWhiteSpace(UserLoginTextBox.Text))
                 {
                     ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
                 }
-                else if (string.IsNullOrWhiteSpace(ServicePriceTextBox.Text))
+                else if (string.IsNullOrWhiteSpace(UserPasswordTextBox.Text))
                 {
                     ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
                 }
-                else if (ServiceCategoryComboBox.SelectedItem == null)
+                else if (UserRoleComboBox.SelectedItem == null)
                 {
                     ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
                 }
-                else if (DBEntities.GetContext().Service.
-                    FirstOrDefault(u => u.NameService == ServiceNameTextBox.Text) != null)
+                else if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == UserLoginTextBox.Text) != null)
                 {
-                    ValidationErrorMsg.Text = "Такая услуга уже существует";
+                    ValidationErrorMsg.Text = "Такой логин уже существует";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     try
                     {
-                        var newService = new Service()
-                        {
-                            NameService = ServiceNameTextBox.Text,
-                            PriceOfService = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ",")),
-                            IdCategory = Int32.Parse(ServiceCategoryComboBox.SelectedValue.ToString()),
-                            Description = ServiceDescriptionTextBox.Text
-                        };
-                        DBEntities.GetContext().Service.Add(newService);
+                        _newUser.LoginUser = UserLoginTextBox.Text;
+                        _newUser.PasswordUser = UserPasswordTextBox.Text;
+                        _newUser.IdRole = Int32.Parse(UserRoleComboBox.SelectedValue.ToString());
+                        DBEntities.GetContext().User.Add(_newUser);
                         DBEntities.GetContext().SaveChanges();
                     }
                     catch (Exception ex)
@@ -73,17 +70,17 @@ namespace SapunovProjectDB.Windows.AdminMain
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(ServiceNameTextBox.Text))
+                if (string.IsNullOrWhiteSpace(UserLoginTextBox.Text))
                 {
                     ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
                 }
-                else if (string.IsNullOrWhiteSpace(ServicePriceTextBox.Text))
+                else if (string.IsNullOrWhiteSpace(UserPasswordTextBox.Text))
                 {
                     ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
                 }
-                else if (ServiceCategoryComboBox.SelectedItem == null)
+                else if (UserRoleComboBox.SelectedItem == null)
                 {
                     ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
@@ -92,10 +89,9 @@ namespace SapunovProjectDB.Windows.AdminMain
                 {
                     try
                     {
-                        _currentService.NameService = ServiceNameTextBox.Text;
-                        _currentService.PriceOfService = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
-                        _currentService.IdCategory = Int32.Parse(ServiceCategoryComboBox.SelectedValue.ToString());
-                        _currentService.Description = ServiceDescriptionTextBox.Text;
+                        _currentUser.LoginUser = UserLoginTextBox.Text;
+                        _currentUser.PasswordUser = UserPasswordTextBox.Text;
+                        _currentUser.IdRole = Int32.Parse(UserRoleComboBox.SelectedValue.ToString());
                         DBEntities.GetContext().SaveChanges();
                     }
                     catch (Exception ex)
