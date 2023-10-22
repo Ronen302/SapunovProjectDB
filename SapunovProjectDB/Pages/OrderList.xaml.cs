@@ -1,4 +1,5 @@
-﻿using SapunovProjectDB.Data;
+﻿using SapunovProjectDB.Classes;
+using SapunovProjectDB.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,18 +22,39 @@ namespace SapunovProjectDB.Pages
         public OrderList()
         {
             InitializeComponent();
-            OrderListDataGrid.ItemsSource = DBEntities.GetContext().Order.ToList()
-                .OrderByDescending(u => u.DateOfCreate).ThenBy(u => u.IdStatusOrder);
-        }
+            var allStatusComboBox = DBEntities.GetContext().StatusOrder.ToList();
 
-        private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+            allStatusComboBox.Insert(0, new StatusOrder
+            {
+                NameStatusOrder = "Все"
+            });
+            FilterStatusCb.ItemsSource = allStatusComboBox;
+            FilterStatusCb.SelectedIndex = 0;
+            UpdateFilter();
         }
 
         private void FilterStatusCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            UpdateFilter();
+        }
 
+        private void UpdateFilter()
+        {
+            try
+            {
+                var currentOrder = DBEntities.GetContext().Order.ToList();
+                if (FilterStatusCb.SelectedIndex > 0)
+                {
+                    currentOrder = currentOrder.Where(u => u.IdStatusOrder.ToString()
+                    .Contains(FilterStatusCb.SelectedIndex.ToString())).ToList();
+                }
+                OrderListDataGrid.ItemsSource = currentOrder
+                    .OrderByDescending(u => u.DateOfCreate).ThenBy(u => u.IdStatusOrder);
+            }
+            catch (Exception ex)
+            {
+                Error.ErrorMB(ex);
+            }
         }
     }
 }

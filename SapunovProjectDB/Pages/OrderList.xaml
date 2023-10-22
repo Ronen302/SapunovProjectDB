@@ -35,26 +35,10 @@
 
         <Border Grid.Row="4" Style="{DynamicResource secondaryBorderMainPage}"
                 Margin="0 10" CornerRadius="8">
-            <Grid>
-                <StackPanel Orientation="Horizontal">
-                    <Grid Width="250" HorizontalAlignment="Left" Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Icons:PackIconMaterial Width="15" Height="15" Panel.ZIndex="1" Grid.Column="0"
-                                        Kind="Magnify" Style="{DynamicResource textSearchIcon}" Margin="15,12,0,0"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource textHintSearchTextBox}"
-                               IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
-                               Text="Быстрый поиск" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=FilterTextBox}"/>
-
-                        <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="FilterTextBox" Style="{StaticResource textBoxFilter}"
-                         TextChanged="FilterTextBox_TextChanged"/>
-                    </Grid>
-                    <ComboBox Width="250" x:Name="FilterStatusCb" Style="{DynamicResource ComboBoxStyle}" Template="{DynamicResource UserPageComboBoxTemplate}"
-                          ItemContainerStyle="{DynamicResource ComboBoxItemStyle}" HorizontalAlignment="Left" Margin="10"
-                          DisplayMemberPath="NameRole" SelectionChanged="FilterStatusCb_SelectionChanged"/>
-                </StackPanel>
+            <Grid Width="250" HorizontalAlignment="Left" Grid.Row="3" Margin="10">
+                <ComboBox Width="250" Height="39" x:Name="FilterStatusCb" Style="{DynamicResource ComboBoxStyle}" Template="{DynamicResource MyOrderPageComboBoxTemplate}"
+                          ItemContainerStyle="{DynamicResource ComboBoxItemStyle}" HorizontalAlignment="Left"
+                          DisplayMemberPath="NameStatusOrder" SelectionChanged="FilterStatusCb_SelectionChanged"/>
             </Grid>
         </Border>
 
@@ -71,7 +55,17 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Дата создания" Binding="{Binding DateOfCreate, StringFormat=dd/MM/yyyy}" Width="*"/>
-                <DataGridTextColumn Header="Статус" Binding="{Binding StatusOrder.NameStatusOrder}" Width="*"/>
+                <DataGridTemplateColumn Header="Статус" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border  CornerRadius="5" Style="{DynamicResource statusOrderBorder}"
+                                        Padding="2 1" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock Text="{Binding StatusOrder.NameStatusOrder}" Foreground="#ffffff"
+                                               FontSize="14"/>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
