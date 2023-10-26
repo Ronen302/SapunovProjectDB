@@ -48,6 +48,11 @@ namespace SapunovProjectDB.Pages
             {
                 PasswordTb.Visibility = Visibility.Visible;
             }
+            if (string.IsNullOrWhiteSpace(AuthLoginTb.Text) |
+                string.IsNullOrWhiteSpace(AuthPasswordPb.Password))
+                LoginBtn.IsEnabled = false;
+            else
+                LoginBtn.IsEnabled = true;
         }
 
         private async void LoginBtn_Click(object sender, RoutedEventArgs e)
@@ -169,6 +174,15 @@ namespace SapunovProjectDB.Pages
         private void MainAuthStackPannel_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             MainAuthBorder.Height = MainAuthStackPannel.ActualHeight;
+        }
+
+        private void AuthLoginTb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(AuthLoginTb.Text) |
+                string.IsNullOrWhiteSpace(AuthPasswordPb.Password))
+                LoginBtn.IsEnabled = false;
+            else
+                LoginBtn.IsEnabled = true;
         }
     }
 }

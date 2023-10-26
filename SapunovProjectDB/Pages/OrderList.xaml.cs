@@ -49,12 +49,41 @@ namespace SapunovProjectDB.Pages
                     .Contains(FilterStatusCb.SelectedIndex.ToString())).ToList();
                 }
                 OrderListDataGrid.ItemsSource = currentOrder
-                    .OrderByDescending(u => u.DateOfCreate).ThenBy(u => u.IdStatusOrder);
+                    .OrderByDescending(u => u.DateOfCreate);
             }
             catch (Exception ex)
             {
                 Error.ErrorMB(ex);
             }
+        }
+
+        private void AcceptMi_Click(object sender, RoutedEventArgs e)
+        {
+            Order order = OrderListDataGrid.SelectedItem as Order;
+            order.IdStatusOrder = 1;
+            DBEntities.GetContext().SaveChanges();
+            UpdateFilter();
+        }
+
+        private void CompleteMi_Click(object sender, RoutedEventArgs e)
+        {
+            Order order = OrderListDataGrid.SelectedItem as Order;
+            order.IdStatusOrder = 2;
+            DBEntities.GetContext().SaveChanges();
+            UpdateFilter();
+        }
+
+        private void CancelMi_Click(object sender, RoutedEventArgs e)
+        {
+            Order order = OrderListDataGrid.SelectedItem as Order;
+            order.IdStatusOrder = 3;
+            DBEntities.GetContext().SaveChanges();
+            UpdateFilter();
+        }
+
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            statusMenu.IsOpen = true;
         }
     }
 }

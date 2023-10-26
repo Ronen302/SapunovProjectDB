@@ -29,17 +29,7 @@ namespace SapunovProjectDB.Windows.AddEditWindows
         {
             if (_currentTypeOfWork == null)
             {
-                if (string.IsNullOrWhiteSpace(ServiceNameTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(ServicePriceTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (DBEntities.GetContext().TypeOfWork.
+                if (DBEntities.GetContext().TypeOfWork.
                     FirstOrDefault(u => u.NameTypeOfWork == ServiceNameTextBox.Text) != null)
                 {
                     ValidationErrorMsg.Text = "Такая услуга уже существует";
@@ -66,34 +56,39 @@ namespace SapunovProjectDB.Windows.AddEditWindows
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(ServiceNameTextBox.Text))
+                try
                 {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
+                    _currentTypeOfWork.NameTypeOfWork = ServiceNameTextBox.Text;
+                    _currentTypeOfWork.PriceOfWork = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
+                    _newTypeOfWork.IdService = Properties.Settings.Default.SelectedIdService;
+                    if (!string.IsNullOrEmpty(ServiceDescriptionTextBox.Text))
+                        _currentTypeOfWork.DescriptionOfWork = ServiceDescriptionTextBox.Text;
+                    DBEntities.GetContext().SaveChanges();
                 }
-                else if (string.IsNullOrWhiteSpace(ServicePriceTextBox.Text))
+                catch (Exception ex)
                 {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
+                    Error.ErrorMB(ex);
                 }
-                else
-                {
-                    try
-                    {
-                        _currentTypeOfWork.NameTypeOfWork = ServiceNameTextBox.Text;
-                        _currentTypeOfWork.PriceOfWork = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
-                        _newTypeOfWork.IdService = Properties.Settings.Default.SelectedIdService;
-                        if (!string.IsNullOrEmpty(ServiceDescriptionTextBox.Text))
-                            _currentTypeOfWork.DescriptionOfWork = ServiceDescriptionTextBox.Text;
-                        DBEntities.GetContext().SaveChanges();
-                    }
-                    catch (Exception ex)
-                    {
-                        Error.ErrorMB(ex);
-                    }
-                    DialogResult = true;
-                }
+                DialogResult = true;
             }
+        }
+
+        private void ServiceNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ServiceNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(ServicePriceTextBox.Text))
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void ServicePriceTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ServiceNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(ServicePriceTextBox.Text))
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
         }
     }
 }

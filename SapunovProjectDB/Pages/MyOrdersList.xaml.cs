@@ -49,5 +49,13 @@ namespace SapunovProjectDB.Pages
                 Error.ErrorMB(ex);
             }
         }
+
+        private void cancelOrderButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Order order = MyOrdersListView.SelectedItem as Order;
+            order.IdStatusOrder = 3;
+            DBEntities.GetContext().SaveChanges();
+            UpdateFilter();
+        }
     }
 }

@@ -81,8 +81,9 @@
                                 </StackPanel>
                             </TextBlock>
                         </StackPanel>
-                        <Button Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                                Style="{DynamicResource cancelOrderButton}" FontSize="16">
+                        <Button x:Name="cancelOrderButton" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                Style="{DynamicResource cancelOrderButton}" FontSize="16"
+                                Click="cancelOrderButton_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Icons:PackIconMaterial Kind="DeleteForeverOutline" Width="12" Height="12" VerticalAlignment="Center"
                                                         Margin="0 0 5 0"/>

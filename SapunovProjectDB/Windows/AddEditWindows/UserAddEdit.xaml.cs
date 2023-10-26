@@ -31,22 +31,7 @@ namespace SapunovProjectDB.Windows.AddEditWindows
         {
             if (_currentUser == null)
             {
-                if (string.IsNullOrWhiteSpace(UserLoginTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(UserPasswordTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (UserRoleComboBox.SelectedItem == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == UserLoginTextBox.Text) != null)
+                if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == UserLoginTextBox.Text) != null)
                 {
                     ValidationErrorMsg.Text = "Такой логин уже существует";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
@@ -70,37 +55,49 @@ namespace SapunovProjectDB.Windows.AddEditWindows
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(UserLoginTextBox.Text))
+                try
                 {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
+                    _currentUser.LoginUser = UserLoginTextBox.Text;
+                    _currentUser.PasswordUser = UserPasswordTextBox.Text;
+                    _currentUser.IdRole = Int32.Parse(UserRoleComboBox.SelectedValue.ToString());
+                    DBEntities.GetContext().SaveChanges();
                 }
-                else if (string.IsNullOrWhiteSpace(UserPasswordTextBox.Text))
+                catch (Exception ex)
                 {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
+                    Error.ErrorMB(ex);
                 }
-                else if (UserRoleComboBox.SelectedItem == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    try
-                    {
-                        _currentUser.LoginUser = UserLoginTextBox.Text;
-                        _currentUser.PasswordUser = UserPasswordTextBox.Text;
-                        _currentUser.IdRole = Int32.Parse(UserRoleComboBox.SelectedValue.ToString());
-                        DBEntities.GetContext().SaveChanges();
-                    }
-                    catch (Exception ex)
-                    {
-                        Error.ErrorMB(ex);
-                    }
-                    DialogResult = true;
-                }
+                DialogResult = true;
             }
+        }
+
+        private void UserLoginTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(UserLoginTextBox.Text) |
+               string.IsNullOrWhiteSpace(UserPasswordTextBox.Text) |
+               UserRoleComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void UserPasswordTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(UserLoginTextBox.Text) |
+               string.IsNullOrWhiteSpace(UserPasswordTextBox.Text) |
+               UserRoleComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void UserRoleComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(UserLoginTextBox.Text) |
+               string.IsNullOrWhiteSpace(UserPasswordTextBox.Text) |
+               UserRoleComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
         }
     }
 }

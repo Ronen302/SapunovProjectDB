@@ -126,6 +126,13 @@
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark"/>
+                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" Value="#999a9c"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark"/>
                     <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.EnterActions>
@@ -156,17 +163,17 @@
                 <Setter Property="Background" Value="#bdbdbd"/>
                 <Setter Property="Foreground" Value="#222222"/>
             </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light"/>
-                    <Condition Binding="{Binding ElementName=userSaveButton, Path=IsEnabled}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <Setter Property="Background" Value="#79aeeb"/>
-            </MultiDataTrigger>
             <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
                 <Setter Property="Background" Value="#0077ff"/>
                 <Setter Property="Foreground" Value="#ffffff"/>
             </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light"/>
+                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" Value="#79aeeb"/>
+            </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light"/>
@@ -666,6 +673,47 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="gridEditButtonDots" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#6e7783"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Margin" Value="5 0 0 0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="6" BorderThickness="0">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#e4e5e9"/>
+            </Trigger>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Foreground" Value="#b5bac1"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark"/>
+                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" Value="#4a4a4a"/>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=UserRole}" Value="3">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=UserRole}" Value="4">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="saveButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="#6741D9"/>
         <Setter Property="Foreground" Value="#ffffff"/>
@@ -803,6 +851,7 @@
     <Style x:Key="cancelOrderButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="#ff5c5c"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Template">
             <Setter.Value>

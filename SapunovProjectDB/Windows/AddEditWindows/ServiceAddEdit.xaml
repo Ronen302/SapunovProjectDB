@@ -48,7 +48,7 @@
                             </TextBlock>
                         </StackPanel>
                         <TextBox Name="ServiceNameTextBox" Style="{DynamicResource inputTextBox}"
-                                     Text="{Binding NameService}"/>
+                                     Text="{Binding NameService}" TextChanged="ServiceNameTextBox_TextChanged"/>
                     </StackPanel>
 
                     <StackPanel Margin="20 10">
@@ -59,7 +59,7 @@
                             </TextBlock>
                         </StackPanel>
                         <TextBox Name="ServicePriceTextBox" Style="{DynamicResource inputTextBox}"
-                                     Text="{Binding PriceOfService}"/>
+                                     Text="{Binding PriceOfService}" TextChanged="ServicePriceTextBox_TextChanged"/>
                     </StackPanel>
 
                     <StackPanel Margin="20 10">
@@ -72,7 +72,7 @@
                         <ComboBox Name="ServiceCategoryComboBox" Style="{DynamicResource ComboBoxStyle}"
                                     ItemContainerStyle="{DynamicResource ComboBoxItemStyle}"
                                     Height="41" DisplayMemberPath="NameCategory" SelectedItem="{Binding CategoryOfService}"
-                                      SelectedValuePath="IdCategory"/>
+                                      SelectedValuePath="IdCategory" SelectionChanged="ServiceCategoryComboBox_SelectionChanged"/>
                     </StackPanel>
 
                     <StackPanel Margin="20 10">
@@ -86,7 +86,8 @@
             </Border>
             <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="10 14 10 10">
                 <Button x:Name="userSaveButton" IsDefault="True" Click="userSaveButton_Click" Margin="0" FontSize="15"
-                        Style="{DynamicResource ResourceKey=loginButton}" Width="95" Height="30" Content="Сохранить"/>
+                        Style="{DynamicResource ResourceKey=loginButton}" Width="95" Height="30" Content="Сохранить"
+                        IsEnabled="False"/>
                 <Button IsCancel="True" MinWidth="60" Margin="10 0 0 0" FontSize="15"
                         Style="{DynamicResource registrationButton}" Width="95" Height="30"
                         Content="Отмена"/>

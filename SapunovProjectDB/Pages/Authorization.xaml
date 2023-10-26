@@ -42,7 +42,7 @@
                                Text="Логин" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=AuthLoginTb}"/>
 
                         <TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=SaveLogin}" Padding="36 8" Grid.ColumnSpan="2" x:Name="AuthLoginTb" Style="{StaticResource inputTextBox}"
-                             GotFocus="AuthLoginTb_GotFocus"/>
+                             GotFocus="AuthLoginTb_GotFocus" TextChanged="AuthLoginTb_TextChanged"/>
                     </Grid>
 
                     <TextBlock x:Name="EmptyLoginError" Text="Не указан логин" Margin="25,4,25,0"
@@ -70,7 +70,7 @@
                               x:Name="SaveLoginCb" Margin="25,20,218,0" Template="{DynamicResource CheckBoxControlTemplate}"/>
 
                     <Button x:Name="LoginBtn" Content="Войти" Style="{DynamicResource loginButton}"
-                    Click="LoginBtn_Click" IsDefault="True"/>
+                    Click="LoginBtn_Click" IsEnabled="False"/>
                     <Button x:Name="RegistrationBtn" Content="Регистрация" Style="{DynamicResource registrationButton}"
                             Click="RegistrationBtn_Click" Margin="0 20 0 30"/>
                 </StackPanel>

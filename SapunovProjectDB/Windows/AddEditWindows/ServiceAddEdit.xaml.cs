@@ -30,22 +30,7 @@ namespace SapunovProjectDB.Windows.AddEditWindows
         {
             if (_currentService == null)
             {
-                if (string.IsNullOrWhiteSpace(ServiceNameTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(ServicePriceTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (ServiceCategoryComboBox.SelectedItem == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (DBEntities.GetContext().Service.
+                if (DBEntities.GetContext().Service.
                     FirstOrDefault(u => u.NameService == ServiceNameTextBox.Text) != null)
                 {
                     ValidationErrorMsg.Text = "Такая услуга уже существует";
@@ -72,39 +57,51 @@ namespace SapunovProjectDB.Windows.AddEditWindows
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(ServiceNameTextBox.Text))
+                try
                 {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
+                    _currentService.NameService = ServiceNameTextBox.Text;
+                    _currentService.PriceOfService = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
+                    _currentService.IdCategory = Int32.Parse(ServiceCategoryComboBox.SelectedValue.ToString());
+                    if (!string.IsNullOrWhiteSpace(ServiceDescriptionTextBox.Text))
+                        _currentService.Description = ServiceDescriptionTextBox.Text;
+                    DBEntities.GetContext().SaveChanges();
                 }
-                else if (string.IsNullOrWhiteSpace(ServicePriceTextBox.Text))
+                catch (Exception ex)
                 {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
+                    Error.ErrorMB(ex);
                 }
-                else if (ServiceCategoryComboBox.SelectedItem == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    try
-                    {
-                        _currentService.NameService = ServiceNameTextBox.Text;
-                        _currentService.PriceOfService = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
-                        _currentService.IdCategory = Int32.Parse(ServiceCategoryComboBox.SelectedValue.ToString());
-                        if (!string.IsNullOrWhiteSpace(ServiceDescriptionTextBox.Text))
-                            _currentService.Description = ServiceDescriptionTextBox.Text;
-                        DBEntities.GetContext().SaveChanges();
-                    }
-                    catch (Exception ex)
-                    {
-                        Error.ErrorMB(ex);
-                    }
-                    DialogResult = true;
-                }
+                DialogResult = true;
             }
+        }
+
+        private void ServiceNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ServiceNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(ServicePriceTextBox.Text) |
+                ServiceCategoryComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void ServicePriceTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ServiceNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(ServicePriceTextBox.Text) |
+                ServiceCategoryComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void ServiceCategoryComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ServiceNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(ServicePriceTextBox.Text) |
+                ServiceCategoryComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
         }
     }
 }

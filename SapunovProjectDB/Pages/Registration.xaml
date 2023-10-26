@@ -43,7 +43,7 @@
                                Text="Логин" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegLoginTb}"/>
 
                             <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="RegLoginTb" Style="{StaticResource inputTextBox}"
-                             GotFocus="RegLoginTb_GotFocus"/>
+                             GotFocus="RegLoginTb_GotFocus" TextChanged="RegLoginTb_TextChanged"/>
                         </Grid>
 
                         <TextBlock x:Name="EmptyRegLoginError" Text="Не указан логин" Margin="25,4,25,0"
@@ -116,7 +116,7 @@
                                Text="Ваше имя" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegNameTb}"/>
 
                             <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="RegNameTb" Style="{StaticResource inputTextBox}"
-                             GotFocus="RegNameTb_GotFocus"/>
+                             GotFocus="RegNameTb_GotFocus" TextChanged="RegNameTb_TextChanged"/>
                         </Grid>
 
                         <TextBlock x:Name="EmptyRegNameError" Text="Не указано имя" Margin="25,4,25,0"
@@ -134,7 +134,7 @@
                                Text="Номер телефона" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegPhoneTb}"/>
 
                             <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="RegPhoneTb" Style="{StaticResource inputTextBox}"
-                             GotFocus="RegPhoneTb_GotFocus"/>
+                             GotFocus="RegPhoneTb_GotFocus" TextChanged="RegPhoneTb_TextChanged"/>
                         </Grid>
                         <TextBlock x:Name="EmptyRegPhoneError" Text="Не указан номер телефона" Margin="25,4,25,0"
                        FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
@@ -151,13 +151,13 @@
                                Text="Email" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegEmailTb}"/>
 
                             <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="RegEmailTb" Style="{StaticResource inputTextBox}"
-                             GotFocus="RegEmailTb_GotFocus"/>
+                             GotFocus="RegEmailTb_GotFocus" TextChanged="RegEmailTb_TextChanged"/>
                         </Grid>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
                     <Button x:Name="RegistrationBtn" Content="Зарегистрироваться" Style="{DynamicResource loginButton}"
-                            Click="RegistrationBtn_Click" IsDefault="True"/>
+                            Click="RegistrationBtn_Click" IsEnabled="False"/>
                     <Button x:Name="BackBtn" Content="Назад" Style="{DynamicResource registrationButton}"
                             Click="BackBtn_Click" Margin="0 20 0 30"/>
                 </StackPanel>

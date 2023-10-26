@@ -37,67 +37,8 @@ namespace SapunovProjectDB.Windows.AddEditWindows
         {
             if (_currentStaff == null)
             {
-                if (string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (GenderStaffComboBox.SelectedItem == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (EducationStaffComboBox.SelectedItem == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (StaffDateOfBirthDatePicker.SelectedDate == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (PositionAtWorkStaffComboBox.SelectedItem == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(StaffEmailTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (StaffHireDateDatePicker.SelectedDate == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(StaffLoginTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (RoleStaffComboBox.SelectedItem == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == StaffLoginTextBox.Text) != null)
+                if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == 
+                StaffLoginTextBox.Text) != null)
                 {
                     ValidationErrorMsg.Text = "Такой логин уже существует";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
@@ -146,101 +87,298 @@ namespace SapunovProjectDB.Windows.AddEditWindows
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text))
+                try
                 {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (GenderStaffComboBox.SelectedItem == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (EducationStaffComboBox.SelectedItem == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (StaffDateOfBirthDatePicker.SelectedDate == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (PositionAtWorkStaffComboBox.SelectedItem == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(StaffEmailTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (StaffHireDateDatePicker.SelectedDate == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(StaffLoginTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text))
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else if (RoleStaffComboBox.SelectedItem == null)
-                {
-                    ValidationErrorMsg.Text = "Заполните все поля, отмеченные *";
-                    ValidationErrorMsg.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    try
-                    {
-                        _currentStaff.FirstNameStaff = StaffFirstNameTextBox.Text;
-                        _currentStaff.LastNameStaff = StaffLastNameTextBox.Text;
-                        if (!string.IsNullOrWhiteSpace(StaffMiddleNameTextBox.Text))
-                            _currentStaff.MiddleNameStaff = StaffMiddleNameTextBox.Text;
-                        _currentStaff.IdGenderStaff = Int32.Parse(GenderStaffComboBox.SelectedValue.ToString());
-                        _currentStaff.IdEducation = Int32.Parse(EducationStaffComboBox.SelectedValue.ToString());
-                        _currentStaff.DateOfBirthStaff = DateTime.Parse(StaffDateOfBirthDatePicker.SelectedDate.ToString());
-                        _currentStaff.PhoneNumberStaff = StaffPhoneNumberTextBox.Text;
-                        _currentStaff.EmailStaff = StaffEmailTextBox.Text;
-                        _currentStaff.IdPositionAtWork = Int32.Parse(PositionAtWorkStaffComboBox.SelectedValue.ToString());
-                        _currentStaff.SalaryStaff = Decimal.Parse(StaffSalaryTextBox.Text.Replace(".", ","));
-                        _currentStaff.HireDateStaff = DateTime.Parse(StaffHireDateDatePicker.SelectedDate.ToString());
-                        DBEntities.GetContext().SaveChanges();
+                    _currentStaff.FirstNameStaff = StaffFirstNameTextBox.Text;
+                    _currentStaff.LastNameStaff = StaffLastNameTextBox.Text;
+                    if (!string.IsNullOrWhiteSpace(StaffMiddleNameTextBox.Text))
+                        _currentStaff.MiddleNameStaff = StaffMiddleNameTextBox.Text;
+                    _currentStaff.IdGenderStaff = Int32.Parse(GenderStaffComboBox.SelectedValue.ToString());
+                    _currentStaff.IdEducation = Int32.Parse(EducationStaffComboBox.SelectedValue.ToString());
+                    _currentStaff.DateOfBirthStaff = DateTime.Parse(StaffDateOfBirthDatePicker.SelectedDate.ToString());
+                    _currentStaff.PhoneNumberStaff = StaffPhoneNumberTextBox.Text;
+                    _currentStaff.EmailStaff = StaffEmailTextBox.Text;
+                    _currentStaff.IdPositionAtWork = Int32.Parse(PositionAtWorkStaffComboBox.SelectedValue.ToString());
+                    _currentStaff.SalaryStaff = Decimal.Parse(StaffSalaryTextBox.Text.Replace(".", ","));
+                    _currentStaff.HireDateStaff = DateTime.Parse(StaffHireDateDatePicker.SelectedDate.ToString());
+                    DBEntities.GetContext().SaveChanges();
 
-                        _currentUser.LoginUser = StaffLoginTextBox.Text;
-                        _currentUser.PasswordUser = StaffPasswordTextBox.Text;
-                        _currentUser.IdRole = Int32.Parse(RoleStaffComboBox.SelectedValue.ToString());
-                        DBEntities.GetContext().SaveChanges();
-                    }
-                    catch (Exception ex)
-                    {
-                        Error.ErrorMB(ex);
-                    }
-                    DialogResult = true;
+                    _currentUser.LoginUser = StaffLoginTextBox.Text;
+                    _currentUser.PasswordUser = StaffPasswordTextBox.Text;
+                    _currentUser.IdRole = Int32.Parse(RoleStaffComboBox.SelectedValue.ToString());
+                    DBEntities.GetContext().SaveChanges();
                 }
+                catch (Exception ex)
+                {
+                    Error.ErrorMB(ex);
+                }
+                DialogResult = true;
             }
         }
 
         private void MainBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void StaffLastNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void StaffFirstNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void GenderStaffComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void EducationStaffComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void StaffDateOfBirthDatePicker_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void StaffPhoneNumberTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void StaffEmailTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void PositionAtWorkStaffComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void StaffSalaryTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void StaffHireDateDatePicker_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void StaffLoginTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void StaffPasswordTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void RoleStaffComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
         }
     }
 }

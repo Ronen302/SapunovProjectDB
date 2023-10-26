@@ -44,6 +44,15 @@
 
         <DataGrid Grid.Row="5" x:Name="OrderListDataGrid" ItemsSource="{Binding Order}" IsReadOnly="True"
                   CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
+            <DataGrid.ContextMenu>
+                <ContextMenu Name="statusMenu">
+                    <MenuItem Header="Принят" Name="AcceptMi" Click="AcceptMi_Click"
+                              Margin="0 0 0 5"/>
+                    <MenuItem Header="Готов" Name="CompleteMi" Click="CompleteMi_Click"
+                              Margin="0 0 0 5"/>
+                    <MenuItem Header="Отменен" Name="CancelMi" Click="CancelMi_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding IdOrder}" Width="auto"/>
                 <DataGridTextColumn Header="Клиент" Binding="{Binding Client.NameClient, FallbackValue=Клиент удален}" Width="*"/>
@@ -63,6 +72,18 @@
                                 <TextBlock Text="{Binding StatusOrder.NameStatusOrder}" Foreground="#ffffff"
                                                FontSize="14"/>
                             </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
+                                <Button x:Name="EditBtn" Style="{DynamicResource gridEditButtonDots}" Click="EditBtn_Click">
+                                    <Icons:PackIconMaterial Kind="DotsVertical" Width="15" Height="15"
+                                                            VerticalAlignment="Center"/>
+                                </Button>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

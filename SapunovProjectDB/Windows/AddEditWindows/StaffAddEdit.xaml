@@ -49,7 +49,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="StaffLastNameTextBox" Style="{DynamicResource inputTextBox}"
-                                     Text="{Binding LastNameStaff}"/>
+                                     Text="{Binding LastNameStaff}" TextChanged="StaffLastNameTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -60,7 +60,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="StaffFirstNameTextBox" Style="{DynamicResource inputTextBox}"
-                                     Text="{Binding FirstNameStaff}"/>
+                                     Text="{Binding FirstNameStaff}" TextChanged="StaffFirstNameTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -81,7 +81,7 @@
                             <ComboBox Name="GenderStaffComboBox" Style="{DynamicResource ComboBoxStyle}"
                                     ItemContainerStyle="{DynamicResource ComboBoxItemStyle}"
                                     Height="41" DisplayMemberPath="NameGender" SelectedItem="{Binding GenderStaff}"
-                                      SelectedValuePath="IdGenderStaff"/>
+                                      SelectedValuePath="IdGenderStaff" SelectionChanged="GenderStaffComboBox_SelectionChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -94,7 +94,7 @@
                             <ComboBox Name="EducationStaffComboBox" Style="{DynamicResource ComboBoxStyle}"
                                     ItemContainerStyle="{DynamicResource ComboBoxItemStyle}"
                                     Height="41" DisplayMemberPath="NameEducation" SelectedItem="{Binding Education}"
-                                      SelectedValuePath="IdEducation"/>
+                                      SelectedValuePath="IdEducation" SelectionChanged="EducationStaffComboBox_SelectionChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -107,7 +107,8 @@
                             <DatePicker Name="StaffDateOfBirthDatePicker"
                                             SelectedDate="{Binding DateOfBirthStaff}"
                                             Style="{DynamicResource DatePickerStyle}"
-                                            CalendarStyle="{DynamicResource CalendarStyle}"/>
+                                            CalendarStyle="{DynamicResource CalendarStyle}"
+                                        SelectedDateChanged="StaffDateOfBirthDatePicker_SelectedDateChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -118,7 +119,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="StaffPhoneNumberTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding PhoneNumberStaff}" MaxLength="11"/>
+                                     Text="{Binding PhoneNumberStaff}" MaxLength="11" TextChanged="StaffPhoneNumberTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -129,7 +130,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="StaffEmailTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding EmailStaff}"/>
+                                     Text="{Binding EmailStaff}" TextChanged="StaffEmailTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -142,7 +143,7 @@
                             <ComboBox Name="PositionAtWorkStaffComboBox" Style="{DynamicResource ComboBoxStyle}"
                                     ItemContainerStyle="{DynamicResource ComboBoxItemStyle}"
                                     Height="41" DisplayMemberPath="NameOfPosition" SelectedItem="{Binding PositionAtWork}"
-                                      SelectedValuePath="IdPositionAtWork"/>
+                                      SelectedValuePath="IdPositionAtWork" SelectionChanged="PositionAtWorkStaffComboBox_SelectionChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -153,7 +154,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="StaffSalaryTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding SalaryStaff}"/>
+                                     Text="{Binding SalaryStaff}" TextChanged="StaffSalaryTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -166,7 +167,8 @@
                             <DatePicker Name="StaffHireDateDatePicker"
                                      SelectedDate="{Binding HireDateStaff}"
                                             Style="{DynamicResource DatePickerStyle}"
-                                        CalendarStyle="{DynamicResource CalendarStyle}"/>
+                                        CalendarStyle="{DynamicResource CalendarStyle}"
+                                        SelectedDateChanged="StaffHireDateDatePicker_SelectedDateChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -177,7 +179,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="StaffLoginTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding User.LoginUser}"/>
+                                     Text="{Binding User.LoginUser}" TextChanged="StaffLoginTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -188,7 +190,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="StaffPasswordTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding User.PasswordUser}"/>
+                                     Text="{Binding User.PasswordUser}" TextChanged="StaffPasswordTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10 20 20">
@@ -201,14 +203,14 @@
                             <ComboBox Name="RoleStaffComboBox" Style="{DynamicResource ComboBoxStyle}"
                                     ItemContainerStyle="{DynamicResource ComboBoxItemStyle}"
                                     Height="41" DisplayMemberPath="NameRole" SelectedItem="{Binding User.Role}"
-                                      SelectedValuePath="IdRole"/>
+                                      SelectedValuePath="IdRole" SelectionChanged="RoleStaffComboBox_SelectionChanged"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
             <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="10 14 10 10">
                 <Button x:Name="userSaveButton" IsDefault="True" Click="userSaveButton_Click" Margin="0" FontSize="15"
-                        Style="{DynamicResource ResourceKey=loginButton}" Width="95" Height="30" Content="Сохранить"/>
+                        Style="{DynamicResource ResourceKey=loginButton}" Width="95" Height="30" Content="Сохранить" IsEnabled="False"/>
                 <Button IsCancel="True" MinWidth="60" Margin="10 0 0 0" FontSize="15"
                         Style="{DynamicResource registrationButton}" Width="95" Height="30"
                         Content="Отмена"/>
