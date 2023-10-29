@@ -277,7 +277,7 @@
                                     </Path>
                                 </Canvas>
                             </Viewbox>
-                            <TextBlock Text="{Binding Source={x:Static properties:Settings.Default}, Path=CurrentUser}"
+                            <TextBlock x:Name="CurrentUserTextBox" Text="{Binding Source={x:Static properties:Settings.Default}, Path=CurrentUser}"
                                    DockPanel.Dock="Top" Margin="25,0,0,0" Style="{DynamicResource loginNormalTitleText}"
                                    TextAlignment="Left" FontSize="16" FontWeight="SemiBold"/>
 
@@ -352,7 +352,8 @@
                             </ToggleButton>
                             <Grid x:Name="AccountSettingsGrid" Height="0">
                                 <StackPanel Orientation="Vertical">
-                                    <Button x:Name="AccountSettingsBtn" Style="{StaticResource menuButton}">
+                                    <Button x:Name="AccountSettingsBtn" Style="{StaticResource menuButton}"
+                                            Click="AccountSettingsBtn_Click">
                                         <StackPanel Orientation="Horizontal">
                                             <Icons:PackIconMaterial Kind="CogOutline" Style="{StaticResource menuButtonIcon}"/>
                                             <TextBlock Text="Настройки"/>

@@ -147,6 +147,9 @@
     <Compile Include="Data\User.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AccountSettings.xaml.cs">
+      <DependentUpon>AccountSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Authorization.xaml.cs">
       <DependentUpon>Authorization.xaml</DependentUpon>
     </Compile>
@@ -199,6 +202,10 @@
     <Compile Include="Windows\RemoveDialogWindow.xaml.cs">
       <DependentUpon>RemoveDialogWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Pages\AccountSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Authorization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

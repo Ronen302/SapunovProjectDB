@@ -29,6 +29,7 @@ namespace SapunovProjectDB.Pages
             {
                 NameRole = "Все"
             });
+            allRoleComboBox.RemoveAt(4);
             FilterRoleCb.ItemsSource = allRoleComboBox;
             FilterRoleCb.SelectedIndex = 0;
             UpdateFilter();

@@ -63,10 +63,12 @@
 
                             <PasswordBox x:Name="RegPasswordPb" Padding="36 8" Grid.ColumnSpan="3" PasswordChanged="RegPasswordPb_PasswordChanged" Style="{StaticResource loginPasswordBox}"
                              GotFocus="RegPasswordPb_GotFocus"/>
-                            <Icons:PackIconMaterial Width="15" Height="15" Panel.ZIndex="1" Grid.Column="2"
-                                        Kind="LockQuestion" Margin="15,12,0,0"
-                                        Style="{StaticResource passwordQuestionIcon}">
-                                <Icons:PackIconMaterial.ToolTip>
+
+                            <Button Panel.ZIndex="1" Grid.Column="2" Width="25" Height="25"
+                                    Style="{DynamicResource toolTipPasswordButton}" ToolTipService.InitialShowDelay="1">
+                                <Icons:PackIconMaterial Width="15" Height="15"
+                                        Kind="LockQuestion"/>
+                                <Button.ToolTip>
                                     <ToolTip>
                                         <ToolTip.Content>
                                             <StackPanel Orientation="Vertical" Margin="10">
@@ -76,8 +78,8 @@
                                             </StackPanel>
                                         </ToolTip.Content>
                                     </ToolTip>
-                                </Icons:PackIconMaterial.ToolTip>
-                            </Icons:PackIconMaterial>
+                                </Button.ToolTip>
+                            </Button>
                         </Grid>
                         <TextBlock x:Name="EmptyPasswordError" Text="Не указан пароль" Margin="25,4,25,0"
                        FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
@@ -161,19 +163,10 @@
                     <Button x:Name="BackBtn" Content="Назад" Style="{DynamicResource registrationButton}"
                             Click="BackBtn_Click" Margin="0 20 0 30"/>
                 </StackPanel>
-                <!--<Border x:Name="successfullRegistrationBorder" Grid.Column="1"  MaxWidth="350" Height="90"
-                        CornerRadius="8" BorderThickness="1.5" Margin="0 0 0 20" Visibility="Collapsed"
-                    Style="{DynamicResource thirdyAuthBorder}">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Height="90" Margin="0,-2">
-                            <Icons:PackIconMaterial Kind="CheckCircleOutline" Margin="0 15 0 10"
-                                    HorizontalAlignment="Center" Width="30" Height="30"
-                                    Foreground="#04bf3c"/>
-
-                            <TextBlock Text="Вы успешно зарегистрировались" Style="{DynamicResource loginBigTitleText}"
-                                Margin="0 0 0 20" FontSize="18" FontWeight="Normal"/>
-                        </StackPanel>
-                    </Border>-->
             </StackPanel>
         </Border>
+        <TextBlock x:Name="WelcomeMessage" Style="{DynamicResource welcomeMessageTextBlock}"
+                   FontSize="24" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" Visibility="Collapsed"/>
     </Grid>
 </Page>

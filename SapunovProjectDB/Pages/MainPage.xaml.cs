@@ -74,5 +74,10 @@ namespace SapunovProjectDB.Pages
         {
             MainPageFrame.Navigate(new MyOrdersList());
         }
+
+        private void AccountSettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainPageFrame.Navigate(new AccountSettings());
+        }
     }
 }

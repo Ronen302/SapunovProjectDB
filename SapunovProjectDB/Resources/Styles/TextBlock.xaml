@@ -119,4 +119,27 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="welcomeMessageTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#313338"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Foreground" Value="#d8dee1"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=WelcomeMessage, Path=Visibility}" Value="Visible">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0" To="1"
+                                        Duration="0:0:1.3"
+                                AccelerationRatio="0.2"
+                                DecelerationRatio="0.8"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

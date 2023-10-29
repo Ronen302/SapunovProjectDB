@@ -80,5 +80,28 @@ namespace SapunovProjectDB.Properties {
                 this["SelectedIdService"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SavedLoginUser {
+            get {
+                return ((string)(this["SavedLoginUser"]));
+            }
+            set {
+                this["SavedLoginUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int CurrentIdUser {
+            get {
+                return ((int)(this["CurrentIdUser"]));
+            }
+            set {
+                this["CurrentIdUser"] = value;
+            }
+        }
     }
 }

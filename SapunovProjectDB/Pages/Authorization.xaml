@@ -41,7 +41,7 @@
                                IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
                                Text="Логин" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=AuthLoginTb}"/>
 
-                        <TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=SaveLogin}" Padding="36 8" Grid.ColumnSpan="2" x:Name="AuthLoginTb" Style="{StaticResource inputTextBox}"
+                        <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="AuthLoginTb" Style="{StaticResource inputTextBox}"
                              GotFocus="AuthLoginTb_GotFocus" TextChanged="AuthLoginTb_TextChanged"/>
                     </Grid>
 
@@ -65,9 +65,28 @@
                     <TextBlock x:Name="InvalidPaswwordError" Text="Неверный пароль" Margin="25,4,25,0"
                        FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
 
-                    <CheckBox Content="Запомнить логин" FontSize="16" VerticalContentAlignment="Center"
+                    <StackPanel Orientation="Horizontal" Margin="25,20,0,0">
+                        <CheckBox Content="Запомнить логин" FontSize="16" VerticalContentAlignment="Center"
+                                  VerticalAlignment="Center"
                               Style="{DynamicResource authPageCheckBox}" Cursor="Hand"
-                              x:Name="SaveLoginCb" Margin="25,20,218,0" Template="{DynamicResource CheckBoxControlTemplate}"/>
+                              x:Name="SaveLoginCb" Template="{DynamicResource CheckBoxControlTemplate}" Width="155"/>
+                        <Button Width="25" Height="25" Margin="0 2 0 0"
+                                    Style="{DynamicResource toolTipPasswordButton}" ToolTipService.InitialShowDelay="1">
+                            <Icons:PackIconMaterial Width="13" Height="13"
+                                        Kind="HelpCircle"/>
+                            <Button.ToolTip>
+                                <ToolTip Width="350" PlacementRectangle="-160,10,0,0">
+                                    <ToolTip.Content>
+                                        <StackPanel Orientation="Vertical" Margin="10">
+                                            <TextBlock Text="Сохранить логин" Margin="0 0 0 5" FontWeight="SemiBold"/>
+                                            <TextBlock Text="Выберите, чтобы сохранить данные аккаунта для быстрого входа на этом устройстве"
+                                               TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                    </ToolTip.Content>
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                    </StackPanel>
 
                     <Button x:Name="LoginBtn" Content="Войти" Style="{DynamicResource loginButton}"
                     Click="LoginBtn_Click" IsEnabled="False"/>
@@ -75,7 +94,7 @@
                             Click="RegistrationBtn_Click" Margin="0 20 0 30"/>
                 </StackPanel>
             </Border>
-            <TextBlock x:Name="WelcomeMessage" Style="{DynamicResource loginNormalTitleText}"
+            <TextBlock x:Name="WelcomeMessage" Style="{DynamicResource welcomeMessageTextBlock}"
                    FontSize="24" HorizontalAlignment="Center"
                    VerticalAlignment="Center" Visibility="Collapsed"/>
         </Grid>

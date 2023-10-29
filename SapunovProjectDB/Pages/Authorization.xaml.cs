@@ -23,7 +23,7 @@ namespace SapunovProjectDB.Pages
             if (Properties.Settings.Default.IsLoginSaved)
             {
                 SaveLoginCb.IsChecked = true;
-                AuthLoginTb.Text = Properties.Settings.Default.CurrentUser;
+                AuthLoginTb.Text = Properties.Settings.Default.SavedLoginUser;
                 AuthPasswordPb.Focus();
             }
         }
@@ -77,9 +77,13 @@ namespace SapunovProjectDB.Pages
             {
                 try
                 {
+                    Properties.Settings.Default.CurrentUser = AuthLoginTb.Text;
+                    Properties.Settings.Default.Save();
                     User user = DBEntities.GetContext()
                         .User
                         .FirstOrDefault(u => u.LoginUser == AuthLoginTb.Text);
+                    Properties.Settings.Default.CurrentIdUser = user.IdUser;
+                    Properties.Settings.Default.Save();
 
                     if (user == null)
                     {
@@ -95,17 +99,16 @@ namespace SapunovProjectDB.Pages
                     }
                     else
                     {
-                        Properties.Settings.Default.CurrentUser = AuthLoginTb.Text;
-                        Properties.Settings.Default.Save();
-
                         if (SaveLoginCb.IsChecked == true)
                         {
                             Properties.Settings.Default.IsLoginSaved = true;
+                            Properties.Settings.Default.SavedLoginUser = AuthLoginTb.Text;
                             Properties.Settings.Default.Save();
                         }
                         else
                         {
                             Properties.Settings.Default.IsLoginSaved = false;
+                            Properties.Settings.Default.SavedLoginUser = "";
                             Properties.Settings.Default.Save();
                         }
                         int _currentIdUser = DBEntities.GetContext().User

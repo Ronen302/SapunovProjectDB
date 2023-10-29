@@ -121,15 +121,16 @@ namespace SapunovProjectDB.Pages
                 {
                     Properties.Settings.Default.CurrentUser = RegLoginTb.Text;
                     Properties.Settings.Default.Save();
-
                     if (SaveLoginCb.IsChecked == true)
                     {
                         Properties.Settings.Default.IsLoginSaved = true;
+                        Properties.Settings.Default.SavedLoginUser = RegLoginTb.Text;
                         Properties.Settings.Default.Save();
                     }
                     else
                     {
                         Properties.Settings.Default.IsLoginSaved = false;
+                        Properties.Settings.Default.SavedLoginUser = "";
                         Properties.Settings.Default.Save();
                     }
 
@@ -153,13 +154,15 @@ namespace SapunovProjectDB.Pages
                     };
                     DBEntities.GetContext().Client.Add(newClient);
                     DBEntities.GetContext().SaveChanges();
-                    Content = null;
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.WelcomeMessage.Text = "Добро пожаловать";
-                    mainWindow.WelcomeMessage.Visibility = Visibility.Visible;
-                    await Task.Delay(TimeSpan.FromSeconds(2.5));
+                    WelcomeMessage.Text = $"Добро пожаловать, {RegNameTb.Text}!";
+                    MainRegBorder.Visibility = Visibility.Collapsed;
+                    WelcomeMessage.Visibility = Visibility.Visible;
+                    await Task.Delay(TimeSpan.FromSeconds(2.6));
+                    WelcomeMessage.Visibility = Visibility.Collapsed;
                     User user = DBEntities.GetContext().User
                         .FirstOrDefault(u => u.LoginUser == RegLoginTb.Text);
+                    Properties.Settings.Default.CurrentIdUser = user.IdUser;
+                    Properties.Settings.Default.Save();
                     switch (user.IdRole)
                     {
                         case 4:
