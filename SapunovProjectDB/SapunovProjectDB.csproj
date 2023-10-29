@@ -415,7 +415,7 @@
       <DependentUpon>DBModel.edmx</DependentUpon>
       <LastGenOutput>DBModel.cs</LastGenOutput>
     </Content>
-    <Content Include="DBScript.sql" />
+    <Content Include="SQLScript.sql" />
     <Resource Include="Resources\Images\stroy-basis-logo-small-icon.ico" />
     <Resource Include="Resources\Images\stroy-basis-logo-small.png" />
   </ItemGroup>
