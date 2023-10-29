@@ -35,12 +35,31 @@ namespace SapunovProjectDB.Windows.AddEditWindows
 
         private void userSaveButton_Click(object sender, RoutedEventArgs e)
         {
+            string upperCaseLetters = "QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ",
+                lowerCaseLetters = "qwertyuiopasdfghjklzxcvbnmйцукенгшщзхъфывапролджэячсмитьбю",
+                numbers = "1234567890",
+                enteredPassword = StaffPasswordTextBox.Text;
             if (_currentStaff == null)
             {
                 if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == 
                 StaffLoginTextBox.Text) != null)
                 {
                     ValidationErrorMsg.Text = "Такой логин уже существует";
+                    ValidationErrorMsg.Visibility = Visibility.Visible;
+                }
+                else if (upperCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+                {
+                    ValidationErrorMsg.Text = "Некорректный пароль";
+                    ValidationErrorMsg.Visibility = Visibility.Visible;
+                }
+                else if (lowerCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+                {
+                    ValidationErrorMsg.Text = "Некорректный пароль";
+                    ValidationErrorMsg.Visibility = Visibility.Visible;
+                }
+                else if (numbers.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+                {
+                    ValidationErrorMsg.Text = "Некорректный пароль";
                     ValidationErrorMsg.Visibility = Visibility.Visible;
                 }
                 else

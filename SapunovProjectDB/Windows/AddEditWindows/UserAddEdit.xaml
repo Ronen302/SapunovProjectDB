@@ -52,11 +52,28 @@
                     </StackPanel>
 
                     <StackPanel Margin="20 10">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8">
-                                <Run Text="Пароль"/>
-                                <Run Text="*" Foreground="#e64646"/>
+                        <StackPanel Orientation="Horizontal" Margin="0 0 0 4">
+                            <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14"
+                                           VerticalAlignment="Center">
+                                    <Run Text="Пароль"/>
+                                    <Run Text="*" Foreground="#e64646"/>
                             </TextBlock>
+                            <Button Width="25" Height="25" Margin="5 0 0 0"
+                                    Style="{DynamicResource toolTipPasswordButton}" ToolTipService.InitialShowDelay="1">
+                                <Icons:PackIconMaterial Width="15" Height="15"
+                                        Kind="LockQuestion"/>
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <ToolTip.Content>
+                                            <StackPanel Orientation="Vertical" Margin="10">
+                                                <TextBlock Text="Пароль" Margin="0 0 0 5" FontWeight="SemiBold"/>
+                                                <TextBlock Text="Пароль должен содержать маленькие и заглавные буквы, а также цифры"
+                                               TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                        </ToolTip.Content>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                            </Button>
                         </StackPanel>
                         <TextBox Name="UserPasswordTextBox" Style="{DynamicResource inputTextBox}"
                                      Text="{Binding PasswordUser}" TextChanged="UserPasswordTextBox_TextChanged"/>

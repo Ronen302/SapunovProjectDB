@@ -30,7 +30,8 @@
                     </Border>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left"
+                                Width="396">
                         <Grid MaxWidth="350">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40"/>
@@ -101,11 +102,30 @@
                         <TextBlock x:Name="EmptyRepeatPasswordError" Text="Повторите пароль" Margin="25,4,25,0"
                        FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
 
-                        <CheckBox Content="Запомнить логин" FontSize="16" VerticalContentAlignment="Center"
+                        <StackPanel Orientation="Horizontal" Margin="25,20,0,0">
+                            <CheckBox Content="Запомнить логин" FontSize="16" VerticalContentAlignment="Center"
+                                  VerticalAlignment="Center"
                               Style="{DynamicResource authPageCheckBox}" Cursor="Hand"
-                              x:Name="SaveLoginCb" Margin="25,20,218,0" Template="{DynamicResource CheckBoxControlTemplate}"/>
+                              x:Name="SaveLoginCb" Template="{DynamicResource CheckBoxControlTemplate}" Width="155"/>
+                            <Button Width="25" Height="25" Margin="0 2 0 0"
+                                    Style="{DynamicResource toolTipPasswordButton}" ToolTipService.InitialShowDelay="1">
+                                <Icons:PackIconMaterial Width="13" Height="13"
+                                        Kind="HelpCircle"/>
+                                <Button.ToolTip>
+                                    <ToolTip Width="350" PlacementRectangle="-160,10,0,0">
+                                        <ToolTip.Content>
+                                            <StackPanel Orientation="Vertical" Margin="10">
+                                                <TextBlock Text="Сохранить логин" Margin="0 0 0 5" FontWeight="SemiBold"/>
+                                                <TextBlock Text="Выберите, чтобы сохранить данные аккаунта для быстрого входа на этом устройстве"
+                                               TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                        </ToolTip.Content>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical"> 
                         <Grid Width="350">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40"/>
