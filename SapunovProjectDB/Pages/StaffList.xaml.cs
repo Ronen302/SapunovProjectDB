@@ -130,6 +130,7 @@ namespace SapunovProjectDB.Pages
                 currentStaff = currentStaff.Where(u => u.FirstNameStaff
                 .StartsWith(FilterTextBox.Text) || u.LastNameStaff
                 .StartsWith(FilterTextBox.Text) || u.MiddleNameStaff
+                .StartsWith(FilterTextBox.Text) || u.IdStaff.ToString()
                 .StartsWith(FilterTextBox.Text)).ToList();
                 StaffListDataGrid.ItemsSource = currentStaff.OrderByDescending(u => u.IdStaff);
             }

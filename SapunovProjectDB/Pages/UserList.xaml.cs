@@ -38,7 +38,9 @@ namespace SapunovProjectDB.Pages
                     currentUser = currentUser.Where(u => u.IdRole.ToString()
                     .Contains(FilterRoleCb.SelectedIndex.ToString())).ToList();
                 }
-                currentUser = currentUser.Where(u => u.LoginUser.StartsWith(FilterTextBox.Text)).ToList();
+                currentUser = currentUser.Where(u => u.LoginUser
+                .StartsWith(FilterTextBox.Text) || u.IdUser.ToString()
+                .StartsWith(FilterTextBox.Text)).ToList();
                 UserListDataGrid.ItemsSource = currentUser.OrderByDescending(u => u.IdUser);
             }
             catch (Exception ex)

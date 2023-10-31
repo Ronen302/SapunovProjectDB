@@ -92,6 +92,7 @@ namespace SapunovProjectDB.Pages
                 };
                 DBEntities.GetContext().Order.Add(newOrder);
                 DBEntities.GetContext().SaveChanges();
+                DataIsSaved();
             }
             catch (Exception ex)
             {
@@ -108,6 +109,11 @@ namespace SapunovProjectDB.Pages
         private void textFilter_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateFilter();
+        }
+
+        private void backToServiceButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

@@ -65,8 +65,9 @@ namespace SapunovProjectDB.Pages
                 var currentClient = DBEntities.GetContext().Client.ToList();
 
                 currentClient = currentClient.Where(u => u.NameClient
+                .StartsWith(FilterTextBox.Text) || u.IdClient.ToString()
                 .StartsWith(FilterTextBox.Text)).ToList();
-                ClientListDataGrid.ItemsSource = currentClient.OrderBy(u => u.IdClient);
+                ClientListDataGrid.ItemsSource = currentClient.OrderByDescending(u => u.IdClient);
             }
             catch (Exception ex)
             {

@@ -27,6 +27,7 @@ namespace SapunovProjectDB.Pages
                     userRoleTextBlock.Text = "Сотрудник";
                     UserListBtn.Visibility = Visibility.Collapsed;
                     StaffListBtn.Visibility = Visibility.Collapsed;
+                    ClientListBtn.Visibility = Visibility.Collapsed;
                     MainPageFrame.Navigate(new OrderList());
                     break;
                 case 4:

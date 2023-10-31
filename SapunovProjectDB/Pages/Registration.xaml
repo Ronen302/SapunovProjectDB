@@ -156,7 +156,7 @@
                                Text="Номер телефона" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegPhoneTb}"/>
 
                             <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="RegPhoneTb" Style="{StaticResource inputTextBox}"
-                             GotFocus="RegPhoneTb_GotFocus" TextChanged="RegPhoneTb_TextChanged"/>
+                             GotFocus="RegPhoneTb_GotFocus" TextChanged="RegPhoneTb_TextChanged" MaxLength="11"/>
                         </Grid>
                         <TextBlock x:Name="EmptyRegPhoneError" Text="Не указан номер телефона" Margin="25,4,25,0"
                        FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
