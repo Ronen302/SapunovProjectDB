@@ -71,13 +71,21 @@
             </StackPanel>
         </Border>
 
-        <DataGrid Grid.Row="5" x:Name="StaffListDataGrid" ItemsSource="{Binding Staff}" IsReadOnly="True" 
+        <DataGrid Grid.Row="5" x:Name="StaffListDataGrid" ItemsSource="{Binding Staff}" IsReadOnly="True"
                   CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding IdStaff}" Width="auto"/>
-                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastNameStaff}" Width="*"/>
-                <DataGridTextColumn Header="Имя" Binding="{Binding FirstNameStaff}" Width="*"/>
-                <DataGridTextColumn Header="Отчество" Binding="{Binding MiddleNameStaff}" Width="*"/>
+                <DataGridTemplateColumn Header="ФИО" Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding LastNameStaff}"/>
+                                <Run Text="{Binding FirstNameStaff}"/>
+                                <Run Text="{Binding MiddleNameStaff}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Должность" Binding="{Binding PositionAtWork.NameOfPosition}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
@@ -143,16 +151,46 @@
                             <Run Text="{Binding User.LoginUser}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>
                         <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="1">
-                            <Run Text="Пароль: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding User.PasswordUser}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="2">
                             <Run Text="Роль: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
                             <Run Text="{Binding User.Role.NameRole}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="3">
+                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="2">
                             <Run Text="Образование: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
                             <Run Text="{Binding Education.NameEducation}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="3">
+                            <Run Text="Серия паспорта: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding PassportStaff.SerialPassportStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="4">
+                            <Run Text="Номер паспорта: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding PassportStaff.NumberPassportStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="2">
+                            <Run Text="Выдан: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding PassportStaff.PassportIssuedByStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="2" Grid.Row="1">
+                            <Run Text="Дата выдачи: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding PassportStaff.PassportIssueDateStaff, StringFormat=dd/MM/yyyy}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="2" Grid.Row="2">
+                            <Run Text="Код подразделения: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding PassportStaff.DepartmentCodeStaff, StringFormat={}{0:###-###}}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="2" Grid.Row="3">
+                            <Run Text="Адрес регистрации: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="г." Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="{Binding AdressStaff.CityNameStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="," Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="ул." Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="{Binding AdressStaff.StreetNameStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="," Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="д." Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="{Binding AdressStaff.HouseNumberStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="," Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="кв." Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="{Binding AdressStaff.ApartmentNumberStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>
                     </Grid>
                 </DataTemplate>

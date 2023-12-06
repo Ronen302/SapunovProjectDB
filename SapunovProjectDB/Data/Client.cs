@@ -21,12 +21,18 @@ namespace SapunovProjectDB.Data
         }
     
         public int IdClient { get; set; }
+        public string LastNameClient { get; set; }
         public string NameClient { get; set; }
+        public string MiddleNameClient { get; set; }
         public string PhoneNumberClient { get; set; }
         public string EmailClient { get; set; }
         public System.DateTime DateOfRegistration { get; set; }
+        public Nullable<int> IdPassportClient { get; set; }
+        public Nullable<int> IdAdressClient { get; set; }
         public int IdUser { get; set; }
     
+        public virtual AdressClient AdressClient { get; set; }
+        public virtual PassportClient PassportClient { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }

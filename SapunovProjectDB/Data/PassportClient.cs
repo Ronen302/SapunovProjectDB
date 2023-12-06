@@ -12,22 +12,22 @@ namespace SapunovProjectDB.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class TypeOfWork
+    public partial class PassportClient
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TypeOfWork()
+        public PassportClient()
         {
-            this.Order = new HashSet<Order>();
+            this.Client = new HashSet<Client>();
         }
     
-        public int IdTypeOfWork { get; set; }
-        public string NameTypeOfWork { get; set; }
-        public Nullable<int> IdService { get; set; }
-        public decimal PriceOfWork { get; set; }
-        public string DescriptionOfWork { get; set; }
+        public int IdPassportClient { get; set; }
+        public int SerialPassportClient { get; set; }
+        public int NumberPassportClient { get; set; }
+        public System.DateTime PassportIssueDateClient { get; set; }
+        public string PassportIssuedByClient { get; set; }
+        public int DepartmentCodeClient { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Order { get; set; }
-        public virtual Service Service { get; set; }
+        public virtual ICollection<Client> Client { get; set; }
     }
 }

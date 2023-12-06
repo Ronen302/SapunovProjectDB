@@ -101,9 +101,11 @@ namespace SapunovProjectDB.Pages
         }
         private async void DataIsSaved()
         {
+            dataIsSavedMessage.Text = "Заказ успешно оформлен";
             dataIsSavedMessage.Visibility = Visibility.Visible;
             await Task.Delay(TimeSpan.FromSeconds(2.6));
             dataIsSavedMessage.Visibility = Visibility.Collapsed;
+            dataIsSavedMessage.Text = "Данные сохранены";
         }
 
         private void textFilter_TextChanged(object sender, TextChangedEventArgs e)

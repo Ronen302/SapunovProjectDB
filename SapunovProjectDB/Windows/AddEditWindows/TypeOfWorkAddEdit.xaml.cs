@@ -43,7 +43,7 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                         _newTypeOfWork.PriceOfWork = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
                         _newTypeOfWork.IdService = Properties.Settings.Default.SelectedIdService;
                         if (!string.IsNullOrEmpty(ServiceDescriptionTextBox.Text))
-                            _currentTypeOfWork.DescriptionOfWork = ServiceDescriptionTextBox.Text;
+                            _newTypeOfWork.DescriptionOfWork = ServiceDescriptionTextBox.Text;
                         DBEntities.GetContext().TypeOfWork.Add(_newTypeOfWork);
                         DBEntities.GetContext().SaveChanges();
                     }

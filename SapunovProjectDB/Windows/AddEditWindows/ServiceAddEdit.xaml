@@ -9,7 +9,7 @@
         Title="Детали услуги" Height="660" Width="550" WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True"
         Background="Transparent">
-    <Border Margin="30" x:Name="MainBorder" Style="{DynamicResource thirdyDialogBorder}"
+    <Border x:Name="MainBorder" Style="{DynamicResource thirdyDialogBorder}"
             MouseLeftButtonDown="MainBorder_MouseLeftButtonDown">
         <Grid>
             <Grid.RowDefinitions>

@@ -32,7 +32,7 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                     Margin="0 0 0 5">
-            <TextBlock x:Name="dataIsSavedMessage" Text="Заказ успешно оформлен" FontSize="14" FontWeight="SemiBold"
+            <TextBlock x:Name="dataIsSavedMessage" FontSize="14" FontWeight="SemiBold"
                             HorizontalAlignment="Left" Style="{DynamicResource dataIsSavedTextBlock}" Grid.RowSpan="5"
                    Opacity="0" Visibility="Collapsed" VerticalAlignment="Bottom"/>
             <Button x:Name="UserAddBtn" Style="{DynamicResource dataAddButton}" Click="UserAddBtn_Click"

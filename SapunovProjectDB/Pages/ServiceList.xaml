@@ -82,7 +82,8 @@
                                 <Icons:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"
                                                         Foreground="#529ef4"/>
                             </Button>
-                            <Button x:Name="DeleteBtn" Style="{DynamicResource gridRemoveButton}" Click="DeleteBtn_Click">
+                            <Button x:Name="DeleteBtn" Style="{DynamicResource gridRemoveButton}" Click="DeleteBtn_Click"
+                                    Tag="{Binding IdService}">
                                 <Icons:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"
                                                         Foreground="#ff5c5c"/>
                             </Button>

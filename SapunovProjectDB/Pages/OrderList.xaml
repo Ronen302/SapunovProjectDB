@@ -55,7 +55,17 @@
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding IdOrder}" Width="auto"/>
-                <DataGridTextColumn Header="Клиент" Binding="{Binding Client.NameClient, FallbackValue=Клиент удален}" Width="*"/>
+                <DataGridTemplateColumn Header="Клиент" Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding Client.LastNameClient, FallbackValue=Клиент удален}"/>
+                                <Run Text="{Binding Client.NameClient}"/>
+                                <Run Text="{Binding Client.MiddleNameClient}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Услуга" Binding="{Binding TypeOfWork.NameTypeOfWork, FallbackValue=Услуга удалена}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">

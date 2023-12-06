@@ -75,6 +75,9 @@ namespace SapunovProjectDB.Pages
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             Service service = TypeOfServiceListView.SelectedItem as Service;
+            var selectedIdService = (int)(sender as Button).Tag;
+            Properties.Settings.Default.SelectedIdService = selectedIdService;
+            Properties.Settings.Default.Save();
             var typeOfWorks = DBEntities.GetContext().TypeOfWork
                 .Where(u => u.IdService == Properties.Settings.Default.SelectedIdService).ToList();
             RemoveDialogWindow removeDialog = new RemoveDialogWindow();
@@ -84,8 +87,8 @@ namespace SapunovProjectDB.Pages
             {
                 try
                 {
-                    DBEntities.GetContext().TypeOfWork.RemoveRange(typeOfWorks);
                     DBEntities.GetContext().Service.Remove(service);
+                    DBEntities.GetContext().TypeOfWork.RemoveRange(typeOfWorks);
                     DBEntities.GetContext().SaveChanges();
                     UpdateFilter();
                 }

@@ -3,7 +3,6 @@ using SapunovProjectDB.Data;
 using SapunovProjectDB.Windows;
 using SapunovProjectDB.Windows.AddEditWindows;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -53,12 +52,20 @@ namespace SapunovProjectDB.Pages
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             Staff staff = StaffListDataGrid.SelectedItem as Staff;
+            PassportStaff passportStaff = DBEntities.GetContext().PassportStaff
+                                .FirstOrDefault(u => u.IdPassportStaff == staff.IdPassportStaff);
+            AdressStaff adressStaff = DBEntities.GetContext().AdressStaff
+                                .FirstOrDefault(u => u.IdAdressStaff == staff.IdAdressStaff);
             User user = DBEntities.GetContext().User
                                 .FirstOrDefault(u => u.IdUser == staff.IdUser);
             Client client = DBEntities.GetContext().Client
                         .FirstOrDefault(u => u.IdUser == staff.IdUser);
             int _currentClient = DBEntities.GetContext().Client
                     .FirstOrDefault(u => u.IdUser == user.IdUser).IdClient;
+            PassportClient passportClient = DBEntities.GetContext().PassportClient
+                        .FirstOrDefault(u => u.IdPassportClient == _currentClient);
+            AdressClient adressClient = DBEntities.GetContext().AdressClient
+                        .FirstOrDefault(u => u.IdAdressClient == _currentClient);
             RemoveDialogWindow removeDialog = new RemoveDialogWindow();
             removeDialog.removeMessage.Text = $"\"{staff.LastNameStaff} {staff.FirstNameStaff} {staff.MiddleNameStaff}\" будет удален без возможности восстановления." +
                         $" Вы действительно желаете это сделать?";
@@ -66,24 +73,14 @@ namespace SapunovProjectDB.Pages
             {
                 try
                 {
-                    if (DBEntities.GetContext().Order
-                        .FirstOrDefault(u => u.IdClient == _currentClient) != null)
-                    {
-                        List<Order> order = DBEntities.GetContext().Order
-                        .Where(u => u.IdClient == client.IdClient).ToList();
-                        DBEntities.GetContext().Order.RemoveRange(order);
-                        DBEntities.GetContext().Staff.Remove(staff);
-                        DBEntities.GetContext().Client.Remove(client);
-                        DBEntities.GetContext().User.Remove(user);
-                        DBEntities.GetContext().SaveChanges();
-                    }
-                    else
-                    {
-                        DBEntities.GetContext().Staff.Remove(staff);
-                        DBEntities.GetContext().Client.Remove(client);
-                        DBEntities.GetContext().User.Remove(user);
-                        DBEntities.GetContext().SaveChanges();
-                    }
+                    DBEntities.GetContext().Staff.Remove(staff);
+                    DBEntities.GetContext().PassportStaff.Remove(passportStaff);
+                    DBEntities.GetContext().AdressStaff.Remove(adressStaff);
+                    DBEntities.GetContext().Client.Remove(client);
+                    DBEntities.GetContext().PassportClient.Remove(passportClient);
+                    DBEntities.GetContext().AdressClient.Remove(adressClient);
+                    DBEntities.GetContext().User.Remove(user);
+                    DBEntities.GetContext().SaveChanges();
                     UpdateFilter();
                 }
                 catch (Exception ex)

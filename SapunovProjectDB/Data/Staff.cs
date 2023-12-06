@@ -26,10 +26,14 @@ namespace SapunovProjectDB.Data
         public int IdPositionAtWork { get; set; }
         public decimal SalaryStaff { get; set; }
         public System.DateTime HireDateStaff { get; set; }
+        public int IdPassportStaff { get; set; }
+        public int IdAdressStaff { get; set; }
         public int IdUser { get; set; }
     
+        public virtual AdressStaff AdressStaff { get; set; }
         public virtual Education Education { get; set; }
         public virtual GenderStaff GenderStaff { get; set; }
+        public virtual PassportStaff PassportStaff { get; set; }
         public virtual PositionAtWork PositionAtWork { get; set; }
         public virtual User User { get; set; }
     }

@@ -92,6 +92,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\Error.cs" />
+    <Compile Include="Data\AdressClient.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AdressStaff.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\CategoryOfService.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -123,6 +129,12 @@
     <Compile Include="Data\Order.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\PassportClient.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\PassportStaff.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\PositionAtWork.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -136,9 +148,6 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\StatusOrder.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\sysdiagrams.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\TypeOfWork.cs">
@@ -179,6 +188,9 @@
     </Compile>
     <Compile Include="Pages\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddEditWindows\ClientEdit.xaml.cs">
+      <DependentUpon>ClientEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AddEditWindows\ServiceAddEdit.xaml.cs">
       <DependentUpon>ServiceAddEdit.xaml</DependentUpon>
@@ -327,6 +339,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\ToolTip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddEditWindows\ClientEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

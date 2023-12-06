@@ -9,7 +9,7 @@
         Title="Детали сотрудника" Height="660" Width="550" WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True"
         Background="Transparent">
-    <Border Margin="30" x:Name="MainBorder" Style="{DynamicResource thirdyDialogBorder}"
+    <Border x:Name="MainBorder" Style="{DynamicResource thirdyDialogBorder}"
             MouseLeftButtonDown="MainBorder_MouseLeftButtonDown">
         <Grid>
             <Grid.RowDefinitions>
@@ -222,6 +222,115 @@
                                     ItemContainerStyle="{DynamicResource ComboBoxItemStyle}"
                                     Height="41" DisplayMemberPath="NameRole" SelectedItem="{Binding User.Role}"
                                       SelectedValuePath="IdRole" SelectionChanged="RoleStaffComboBox_SelectionChanged"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"
+                                           VerticalAlignment="Center">
+                                    <Run Text="Серия паспорта"/>
+                                    <Run Text="*" Foreground="#e64646"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <TextBox Name="StaffSerialPassportTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
+                                     Text="{Binding PassportStaff.SerialPassportStaff}" MaxLength="4"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"
+                                           VerticalAlignment="Center">
+                                    <Run Text="Номер паспорта"/>
+                                    <Run Text="*" Foreground="#e64646"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <TextBox Name="StaffNumberPassportTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
+                                     Text="{Binding PassportStaff.NumberPassportStaff}" MaxLength="6"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"
+                                           VerticalAlignment="Center">
+                                    <Run Text="Выдан"/>
+                                    <Run Text="*" Foreground="#e64646"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <TextBox Name="StaffPassportIssuedByTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
+                                     Text="{Binding PassportStaff.PassportIssuedByStaff}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8">
+                                    <Run Text="Дата выдачи"/>
+                                    <Run Text="*" Foreground="#e64646"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <DatePicker Name="StaffPassportIssueDateDatePicker"
+                                            SelectedDate="{Binding PassportStaff.PassportIssueDateStaff}"
+                                            Style="{DynamicResource DatePickerStyle}"
+                                            CalendarStyle="{DynamicResource CalendarStyle}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"
+                                           VerticalAlignment="Center">
+                                    <Run Text="Код подразделения"/>
+                                    <Run Text="*" Foreground="#e64646"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <TextBox Name="StaffDepartmentCodeTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
+                                     Text="{Binding PassportStaff.DepartmentCodeStaff}" MaxLength="6"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"
+                                           VerticalAlignment="Center">
+                                    <Run Text="Город"/>
+                                    <Run Text="*" Foreground="#e64646"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <TextBox Name="StaffCityNameTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
+                                     Text="{Binding AdressStaff.CityNameStaff}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"
+                                           VerticalAlignment="Center">
+                                    <Run Text="Улица"/>
+                                    <Run Text="*" Foreground="#e64646"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <TextBox Name="StaffStreetNameTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
+                                     Text="{Binding AdressStaff.StreetNameStaff}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"
+                                           VerticalAlignment="Center">
+                                    <Run Text="Номер дома"/>
+                                    <Run Text="*" Foreground="#e64646"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <TextBox Name="StaffHouseNumberTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
+                                     Text="{Binding AdressStaff.HouseNumberStaff}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8"
+                                           VerticalAlignment="Center">
+                                    <Run Text="Номер квартиры"/>
+                                    <Run Text="*" Foreground="#e64646"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <TextBox Name="StaffApartmentNumberTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
+                                     Text="{Binding AdressStaff.ApartmentNumberStaff}"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>

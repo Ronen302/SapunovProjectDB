@@ -30,6 +30,13 @@
         <TextBlock Text="Клиенты" FontSize="32" FontWeight="SemiBold"
                            Margin="0 20 0 0" HorizontalAlignment="Left" Style="{DynamicResource loginNormalTitleText}"/>
 
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                    Margin="0 0 0 5">
+            <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="14" FontWeight="SemiBold"
+                            HorizontalAlignment="Left" Style="{DynamicResource dataIsSavedTextBlock}" Grid.RowSpan="5"
+                   Opacity="0" Visibility="Collapsed" VerticalAlignment="Bottom"/>
+        </StackPanel>
+
         <Separator Height="1" Grid.Row="2" Margin="0 -1 0 0" Style="{DynamicResource mainPageSeparator}"/>
 
         <Border Grid.Row="4" Style="{DynamicResource secondaryBorderMainPage}"
@@ -56,14 +63,27 @@
                   CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding IdClient}" Width="auto"/>
-                <DataGridTextColumn Header="Имя" Binding="{Binding NameClient}" Width="*"/>
-                <DataGridTextColumn Header="Номер телефона" Binding="{Binding PhoneNumberClient}" Width="*"/>
+                <DataGridTemplateColumn Header="ФИО" Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding LastNameClient}"/>
+                                <Run Text="{Binding NameClient}"/>
+                                <Run Text="{Binding MiddleNameClient}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Номер телефона" Binding="{Binding PhoneNumberClient, FallbackValue=Не указано}" Width="*"/>
                 <DataGridTextColumn Header="Эл. почта" Binding="{Binding EmailClient}" Width="*"/>
-                <DataGridTextColumn Header="Дата регистрации" Binding="{Binding DateOfRegistration, StringFormat=dd/MM/yyyy}" Width="*"/>
                 <DataGridTemplateColumn Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
+                                <Button x:Name="EditBtn" Style="{DynamicResource gridEditButton}" Click="EditBtn_Click">
+                                    <Icons:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"
+                                                            Foreground="#529ef4"/>
+                                </Button>
                                 <Button x:Name="DeleteBtn" Style="{DynamicResource gridRemoveButton}" Click="DeleteBtn_Click">
                                     <Icons:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"
                                                             Foreground="#ff5c5c"/>
@@ -78,18 +98,57 @@
                     <Grid Margin="18 10 0 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Margin="0 0 0 5">
+                            <Run Text="Серия паспорта: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding PassportClient.SerialPassportClient, FallbackValue=Не указано}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="0 0 0 5" Grid.Row="1">
+                            <Run Text="Номер паспорта: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding PassportClient.NumberPassportClient, FallbackValue=Не указано}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="0 0 0 5" Grid.Row="2">
+                            <Run Text="Выдан: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding PassportClient.PassportIssuedByClient, FallbackValue=Не указано}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="0 0 0 5" Grid.Row="3">
+                            <Run Text="Дата выдачи: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding PassportClient.PassportIssueDateClient, StringFormat=dd/MM/yyyy, FallbackValue=Не указано}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Grid.Row="4">
+                            <Run Text="Код подразделения: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding PassportClient.DepartmentCodeClient, StringFormat={}{0:###-###}, FallbackValue=Не указано}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="1">
+                            <Run Text="Адрес регистрации: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="г." Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="{Binding AdressClient.CityNameClient}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="," Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="ул." Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="{Binding AdressClient.StreetNameClient}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="," Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="д." Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="{Binding AdressClient.HouseNumberClient}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="," Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="кв." Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Text="{Binding AdressClient.ApartmentNumberClient}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="1">
                             <Run Text="Логин: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
                             <Run Text="{Binding User.LoginUser}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>
-                        <TextBlock Margin="0 0 0 5" Grid.Row="1">
-                            <Run Text="Пароль: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding User.PasswordUser}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="2">
+                            <Run Text="Дата регистрации: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding DateOfRegistration, StringFormat=dd/MM/yyyy}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>
                     </Grid>
                 </DataTemplate>

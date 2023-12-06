@@ -62,8 +62,7 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                     _currentService.NameService = ServiceNameTextBox.Text;
                     _currentService.PriceOfService = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
                     _currentService.IdCategory = Int32.Parse(ServiceCategoryComboBox.SelectedValue.ToString());
-                    if (!string.IsNullOrWhiteSpace(ServiceDescriptionTextBox.Text))
-                        _currentService.Description = ServiceDescriptionTextBox.Text;
+                    _currentService.Description = ServiceDescriptionTextBox.Text;
                     DBEntities.GetContext().SaveChanges();
                 }
                 catch (Exception ex)

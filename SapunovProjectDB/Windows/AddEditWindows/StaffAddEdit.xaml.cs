@@ -10,16 +10,26 @@ namespace SapunovProjectDB.Windows.AddEditWindows
     public partial class StaffAddEdit : Window
     {
         private readonly Staff _currentStaff = new Staff();
+        private readonly PassportStaff _currentPassportStaff = new PassportStaff();
+        private readonly AdressStaff _currentAdressStaff = new AdressStaff();
+        private readonly PassportClient _currentPassportClient = new PassportClient();
+        private readonly AdressClient _currentAdressClient = new AdressClient();
         private readonly User _currentUser = new User();
         private readonly Staff _newStaff = new Staff();
+        private readonly PassportStaff _newPassportStaff = new PassportStaff();
+        private readonly AdressStaff _newAdressStaff = new AdressStaff();
         private readonly User _newUser = new User();
         private readonly Client _newClient = new Client();
+        private readonly PassportClient _newPassportClient = new PassportClient();
+        private readonly AdressClient _newAdressClient = new AdressClient();
         public StaffAddEdit(Staff selectedStaff)
         {
             InitializeComponent();
             if (selectedStaff != null)
             {
                 _currentStaff = selectedStaff;
+                _currentPassportStaff.IdPassportStaff = _currentStaff.IdPassportStaff;
+                _currentAdressStaff.IdAdressStaff = _currentStaff.IdAdressStaff;
                 _currentUser.IdUser = _currentStaff.IdUser;
             }
             else
@@ -66,6 +76,23 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 {
                     try
                     {
+                        _newPassportStaff.SerialPassportStaff = Int32.Parse(StaffSerialPassportTextBox.Text);
+                        _newPassportStaff.NumberPassportStaff = Int32.Parse(StaffNumberPassportTextBox.Text);
+                        _newPassportStaff.PassportIssueDateStaff = DateTime.Parse(StaffPassportIssueDateDatePicker.SelectedDate.ToString());
+                        _newPassportStaff.PassportIssuedByStaff = StaffPassportIssuedByTextBox.Text;
+                        _newPassportStaff.DepartmentCodeStaff = Int32.Parse(StaffDepartmentCodeTextBox.Text);
+                        DBEntities.GetContext().PassportStaff.Add(_newPassportStaff);
+                        DBEntities.GetContext().SaveChanges();
+                        _currentPassportStaff.IdPassportStaff = _newPassportStaff.IdPassportStaff;
+
+                        _newAdressStaff.CityNameStaff = StaffCityNameTextBox.Text;
+                        _newAdressStaff.StreetNameStaff = StaffStreetNameTextBox.Text;
+                        _newAdressStaff.HouseNumberStaff = Int32.Parse(StaffHouseNumberTextBox.Text);
+                        _newAdressStaff.ApartmentNumberStaff = Int32.Parse(StaffApartmentNumberTextBox.Text);
+                        DBEntities.GetContext().AdressStaff.Add(_newAdressStaff);
+                        DBEntities.GetContext().SaveChanges();
+                        _currentAdressStaff.IdAdressStaff = _newAdressStaff.IdAdressStaff;
+
                         _newUser.LoginUser = StaffLoginTextBox.Text;
                         _newUser.PasswordUser = StaffPasswordTextBox.Text;
                         _newUser.IdRole = Int32.Parse(RoleStaffComboBox.SelectedValue.ToString());
@@ -85,14 +112,37 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                         _newStaff.IdPositionAtWork = Int32.Parse(PositionAtWorkStaffComboBox.SelectedValue.ToString());
                         _newStaff.SalaryStaff = Decimal.Parse(StaffSalaryTextBox.Text.Replace(".", ","));
                         _newStaff.HireDateStaff = DateTime.Parse(StaffHireDateDatePicker.SelectedDate.ToString());
+                        _newStaff.IdPassportStaff = _currentPassportStaff.IdPassportStaff;
+                        _newStaff.IdAdressStaff = _currentAdressStaff.IdAdressStaff;
                         _newStaff.IdUser = _currentUser.IdUser;
                         DBEntities.GetContext().Staff.Add(_newStaff);
                         DBEntities.GetContext().SaveChanges();
 
+                        _newPassportClient.SerialPassportClient = Int32.Parse(StaffSerialPassportTextBox.Text);
+                        _newPassportClient.NumberPassportClient = Int32.Parse(StaffNumberPassportTextBox.Text);
+                        _newPassportClient.PassportIssueDateClient = DateTime.Parse(StaffPassportIssueDateDatePicker.SelectedDate.ToString());
+                        _newPassportClient.PassportIssuedByClient = StaffPassportIssuedByTextBox.Text;
+                        _newPassportClient.DepartmentCodeClient = Int32.Parse(StaffDepartmentCodeTextBox.Text);
+                        DBEntities.GetContext().PassportClient.Add(_newPassportClient);
+                        DBEntities.GetContext().SaveChanges();
+                        _currentPassportClient.IdPassportClient = _newPassportClient.IdPassportClient;
+
+                        _newAdressClient.CityNameClient = StaffCityNameTextBox.Text;
+                        _newAdressClient.StreetNameClient = StaffStreetNameTextBox.Text;
+                        _newAdressClient.HouseNumberClient = Int32.Parse(StaffHouseNumberTextBox.Text);
+                        _newAdressClient.ApartmentNumberClient = Int32.Parse(StaffApartmentNumberTextBox.Text);
+                        DBEntities.GetContext().AdressClient.Add(_newAdressClient);
+                        DBEntities.GetContext().SaveChanges();
+                        _currentAdressClient.IdAdressClient = _newAdressClient.IdAdressClient;
+
+                        _newClient.LastNameClient = StaffLastNameTextBox.Text;
                         _newClient.NameClient = StaffFirstNameTextBox.Text;
+                        _newClient.MiddleNameClient = StaffMiddleNameTextBox.Text;
                         _newClient.PhoneNumberClient = StaffPhoneNumberTextBox.Text;
                         _newClient.EmailClient = StaffEmailTextBox.Text;
                         _newClient.DateOfRegistration = DateTime.Now;
+                        _newClient.IdPassportClient = _currentPassportClient.IdPassportClient;
+                        _newClient.IdAdressClient = _currentAdressClient.IdAdressClient;
                         _newClient.IdUser = _currentUser.IdUser;
                         DBEntities.GetContext().Client.Add(_newClient);
                         DBEntities.GetContext().SaveChanges();
@@ -120,6 +170,19 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                     _currentStaff.IdPositionAtWork = Int32.Parse(PositionAtWorkStaffComboBox.SelectedValue.ToString());
                     _currentStaff.SalaryStaff = Decimal.Parse(StaffSalaryTextBox.Text.Replace(".", ","));
                     _currentStaff.HireDateStaff = DateTime.Parse(StaffHireDateDatePicker.SelectedDate.ToString());
+                    DBEntities.GetContext().SaveChanges();
+
+                    _currentPassportStaff.SerialPassportStaff = Int32.Parse(StaffSerialPassportTextBox.Text);
+                    _currentPassportStaff.NumberPassportStaff = Int32.Parse(StaffNumberPassportTextBox.Text);
+                    _currentPassportStaff.PassportIssueDateStaff = DateTime.Parse(StaffPassportIssueDateDatePicker.SelectedDate.ToString());
+                    _currentPassportStaff.PassportIssuedByStaff = StaffPassportIssuedByTextBox.Text;
+                    _currentPassportStaff.DepartmentCodeStaff = Int32.Parse(StaffDepartmentCodeTextBox.Text);
+                    DBEntities.GetContext().SaveChanges();
+
+                    _currentAdressStaff.CityNameStaff = StaffCityNameTextBox.Text;
+                    _currentAdressStaff.StreetNameStaff = StaffStreetNameTextBox.Text;
+                    _currentAdressStaff.HouseNumberStaff = Int32.Parse(StaffHouseNumberTextBox.Text);
+                    _currentAdressStaff.ApartmentNumberStaff = Int32.Parse(StaffApartmentNumberTextBox.Text);
                     DBEntities.GetContext().SaveChanges();
 
                     _currentUser.LoginUser = StaffLoginTextBox.Text;
