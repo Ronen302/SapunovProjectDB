@@ -44,6 +44,7 @@ namespace SapunovProjectDB.Pages
             StaffAddEdit staffEdit = new StaffAddEdit(StaffListDataGrid.SelectedItem as Staff);
             if (staffEdit.ShowDialog() == true)
             {
+                dataIsSavedMessage.Text = "Данные сохранены";
                 UpdateFilter();
                 DataIsSaved();
             }
@@ -60,12 +61,10 @@ namespace SapunovProjectDB.Pages
                                 .FirstOrDefault(u => u.IdUser == staff.IdUser);
             Client client = DBEntities.GetContext().Client
                         .FirstOrDefault(u => u.IdUser == staff.IdUser);
-            int _currentClient = DBEntities.GetContext().Client
-                    .FirstOrDefault(u => u.IdUser == user.IdUser).IdClient;
             PassportClient passportClient = DBEntities.GetContext().PassportClient
-                        .FirstOrDefault(u => u.IdPassportClient == _currentClient);
+                        .FirstOrDefault(u => u.IdPassportClient == client.IdPassportClient);
             AdressClient adressClient = DBEntities.GetContext().AdressClient
-                        .FirstOrDefault(u => u.IdAdressClient == _currentClient);
+                        .FirstOrDefault(u => u.IdAdressClient == client.IdAdressClient);
             RemoveDialogWindow removeDialog = new RemoveDialogWindow();
             removeDialog.removeMessage.Text = $"\"{staff.LastNameStaff} {staff.FirstNameStaff} {staff.MiddleNameStaff}\" будет удален без возможности восстановления." +
                         $" Вы действительно желаете это сделать?";
@@ -74,14 +73,22 @@ namespace SapunovProjectDB.Pages
                 try
                 {
                     DBEntities.GetContext().Staff.Remove(staff);
+                    DBEntities.GetContext().SaveChanges();
                     DBEntities.GetContext().PassportStaff.Remove(passportStaff);
+                    DBEntities.GetContext().SaveChanges();
                     DBEntities.GetContext().AdressStaff.Remove(adressStaff);
+                    DBEntities.GetContext().SaveChanges();
                     DBEntities.GetContext().Client.Remove(client);
+                    DBEntities.GetContext().SaveChanges();
                     DBEntities.GetContext().PassportClient.Remove(passportClient);
+                    DBEntities.GetContext().SaveChanges();
                     DBEntities.GetContext().AdressClient.Remove(adressClient);
+                    DBEntities.GetContext().SaveChanges();
                     DBEntities.GetContext().User.Remove(user);
                     DBEntities.GetContext().SaveChanges();
+                    dataIsSavedMessage.Text = "Данные удалены";
                     UpdateFilter();
+                    DataIsSaved();
                 }
                 catch (Exception ex)
                 {
@@ -95,6 +102,7 @@ namespace SapunovProjectDB.Pages
             StaffAddEdit staffAdd = new StaffAddEdit(null);
             if (staffAdd.ShowDialog() == true)
             {
+                dataIsSavedMessage.Text = "Данные сохранены";
                 UpdateFilter();
                 DataIsSaved();
             }

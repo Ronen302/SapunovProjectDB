@@ -21,7 +21,7 @@ namespace SapunovProjectDB.Pages
                     break;
                 case 2:
                     userRoleTextBlock.Text = "Менеджер";
-                    MainPageFrame.Navigate(new UserList());
+                    MainPageFrame.Navigate(new OrderList());
                     break;
                 case 3:
                     userRoleTextBlock.Text = "Сотрудник";

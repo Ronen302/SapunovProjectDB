@@ -23,5 +23,8 @@
     <Setting Name="CurrentIdUser" Type="System.Int32" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="IsMaximized" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

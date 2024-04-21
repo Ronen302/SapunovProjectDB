@@ -29,7 +29,7 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                     Margin="0 0 0 5">
-            <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="14" FontWeight="SemiBold"
+            <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="16" FontWeight="SemiBold"
                             HorizontalAlignment="Left" Style="{DynamicResource dataIsSavedTextBlock}" Grid.RowSpan="5"
                    Opacity="0" Visibility="Collapsed" VerticalAlignment="Bottom"/>
             <Button x:Name="UserAddBtn" Style="{DynamicResource dataAddButton}" Click="UserAddBtn_Click"
@@ -94,6 +94,24 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Оклад" Binding="{Binding SalaryStaff, StringFormat={}{0:C0}, ConverterCulture=ru-RU}" Width="*"/>
+                <DataGridTemplateColumn Header="Последний визит" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run>
+                                    <Run.Text>
+                                        <Binding Path="User.DateOfLastVisit" StringFormat="{}{0:ddd}," ConverterCulture="ru-RU" TargetNullValue="—"/>
+                                    </Run.Text>
+                                </Run>
+                                <Run>
+                                    <Run.Text>
+                                        <Binding Path="User.DateOfLastVisit" StringFormat="dd/MM/yyyy HH:mm"/>
+                                    </Run.Text>
+                                </Run>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -180,17 +198,16 @@
                         </TextBlock>
                         <TextBlock Margin="20 0 0 0" Grid.Column="2" Grid.Row="3">
                             <Run Text="Адрес регистрации: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="г." Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                            <Run Text="{Binding AdressStaff.CityNameStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                            <Run Text="," Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                            <Run Text="ул." Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                            <Run Text="{Binding AdressStaff.StreetNameStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                            <Run Text="," Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                            <Run Text="д." Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                            <Run Text="{Binding AdressStaff.HouseNumberStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                            <Run Text="," Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                            <Run Text="кв." Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                            <Run Text="{Binding AdressStaff.ApartmentNumberStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                            <Run Style="{DynamicResource normalTextListView}" FontSize="14">
+                                <Run.Text>
+                                    <MultiBinding StringFormat="г. {0}, ул. {1}, д. {2}, кв. {3}">
+                                    <Binding Path="AdressStaff.CityNameStaff"/>
+                                    <Binding Path="AdressStaff.StreetNameStaff"/>
+                                    <Binding Path="AdressStaff.HouseNumberStaff"/>
+                                    <Binding Path="AdressStaff.ApartmentNumberStaff"/>
+                                </MultiBinding>
+                                </Run.Text>
+                            </Run>
                         </TextBlock>
                     </Grid>
                 </DataTemplate>

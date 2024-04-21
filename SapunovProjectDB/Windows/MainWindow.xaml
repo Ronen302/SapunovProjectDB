@@ -6,15 +6,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SapunovProjectDB.Windows"
         mc:Ignorable="d"
-        Title="СТРОЙ-БАЗИС" Height="720" Width="1080" ResizeMode="CanMinimize"
+        Title="«АТОМСТРОЙРЕЗЕРВ»" Height="720" Width="1156" ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
         Background="Transparent">
 
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
+        <WindowChrome GlassFrameThickness="0" CaptionHeight="0" ResizeBorderThickness="0"/>
     </WindowChrome.WindowChrome>
 
-    <Border x:Name="MainBorder" CornerRadius="10" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown"
+    <Border x:Name="MainBorder" CornerRadius="10"
             Style="{DynamicResource mainAuthBorder}">
         <Grid>
             <Grid.RowDefinitions>
@@ -23,14 +23,15 @@
             </Grid.RowDefinitions>
 
             <Border x:Name="topBorder" Style="{DynamicResource topBorder}"
-                    CornerRadius="10 10 0 0">
+                    CornerRadius="10 10 0 0" MouseLeftButtonDown="topBorder_MouseLeftButtonDown"
+                    MouseDown="topBorder_MouseDown">
                 <Grid>
                     <Image Source="/Resources/Images/stroy-basis-logo-small.png"
                            HorizontalAlignment="Left" Margin="10 8 0 8"/>
                     <StackPanel Panel.ZIndex="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button x:Name="ChangeThemeBtn" Style="{DynamicResource topButton}" HorizontalAlignment="Right"
                                 Width="45" Height="35" Click="ChangeThemeBtn_Click">
-                            <Icons:PackIconMaterial Kind="MoonWaningCrescent" Width="12" Height="12"/>
+                            <Icons:PackIconMaterial x:Name="changeThemeIcon" Kind="MoonWaningCrescent" Width="12" Height="12"/>
                         </Button>
                         <Button x:Name="MinimizeBtn" Style="{DynamicResource topButton}" HorizontalAlignment="Right"
                         Click="MinimizeBtn_Click" Width="45" Height="35">
@@ -40,9 +41,12 @@
                         Click="MaximizeBtn_Click" Width="45" Height="35">
                             <Icons:PackIconMaterial x:Name="maximizeIcon" Kind="WindowMaximize" Width="12" Height="12"/>
                         </Button>
+                        <Button x:Name="CloseBtnMaximized" Style="{DynamicResource closeButtonMaximized}" HorizontalAlignment="Right"
+                                Width="45" Height="35" Click="CloseBtnMaximized_Click" Visibility="Collapsed">
+                            <Icons:PackIconMaterial Kind="WindowClose" Width="12" Height="12"/>
+                        </Button>
                         <Button x:Name="CloseBtn" Style="{DynamicResource closeButton}" HorizontalAlignment="Right"
-                                Width="45" Height="35"
-                        Click="CloseBtn_Click">
+                                Width="45" Height="35" Click="CloseBtn_Click">
                             <Icons:PackIconMaterial Kind="WindowClose" Width="12" Height="12"/>
                         </Button>
                     </StackPanel>

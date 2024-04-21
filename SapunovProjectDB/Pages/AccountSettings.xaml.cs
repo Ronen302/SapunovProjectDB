@@ -11,11 +11,28 @@ namespace SapunovProjectDB.Pages
     public partial class AccountSettings : Page
     {
         User _currentUser = DBEntities.GetContext().User
-                .FirstOrDefault(u => u.IdUser == Properties.Settings.Default.CurrentIdUser);
+                .FirstOrDefault(u => u.LoginUser == Properties.Settings.Default.CurrentUser);
         public AccountSettings()
         {
             InitializeComponent();
             UserLoginTextBox.Text = Properties.Settings.Default.CurrentUser;
+            UserIdRun.Text = _currentUser.IdUser.ToString();
+            Staff staff = DBEntities.GetContext().Staff.FirstOrDefault(u => u.IdStaff == _currentUser.IdUser);
+            Client client = DBEntities.GetContext().Client.FirstOrDefault(u => u.IdClient == _currentUser.IdUser);
+            if(staff != null)
+            {
+                UserLastNameRun.Text = staff.LastNameStaff + " ";
+                UserFirstNameRun.Text = staff.FirstNameStaff;
+                UserMiddleNameRun.Text = staff.MiddleNameStaff;
+            }
+            else
+            {
+                UserLastNameRun.Text = client.LastNameClient + " ";
+                UserFirstNameRun.Text = client.NameClient;
+                UserMiddleNameRun.Text = client.MiddleNameClient;
+            }
+            if (client.LastNameClient == null)
+                UserLastNameRun.Visibility = Visibility.Collapsed;
         }
 
         private void userSaveButton_Click(object sender, RoutedEventArgs e)

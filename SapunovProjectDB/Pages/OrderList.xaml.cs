@@ -40,8 +40,7 @@ namespace SapunovProjectDB.Pages
                     currentOrder = currentOrder.Where(u => u.IdStatusOrder.ToString()
                     .Contains(FilterStatusCb.SelectedIndex.ToString())).ToList();
                 }
-                OrderListDataGrid.ItemsSource = currentOrder
-                    .OrderByDescending(u => u.DateOfCreate);
+                OrderListDataGrid.ItemsSource = currentOrder.OrderByDescending(u => u.DateOfCreate);
             }
             catch (Exception ex)
             {
@@ -76,6 +75,11 @@ namespace SapunovProjectDB.Pages
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
             statusMenu.IsOpen = true;
+        }
+
+        private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

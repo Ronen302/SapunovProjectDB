@@ -29,7 +29,7 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                     Margin="0 0 0 5">
-            <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="14" FontWeight="SemiBold"
+            <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="16" FontWeight="SemiBold"
                             HorizontalAlignment="Left" Style="{DynamicResource dataIsSavedTextBlock}" Grid.RowSpan="5"
                    Opacity="0" Visibility="Collapsed" VerticalAlignment="Bottom"/>
             <Button x:Name="UserAddBtn" Style="{DynamicResource dataAddButton}" Click="UserAddBtn_Click"
@@ -95,8 +95,8 @@
                             <StackPanel Orientation="Horizontal" Margin="0 0 0 15">
                                 <Icons:PackIconMaterial Kind="LabelMultipleOutline" Margin="0 0 10 0"
                                                     Style="{DynamicResource listViewIcon}"/>
-                                <TextBlock>
-                                <Run Text="{Binding PriceOfService, StringFormat={}от {0:N0} руб.}" Style="{DynamicResource normalTextListView}" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="ServicePriceTb">
+                                    <Run Text="{Binding PriceOfService, StringFormat={}от {0:N0} руб.}" Style="{DynamicResource normalTextListView}" FontWeight="SemiBold"/>
                                 </TextBlock>
                                 <Separator Style="{DynamicResource listViewSeparator}">
                                     <Separator.RenderTransform>

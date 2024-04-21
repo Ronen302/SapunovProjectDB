@@ -103,5 +103,17 @@ namespace SapunovProjectDB.Properties {
                 this["CurrentIdUser"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsMaximized {
+            get {
+                return ((bool)(this["IsMaximized"]));
+            }
+            set {
+                this["IsMaximized"] = value;
+            }
+        }
     }
 }

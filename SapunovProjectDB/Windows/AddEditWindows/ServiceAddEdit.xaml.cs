@@ -15,7 +15,14 @@ namespace SapunovProjectDB.Windows.AddEditWindows
         {
             InitializeComponent();
             if (selectedService != null)
+            {
                 _currentService = selectedService;
+                CancelChangesButton.Visibility = Visibility.Visible;
+                ServiceNameTextBox.Text = selectedService.NameService;
+                ServicePriceTextBox.Text = selectedService.PriceOfService.ToString();
+                ServiceCategoryComboBox.SelectedItem = selectedService.CategoryOfService;
+                ServiceDescriptionTextBox.Text = selectedService.Description;
+            }
             else
                 _currentService = null;
             DataContext = _currentService;
@@ -45,6 +52,8 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                         _newService.IdCategory = Int32.Parse(ServiceCategoryComboBox.SelectedValue.ToString());
                         if (!string.IsNullOrWhiteSpace(ServiceDescriptionTextBox.Text))
                             _newService.Description = ServiceDescriptionTextBox.Text;
+                        else
+                            _newService.Description = null;
                         DBEntities.GetContext().Service.Add(_newService);
                         DBEntities.GetContext().SaveChanges();
                     }
@@ -62,7 +71,10 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                     _currentService.NameService = ServiceNameTextBox.Text;
                     _currentService.PriceOfService = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
                     _currentService.IdCategory = Int32.Parse(ServiceCategoryComboBox.SelectedValue.ToString());
-                    _currentService.Description = ServiceDescriptionTextBox.Text;
+                    if (!string.IsNullOrWhiteSpace(ServiceDescriptionTextBox.Text))
+                        _currentService.Description = ServiceDescriptionTextBox.Text;
+                    else
+                        _currentService.Description = null;
                     DBEntities.GetContext().SaveChanges();
                 }
                 catch (Exception ex)
@@ -101,6 +113,14 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
+        }
+
+        private void CancelChangesButton_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceNameTextBox.Text = _currentService.NameService;
+            ServicePriceTextBox.Text = _currentService.PriceOfService.ToString();
+            ServiceCategoryComboBox.SelectedItem = _currentService.CategoryOfService;
+            ServiceDescriptionTextBox.Text = _currentService.Description;
         }
     }
 }

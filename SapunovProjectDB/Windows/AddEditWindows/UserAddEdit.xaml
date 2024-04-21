@@ -9,7 +9,7 @@
         Title="Детали пользователя" Height="660" Width="550" WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True"
         Background="Transparent">
-    <Border x:Name="MainBorder" Style="{DynamicResource thirdyDialogBorder}"
+    <Border Margin="30" x:Name="MainBorder" Style="{DynamicResource thirdyDialogBorder}"
             MouseLeftButtonDown="MainBorder_MouseLeftButtonDown">
         <Grid>
             <Grid.RowDefinitions>
@@ -48,10 +48,10 @@
                             </TextBlock>
                         </StackPanel>
                         <TextBox Name="UserLoginTextBox" Style="{DynamicResource inputTextBox}"
-                                     Text="{Binding LoginUser}" TextChanged="UserLoginTextBox_TextChanged"/>
+                                      TextChanged="UserLoginTextBox_TextChanged"/>
                     </StackPanel>
 
-                    <StackPanel Margin="20 10">
+                    <StackPanel Margin="20 10" x:Name="UserLoginPanel">
                         <StackPanel Orientation="Horizontal" Margin="0 0 0 4">
                             <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14"
                                            VerticalAlignment="Center">
@@ -76,7 +76,7 @@
                             </Button>
                         </StackPanel>
                         <TextBox Name="UserPasswordTextBox" Style="{DynamicResource inputTextBox}"
-                                     Text="{Binding PasswordUser}" TextChanged="UserPasswordTextBox_TextChanged"/>
+                                      TextChanged="UserPasswordTextBox_TextChanged"/>
                     </StackPanel>
 
                     <StackPanel Margin="20 10">
@@ -88,7 +88,7 @@
                         </StackPanel>
                         <ComboBox Name="UserRoleComboBox" Style="{DynamicResource ComboBoxStyle}"
                                     ItemContainerStyle="{DynamicResource ComboBoxItemStyle}"
-                                    Height="41" DisplayMemberPath="NameRole" SelectedItem="{Binding Role}"
+                                    Height="41" DisplayMemberPath="NameRole" 
                                       SelectedValuePath="IdRole" SelectionChanged="UserRoleComboBox_SelectionChanged"/>
                     </StackPanel>
                 </StackPanel>
@@ -100,6 +100,9 @@
                         Style="{DynamicResource registrationButton}" Width="95" Height="30"
                         Content="Отмена"/>
             </WrapPanel>
+            <Button x:Name="CancelChangesButton" Style="{DynamicResource registrationButton}" Content="Отменить изменения"
+                    HorizontalAlignment="Left" Grid.Row="2" Width="170" Height="30" FontSize="15"
+                    Margin="10 13 10 10" Click="CancelChangesButton_Click" Visibility="Collapsed"/>
         </Grid>
     </Border>
 </Window>

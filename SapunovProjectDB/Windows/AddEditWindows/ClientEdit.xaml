@@ -9,7 +9,7 @@
         Title="Детали клиента" Height="660" Width="550" WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True"
         Background="Transparent">
-    <Border x:Name="MainBorder" Style="{DynamicResource thirdyDialogBorder}"
+    <Border Margin="30" x:Name="MainBorder" Style="{DynamicResource thirdyDialogBorder}"
             MouseLeftButtonDown="MainBorder_MouseLeftButtonDown">
         <Grid>
             <Grid.RowDefinitions>
@@ -50,7 +50,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="ClientLastNameTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding LastNameClient}"/>
+                                     TextChanged="ClientLastNameTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -62,7 +62,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="ClientNameTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding NameClient}"/>
+                                     TextChanged="ClientNameTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -72,8 +72,7 @@
                                     <Run Text="Отчество"/>
                                 </TextBlock>
                             </StackPanel>
-                            <TextBox Name="ClientMiddleNameTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding MiddleNameClient}"/>
+                            <TextBox Name="ClientMiddleNameTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -84,8 +83,8 @@
                                     <Run Text="*" Foreground="#e64646"/>
                                 </TextBlock>
                             </StackPanel>
-                            <TextBox Name="StaffSerialPassportTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding PassportClient.SerialPassportClient}" MaxLength="4"/>
+                            <TextBox Name="StaffSerialPassportTextBox" Style="{DynamicResource addUserInputPasswordTextBox}" MaxLength="4"
+                                     TextChanged="StaffSerialPassportTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -96,8 +95,8 @@
                                     <Run Text="*" Foreground="#e64646"/>
                                 </TextBlock>
                             </StackPanel>
-                            <TextBox Name="StaffNumberPassportTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding PassportClient.NumberPassportClient}" MaxLength="6"/>
+                            <TextBox Name="StaffNumberPassportTextBox" Style="{DynamicResource addUserInputPasswordTextBox}" MaxLength="6"
+                                     TextChanged="StaffNumberPassportTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -109,7 +108,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="StaffPassportIssuedByTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding PassportClient.PassportIssuedByClient}"/>
+                                     TextChanged="StaffPassportIssuedByTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -120,9 +119,9 @@
                                 </TextBlock>
                             </StackPanel>
                             <DatePicker Name="StaffPassportIssueDateDatePicker"
-                                            SelectedDate="{Binding PassportClient.PassportIssueDateClient}"
                                             Style="{DynamicResource DatePickerStyle}"
-                                            CalendarStyle="{DynamicResource CalendarStyle}"/>
+                                            CalendarStyle="{DynamicResource CalendarStyle}"
+                                        SelectedDateChanged="StaffPassportIssueDateDatePicker_SelectedDateChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -133,8 +132,8 @@
                                     <Run Text="*" Foreground="#e64646"/>
                                 </TextBlock>
                             </StackPanel>
-                            <TextBox Name="StaffDepartmentCodeTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding PassportClient.DepartmentCodeClient}" MaxLength="6"/>
+                            <TextBox Name="StaffDepartmentCodeTextBox" Style="{DynamicResource addUserInputPasswordTextBox}" MaxLength="6"
+                                     TextChanged="StaffDepartmentCodeTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -146,7 +145,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="StaffCityNameTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding AdressClient.CityNameClient}"/>
+                                     TextChanged="StaffCityNameTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -158,7 +157,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="StaffStreetNameTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding AdressClient.StreetNameClient}"/>
+                                     TextChanged="StaffStreetNameTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -170,7 +169,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="StaffHouseNumberTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding AdressClient.HouseNumberClient}"/>
+                                     TextChanged="StaffHouseNumberTextBox_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10">
@@ -182,7 +181,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <TextBox Name="StaffApartmentNumberTextBox" Style="{DynamicResource addUserInputPasswordTextBox}"
-                                     Text="{Binding AdressClient.ApartmentNumberClient}"/>
+                                     TextChanged="StaffApartmentNumberTextBox_TextChanged"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -194,6 +193,9 @@
                         Style="{DynamicResource registrationButton}" Width="95" Height="30"
                         Content="Отмена"/>
             </WrapPanel>
+            <Button x:Name="CancelChangesButton" Style="{DynamicResource registrationButton}" Content="Отменить изменения"
+                    HorizontalAlignment="Left" Grid.Row="2" Width="170" Height="30" FontSize="15"
+                    Margin="10 13 10 10" Click="CancelChangesButton_Click"/>
         </Grid>
     </Border>
 </Window>

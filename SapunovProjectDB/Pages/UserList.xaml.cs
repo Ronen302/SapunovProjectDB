@@ -15,6 +15,10 @@ namespace SapunovProjectDB.Pages
         public UserList()
         {
             InitializeComponent();
+            User user = DBEntities.GetContext().User
+                .FirstOrDefault(u => u.LoginUser == Properties.Settings.Default.CurrentUser);
+            if(user.IdRole == 2)
+                LoginUserColumn.Visibility = Visibility.Collapsed;
 
             var allRoleComboBox = DBEntities.GetContext().Role.ToList();
 
@@ -49,22 +53,13 @@ namespace SapunovProjectDB.Pages
             }
         }
 
-        private void UserAddBtn_Click(object sender, RoutedEventArgs e)
-        {
-            UserAddEdit userAdd = new UserAddEdit(null);
-            if (userAdd.ShowDialog() == true)
-            {
-                UpdateFilter();
-                DataIsSaved();
-            }
-        }
-
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
             UserAddEdit userEdit = new UserAddEdit(UserListDataGrid.SelectedItem as User);
             if (userEdit.ShowDialog() == true)
             {
                 UpdateFilter();
+                dataIsSavedMessage.Text = "Данные сохранены";
                 DataIsSaved();
             }
         }
@@ -87,7 +82,9 @@ namespace SapunovProjectDB.Pages
                         .FirstOrDefault(u => u.IdUser == user.IdUser) != null)
                     {
                         DBEntities.GetContext().Staff.Remove(staff);
+                        DBEntities.GetContext().SaveChanges();
                         DBEntities.GetContext().Client.Remove(client);
+                        DBEntities.GetContext().SaveChanges();
                         DBEntities.GetContext().User.Remove(user);
                         DBEntities.GetContext().SaveChanges();
                     }
@@ -95,6 +92,7 @@ namespace SapunovProjectDB.Pages
                         .FirstOrDefault(u => u.IdUser == user.IdUser) != null)
                     {
                         DBEntities.GetContext().Client.Remove(client);
+                        DBEntities.GetContext().SaveChanges();
                         DBEntities.GetContext().User.Remove(user);
                         DBEntities.GetContext().SaveChanges();
                     }
@@ -103,7 +101,9 @@ namespace SapunovProjectDB.Pages
                         DBEntities.GetContext().User.Remove(user);
                         DBEntities.GetContext().SaveChanges();
                     }
+                    dataIsSavedMessage.Text = "Данные удалены";
                     UpdateFilter();
+                    DataIsSaved();
                 }
                 catch (Exception ex)
                 {

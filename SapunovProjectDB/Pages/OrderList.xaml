@@ -27,7 +27,7 @@
         <TextBlock Text="Заказы" FontSize="32" FontWeight="SemiBold"
                            Margin="0 20 0 0" HorizontalAlignment="Left" Style="{DynamicResource loginNormalTitleText}"/>
 
-        <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="14" FontWeight="SemiBold"
+        <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="16" FontWeight="SemiBold"
                            Margin="682,39,0,77" HorizontalAlignment="Left" Style="{DynamicResource dataIsSavedTextBlock}" Grid.RowSpan="5"
                    Opacity="0" Visibility="Collapsed"/>
 
@@ -35,11 +35,9 @@
 
         <Border Grid.Row="4" Style="{DynamicResource secondaryBorderMainPage}"
                 Margin="0 10" CornerRadius="8">
-            <Grid Width="250" HorizontalAlignment="Left" Grid.Row="3" Margin="10">
-                <ComboBox Width="250" Height="39" x:Name="FilterStatusCb" Style="{DynamicResource ComboBoxStyle}" Template="{DynamicResource MyOrderPageComboBoxTemplate}"
-                          ItemContainerStyle="{DynamicResource ComboBoxItemStyle}" HorizontalAlignment="Left"
+            <ComboBox Width="250" Height="39" x:Name="FilterStatusCb" Style="{DynamicResource ComboBoxStyle}" Template="{DynamicResource MyOrderPageComboBoxTemplate}"
+                          ItemContainerStyle="{DynamicResource ComboBoxItemStyle}" HorizontalAlignment="Left" Margin="10"
                           DisplayMemberPath="NameStatusOrder" SelectionChanged="FilterStatusCb_SelectionChanged"/>
-            </Grid>
         </Border>
 
         <DataGrid Grid.Row="5" x:Name="OrderListDataGrid" ItemsSource="{Binding Order}" IsReadOnly="True"
@@ -74,7 +72,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Дата создания" Binding="{Binding DateOfCreate, StringFormat=dd/MM/yyyy}" Width="*"/>
-                <DataGridTemplateColumn Header="Статус" Width="*">
+                <DataGridTemplateColumn Header="Статус" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Border  CornerRadius="5" Style="{DynamicResource statusOrderBorder}"
@@ -104,12 +102,17 @@
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Margin="0 0 0 5">
+                            <Run Text="ID клиента: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
+                            <Run Text="{Binding Client.IdClient, FallbackValue=Клиент удален}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
+                        </TextBlock>
+                        <TextBlock Margin="0 0 0 5" Grid.Row="1">
                             <Run Text="Номер телефона клиента: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
                             <Run Text="{Binding Client.PhoneNumberClient, FallbackValue=Клиент удален}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>
-                        <TextBlock Margin="0 0 0 5" Grid.Row="1">
+                        <TextBlock Margin="0 0 0 5" Grid.Row="2">
                             <Run Text="Эл. почта клиента: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
                             <Run Text="{Binding Client.EmailClient, FallbackValue=Клиент удален}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
                         </TextBlock>

@@ -359,6 +359,7 @@
 
     <Style x:Key="calendarButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Foreground" Value="#6e7783"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Width" Value="30"/>
@@ -392,6 +393,24 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="changeVisibilityPassButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#6e7783"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="3">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="closeButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="#6e7783"/>
@@ -404,6 +423,43 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" CornerRadius="0 10 0 0">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark"/>
+                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" Value="#ff5d56"/>
+                <Setter Property="Foreground" Value="#ffffff"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light"/>
+                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" Value="#ff5d56"/>
+                <Setter Property="Foreground" Value="#ffffff"/>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="closeButtonMaximized" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#6e7783"/>
+        <Setter Property="ClipToBounds" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="0">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>

@@ -15,7 +15,12 @@ namespace SapunovProjectDB.Windows.AddEditWindows
         {
             InitializeComponent();
             if (selectedTypeOfWork != null)
+            {
                 _currentTypeOfWork = selectedTypeOfWork;
+                ServiceNameTextBox.Text = selectedTypeOfWork.NameTypeOfWork;
+                ServicePriceTextBox.Text = selectedTypeOfWork.PriceOfWork.ToString();
+                ServiceDescriptionTextBox.Text = selectedTypeOfWork.DescriptionOfWork;
+            }
             else
                 _currentTypeOfWork = null;
             DataContext = _currentTypeOfWork;
@@ -44,6 +49,8 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                         _newTypeOfWork.IdService = Properties.Settings.Default.SelectedIdService;
                         if (!string.IsNullOrEmpty(ServiceDescriptionTextBox.Text))
                             _newTypeOfWork.DescriptionOfWork = ServiceDescriptionTextBox.Text;
+                        else
+                            _newTypeOfWork.DescriptionOfWork = null;
                         DBEntities.GetContext().TypeOfWork.Add(_newTypeOfWork);
                         DBEntities.GetContext().SaveChanges();
                     }
@@ -60,9 +67,10 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 {
                     _currentTypeOfWork.NameTypeOfWork = ServiceNameTextBox.Text;
                     _currentTypeOfWork.PriceOfWork = Decimal.Parse(ServicePriceTextBox.Text.Replace(".", ","));
-                    _newTypeOfWork.IdService = Properties.Settings.Default.SelectedIdService;
                     if (!string.IsNullOrEmpty(ServiceDescriptionTextBox.Text))
                         _currentTypeOfWork.DescriptionOfWork = ServiceDescriptionTextBox.Text;
+                    else
+                        _currentTypeOfWork.DescriptionOfWork = null;
                     DBEntities.GetContext().SaveChanges();
                 }
                 catch (Exception ex)
@@ -89,6 +97,13 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
+        }
+
+        private void CancelChangesButton_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceNameTextBox.Text = _currentTypeOfWork.NameTypeOfWork;
+            ServicePriceTextBox.Text = _currentTypeOfWork.PriceOfWork.ToString();
+            ServiceDescriptionTextBox.Text = _currentTypeOfWork.DescriptionOfWork;
         }
     }
 }

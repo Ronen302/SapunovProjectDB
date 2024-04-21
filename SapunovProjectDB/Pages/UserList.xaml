@@ -30,18 +30,9 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                     Margin="0 0 0 5">
-            <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="14" FontWeight="SemiBold"
+            <TextBlock x:Name="dataIsSavedMessage" Text="Данные сохранены" FontSize="16" FontWeight="SemiBold"
                             HorizontalAlignment="Left" Style="{DynamicResource dataIsSavedTextBlock}" Grid.RowSpan="5"
                    Opacity="0" Visibility="Collapsed" VerticalAlignment="Bottom"/>
-            <Button x:Name="UserAddBtn" Style="{DynamicResource dataAddButton}" Click="UserAddBtn_Click"
-                Grid.Row="0" HorizontalAlignment="Right" Width="150" Height="34" VerticalAlignment="Bottom"
-                    Margin="10 0 0 0">
-                <StackPanel Orientation="Horizontal">
-                    <Icons:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="15"
-                                                Height="15" Margin="0 1 8 0"/>
-                    <TextBlock Text="Добавить"/>
-                </StackPanel>
-            </Button>
         </StackPanel>
 
         <Separator Height="1" Grid.Row="2" Margin="0 -1 0 0" Style="{DynamicResource mainPageSeparator}"/>
@@ -74,9 +65,28 @@
         <DataGrid Grid.Row="5" x:Name="UserListDataGrid" ItemsSource="{Binding User}" IsReadOnly="True"
                   CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding IdUser}" Width="*"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding IdUser}" Width="auto"/>
                 <DataGridTextColumn Header="Логин" Binding="{Binding LoginUser}" Width="*"/>
+                <DataGridTextColumn Header="Пароль" Binding="{Binding PasswordUser}" Width="*" x:Name="LoginUserColumn"/>
                 <DataGridTextColumn Header="Роль" Binding="{Binding Role.NameRole}" Width="*"/>
+                <DataGridTemplateColumn Header="Последний визит" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run>
+                                    <Run.Text>
+                                        <Binding Path="DateOfLastVisit" StringFormat="{}{0:ddd}," ConverterCulture="ru-RU" TargetNullValue="—"/>
+                                    </Run.Text>
+                                </Run>
+                                <Run>
+                                    <Run.Text>
+                                        <Binding Path="DateOfLastVisit" StringFormat="dd/MM/yyyy HH:mm"/>
+                                    </Run.Text>
+                                </Run>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTemplateColumn Width="auto">
                     <DataGridTemplateColumn.CellTemplate>

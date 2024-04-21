@@ -17,7 +17,6 @@ namespace SapunovProjectDB.Pages
         {
             InitializeComponent();
             var allCategoriesComboBox = DBEntities.GetContext().CategoryOfService.ToList();
-
             allCategoriesComboBox.Insert(0, new CategoryOfService
             {
                 NameCategory = "Все"
@@ -52,6 +51,7 @@ namespace SapunovProjectDB.Pages
             ServiceAddEdit serviceAdd = new ServiceAddEdit(null);
             if (serviceAdd.ShowDialog() == true)
             {
+                dataIsSavedMessage.Text = "Данные сохранены";
                 UpdateFilter();
                 DataIsSaved();
             }
@@ -67,6 +67,7 @@ namespace SapunovProjectDB.Pages
             ServiceAddEdit serviceEdit = new ServiceAddEdit((sender as Button).DataContext as Service);
             if (serviceEdit.ShowDialog() == true)
             {
+                dataIsSavedMessage.Text = "Данные сохранены";
                 UpdateFilter();
                 DataIsSaved();
             }
@@ -88,9 +89,12 @@ namespace SapunovProjectDB.Pages
                 try
                 {
                     DBEntities.GetContext().Service.Remove(service);
+                    DBEntities.GetContext().SaveChanges();
                     DBEntities.GetContext().TypeOfWork.RemoveRange(typeOfWorks);
                     DBEntities.GetContext().SaveChanges();
+                    dataIsSavedMessage.Text = "Данные удалены";
                     UpdateFilter();
+                    DataIsSaved();
                 }
                 catch (Exception ex)
                 {

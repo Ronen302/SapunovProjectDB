@@ -98,6 +98,8 @@ namespace SapunovProjectDB.Pages
                         Properties.Settings.Default.Save();
                         Properties.Settings.Default.CurrentIdUser = user.IdUser;
                         Properties.Settings.Default.Save();
+                        user.DateOfLastVisit = DateTime.Now;
+                        DBEntities.GetContext().SaveChanges();
                         if (SaveLoginCb.IsChecked == true)
                         {
                             Properties.Settings.Default.IsLoginSaved = true;

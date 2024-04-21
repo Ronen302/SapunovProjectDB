@@ -9,13 +9,23 @@ namespace SapunovProjectDB.Windows.AddEditWindows
 {
     public partial class UserAddEdit : Window
     {
-        private readonly User _currentUser = new User();
-        private readonly User _newUser = new User();
+        User _currentUser = new User();
+        User _newUser = new User();
         public UserAddEdit(User selectedUser)
         {
             InitializeComponent();
+            User user = DBEntities.GetContext().User
+                .FirstOrDefault(u => u.LoginUser == Properties.Settings.Default.CurrentUser);
+            if (user.IdRole == 2)
+                UserLoginPanel.Visibility = Visibility.Collapsed;
             if (selectedUser != null)
+            {
                 _currentUser = selectedUser;
+                CancelChangesButton.Visibility = Visibility.Visible;
+                UserLoginTextBox.Text = selectedUser.LoginUser;
+                UserPasswordTextBox.Text = selectedUser.PasswordUser;
+                UserRoleComboBox.SelectedItem = selectedUser.Role;
+            }
             else
                 _currentUser = null;
             DataContext = _currentUser;
@@ -76,10 +86,25 @@ namespace SapunovProjectDB.Windows.AddEditWindows
             {
                 try
                 {
-                    _currentUser.LoginUser = UserLoginTextBox.Text;
-                    _currentUser.PasswordUser = UserPasswordTextBox.Text;
-                    _currentUser.IdRole = Int32.Parse(UserRoleComboBox.SelectedValue.ToString());
-                    DBEntities.GetContext().SaveChanges();
+                    if (_currentUser == DBEntities.GetContext().User
+                        .FirstOrDefault(u => u.LoginUser == Properties.Settings.Default.CurrentUser))
+                    {
+                        _currentUser = DBEntities.GetContext().User.FirstOrDefault(u => u.IdUser == _currentUser.IdUser);
+                        _currentUser.LoginUser = UserLoginTextBox.Text;
+                        _currentUser.PasswordUser = UserPasswordTextBox.Text;
+                        _currentUser.IdRole = Int32.Parse(UserRoleComboBox.SelectedValue.ToString());
+                        DBEntities.GetContext().SaveChanges();
+                        Properties.Settings.Default.CurrentUser = UserLoginTextBox.Text;
+                        Properties.Settings.Default.Save();
+                    }
+                    else
+                    {
+                        _currentUser = DBEntities.GetContext().User.FirstOrDefault(u => u.IdUser == _currentUser.IdUser);
+                        _currentUser.LoginUser = UserLoginTextBox.Text;
+                        _currentUser.PasswordUser = UserPasswordTextBox.Text;
+                        _currentUser.IdRole = Int32.Parse(UserRoleComboBox.SelectedValue.ToString());
+                        DBEntities.GetContext().SaveChanges();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -117,6 +142,13 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
+        }
+
+        private void CancelChangesButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserLoginTextBox.Text = _currentUser.LoginUser;
+            UserPasswordTextBox.Text = _currentUser.PasswordUser;
+            UserRoleComboBox.SelectedItem = _currentUser.Role;
         }
     }
 }

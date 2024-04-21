@@ -38,6 +38,7 @@ namespace SapunovProjectDB.Pages
             TypeOfWorkAddEdit typeOfWorkEdit = new TypeOfWorkAddEdit(null);
             if (typeOfWorkEdit.ShowDialog() == true)
             {
+                dataIsSavedMessage.Text = "Данные сохранены";
                 UpdateFilter();
                 DataIsSaved();
             }
@@ -49,6 +50,7 @@ namespace SapunovProjectDB.Pages
             if (typeOfWorkEdit.ShowDialog() == true)
             {
                 UpdateFilter();
+                dataIsSavedMessage.Text = "Данные сохранены";
                 DataIsSaved();
             }
         }
@@ -65,7 +67,9 @@ namespace SapunovProjectDB.Pages
                 {
                     DBEntities.GetContext().TypeOfWork.Remove(typeOfWork);
                     DBEntities.GetContext().SaveChanges();
+                    dataIsSavedMessage.Text = "Данные удалены";
                     UpdateFilter();
+                    DataIsSaved();
                 }
                 catch (Exception ex)
                 {
@@ -92,6 +96,7 @@ namespace SapunovProjectDB.Pages
                 };
                 DBEntities.GetContext().Order.Add(newOrder);
                 DBEntities.GetContext().SaveChanges();
+                dataIsSavedMessage.Text = "Заказ успешно оформлен";
                 DataIsSaved();
             }
             catch (Exception ex)
@@ -101,11 +106,9 @@ namespace SapunovProjectDB.Pages
         }
         private async void DataIsSaved()
         {
-            dataIsSavedMessage.Text = "Заказ успешно оформлен";
             dataIsSavedMessage.Visibility = Visibility.Visible;
             await Task.Delay(TimeSpan.FromSeconds(2.6));
             dataIsSavedMessage.Visibility = Visibility.Collapsed;
-            dataIsSavedMessage.Text = "Данные сохранены";
         }
 
         private void textFilter_TextChanged(object sender, TextChangedEventArgs e)

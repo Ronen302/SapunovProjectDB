@@ -163,6 +163,8 @@ namespace SapunovProjectDB.Pages
                         .FirstOrDefault(u => u.LoginUser == RegLoginTb.Text);
                     Properties.Settings.Default.CurrentIdUser = user.IdUser;
                     Properties.Settings.Default.Save();
+                    user.DateOfLastVisit = DateTime.Now;
+                    DBEntities.GetContext().SaveChanges();
                     switch (user.IdRole)
                     {
                         case 4:
