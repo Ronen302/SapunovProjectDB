@@ -72,7 +72,8 @@
         </Border>
 
         <DataGrid Grid.Row="5" x:Name="StaffListDataGrid" ItemsSource="{Binding Staff}" IsReadOnly="True"
-                  CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
+                  CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}"
+                  VirtualizingPanel.ScrollUnit="Pixel">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding IdStaff}" Width="auto"/>
                 <DataGridTemplateColumn Header="ФИО" Width="auto">

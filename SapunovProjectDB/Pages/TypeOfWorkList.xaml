@@ -74,7 +74,8 @@
             </Grid>
         </Border>
 
-        <ListView x:Name="TypeOfWorkListView" Grid.Row="5" HorizontalContentAlignment="Stretch" Style="{DynamicResource ListViewStyle}" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
+        <ListView x:Name="TypeOfWorkListView" Grid.Row="5" HorizontalContentAlignment="Stretch" Style="{DynamicResource ListViewStyle}" ItemContainerStyle="{DynamicResource ListViewItemStyle}"
+                  VirtualizingPanel.ScrollUnit="Pixel">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>

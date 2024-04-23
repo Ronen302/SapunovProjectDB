@@ -42,9 +42,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
             }
             else
             {
-                ClientLastNameTextBox.Text = null;
+                ClientLastNameTextBox.Text = selectedClient.LastNameClient;
                 ClientNameTextBox.Text = selectedClient.NameClient;
-                ClientMiddleNameTextBox.Text = null;
+                ClientMiddleNameTextBox.Text = selectedClient.MiddleNameClient;
                 StaffSerialPassportTextBox.Text = null;
                 StaffNumberPassportTextBox.Text = null;
                 StaffPassportIssuedByTextBox.Text = null;

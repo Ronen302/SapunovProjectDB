@@ -67,7 +67,8 @@
                           ItemContainerStyle="{DynamicResource ComboBoxItemStyle}" HorizontalAlignment="Left" Template="{DynamicResource ServicePageComboBoxTemplate}"
                           DisplayMemberPath="NameCategory" SelectionChanged="FilterRoleCb_SelectionChanged" Grid.Row="4" Margin="270,22,0,22"/>
 
-        <ListView x:Name="TypeOfServiceListView" Grid.Row="5" HorizontalContentAlignment="Stretch" Style="{DynamicResource ListViewStyle}" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
+        <ListView x:Name="TypeOfServiceListView" Grid.Row="5" HorizontalContentAlignment="Stretch" Style="{DynamicResource ListViewStyle}" ItemContainerStyle="{DynamicResource ListViewItemStyle}"
+                  VirtualizingPanel.ScrollUnit="Pixel">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>

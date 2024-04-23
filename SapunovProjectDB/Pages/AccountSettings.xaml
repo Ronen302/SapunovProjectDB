@@ -40,85 +40,169 @@
         <Border Grid.Row="5" Style="{DynamicResource secondaryBorderMainPage}"
                 CornerRadius="10 10 0 0" Margin="0 10 0 0">
             <Grid>
-                <StackPanel Orientation="Horizontal" Margin="30">
-                    <StackPanel Orientation="Vertical" Width="300">
-                        <StackPanel Orientation="Horizontal" Margin="0 0 0 -5" HorizontalAlignment="Left">
-                            <TextBlock x:Name="UserLastNameRun" Style="{DynamicResource loginNormalTitleText}"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" Width="300" Margin="10">
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 -5" HorizontalAlignment="Left">
+                        <TextBlock x:Name="UserLastNameRun" Style="{DynamicResource loginNormalTitleText}"
                                        FontWeight="SemiBold" FontSize="17"/>
-                            <TextBlock Style="{DynamicResource loginNormalTitleText}"
+                        <TextBlock Style="{DynamicResource loginNormalTitleText}"
                                FontWeight="SemiBold" FontSize="17">
                                 <Run x:Name="UserFirstNameRun"/>
                                 <Run x:Name="UserMiddleNameRun"/>
-                            </TextBlock>
-                        </StackPanel>
-                        <TextBlock Style="{DynamicResource loginNormalTitleText}" Opacity="0.5"
+                        </TextBlock>
+                    </StackPanel>
+                    <TextBlock Style="{DynamicResource loginNormalTitleText}" Opacity="0.5"
                                FontSize="13" HorizontalAlignment="Left">
                             <Run Text="ID:"/>
                             <Run x:Name="UserIdRun"/>
+                    </TextBlock>
+                    <StackPanel Orientation="Vertical" Width="300" HorizontalAlignment="Left">
+                        <TextBlock Text="Паспорт РФ"
+                                       Margin="0 10 0 2" Style="{DynamicResource loginNormalTitleText}"
+                                           HorizontalAlignment="Left"/>
+                        <TextBlock Margin="0 0 0 0" FontSize="15" FontWeight="SemiBold"
+                                           Style="{DynamicResource loginNormalTitleText}" HorizontalAlignment="Left">
+                                    <Run x:Name="SerialPassportRun"/>
+                                    <Run x:Name="NumberPassportRun"/>
                         </TextBlock>
-                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
-                            <StackPanel Orientation="Vertical" x:Name="AccSettingsStackPanel" Width="300">
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8">
-                                            <Run Text="Логин"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                    <TextBox Name="UserLoginTextBox" Style="{DynamicResource inputTextBox}"
-                                      TextChanged="UserLoginTextBox_TextChanged"/>
-                                    <TextBlock x:Name="InvalidCurrentLoginError" Margin="0 10 0 0"
+                        <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 15 0 0"
+                                           Text="Выдан"/>
+                        <TextBlock x:Name="PassportIssuedByTb" Style="{DynamicResource loginNormalTitleText}" FontSize="14" Margin="0 5 10 0"
+                                           TextWrapping="Wrap" HorizontalAlignment="Left"/>
+                        <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 10 0 0"
+                                           Text="Код подразделения"/>
+                        <TextBlock x:Name="PassportDepartmentCodeTb" Style="{DynamicResource loginNormalTitleText}" FontSize="14" Margin="0 5 0 0"
+                                           HorizontalAlignment="Left"/>
+                        <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 10 0 0"
+                                           Text="Дата выдачи"/>
+                        <TextBlock x:Name="PassportIssuedDateTb" Style="{DynamicResource loginNormalTitleText}" FontSize="14" Margin="0 5 0 0"
+                                           HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </StackPanel>
+                
+
+                <StackPanel Orientation="Vertical" x:Name="AccSettingsStackPanel" Grid.Column="1" Margin="10">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8">
+                                            <Run Text="Фамилия"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBox Name="UserLastNameTextBox" Style="{DynamicResource inputCurrentUserLastNameTextBox}"
+                                 GotFocus="UserLastNameTextBox_GotFocus"/>
+                        <TextBlock x:Name="InvalidCurrentUserLastNameError" Margin="0 10 0 0"
                                     FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
-                                </StackPanel>
+                    </StackPanel>
 
-                                <StackPanel Margin="0 20 0 0">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8">
-                                <Run Text="Текущий пароль"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                    <PasswordBox Name="UserCurrentPasswordTextBox" Style="{DynamicResource loginPasswordBox}"
-                                 PasswordChanged="UserCurrentPasswordTextBox_PasswordChanged"
-                                 GotFocus="UserCurrentPasswordTextBox_GotFocus"/>
-                                    <TextBlock x:Name="InvalidCurrentPaswwordError" Margin="0 10 0 0"
-                                FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
-                                </StackPanel>
+                    <StackPanel Margin="0 20 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8">
+                                            <Run Text="Отчество"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBox Name="UserMiddleNameTextBox" Style="{DynamicResource inputTextBox}"/>
+                        <TextBlock x:Name="InvalidCurrentUserMiddleNameError" Margin="0 10 0 0"
+                                    FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                    </StackPanel>
 
-                                <StackPanel Margin="0 20 0 30">
-                                    <StackPanel Orientation="Horizontal" Margin="0 0 0 4">
-                                        <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14"
+                    <StackPanel Margin="0 20 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8">
+                                            <Run Text="Эл. почта"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBox Name="UserEmailTextBox" Style="{DynamicResource inputCurrentUserEmailTextBox}"
+                                 GotFocus="UserEmailTextBox_GotFocus"/>
+                        <TextBlock x:Name="InvalidCurrentUserEmailError" Margin="0 10 0 0"
+                                    FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0 18 0 30">
+                        <StackPanel Orientation="Horizontal" Margin="0 0 0 4">
+                            <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14"
                                            VerticalAlignment="Center">
                                     <Run Text="Новый пароль"/>
-                                        </TextBlock>
-                                        <Button Width="25" Height="25" Margin="5 0 0 0"
+                            </TextBlock>
+                            <Button Width="25" Height="25" Margin="5 0 0 0"
                                     Style="{DynamicResource toolTipPasswordButton}" ToolTipService.InitialShowDelay="1">
-                                            <Icons:PackIconMaterial Width="15" Height="15"
+                                <Icons:PackIconMaterial Width="15" Height="15"
                                         Kind="LockQuestion"/>
-                                            <Button.ToolTip>
-                                                <ToolTip>
-                                                    <ToolTip.Content>
-                                                        <StackPanel Orientation="Vertical" Margin="10">
-                                                            <TextBlock Text="Пароль" Margin="0 0 0 5" FontWeight="SemiBold"/>
-                                                            <TextBlock Text="Пароль должен содержать маленькие и заглавные буквы, а также цифры"
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <ToolTip.Content>
+                                            <StackPanel Orientation="Vertical" Margin="10">
+                                                <TextBlock Text="Пароль" Margin="0 0 0 5" FontWeight="SemiBold"/>
+                                                <TextBlock Text="Пароль должен содержать маленькие и заглавные буквы, а также цифры"
                                                TextWrapping="Wrap"/>
-                                                        </StackPanel>
-                                                    </ToolTip.Content>
-                                                </ToolTip>
-                                            </Button.ToolTip>
-                                        </Button>
-                                    </StackPanel>
-                                    <PasswordBox Name="UserNewPasswordTextBox" Style="{DynamicResource loginRepeatPasswordBox}" 
-                                 PasswordChanged="UserNewPasswordTextBox_PasswordChanged"
+                                            </StackPanel>
+                                        </ToolTip.Content>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                            </Button>
+                        </StackPanel>
+                        <PasswordBox Name="UserNewPasswordTextBox" Style="{DynamicResource loginRepeatPasswordBox}"
                                  GotFocus="UserNewPasswordTextBox_GotFocus"/>
-                                    <TextBlock x:Name="InvalidNewPaswwordError" Margin="0 10 0 0"
+                        <TextBlock x:Name="InvalidNewPaswwordError" Margin="0 10 0 0"
                                 FontSize="16" Foreground="#e64646" Visibility="Collapsed"
                                            TextWrapping="Wrap"/>
-                                </StackPanel>
+                    </StackPanel>
 
-                                <Button x:Name="userSaveButton" Click="userSaveButton_Click" Margin="0" FontSize="15"
-                                Style="{DynamicResource loginButton}" Width="95" Height="30" Content="Сохранить" IsEnabled="False"
+                    <Button x:Name="userSaveButton" Click="userSaveButton_Click" Margin="0" FontSize="15"
+                                Style="{DynamicResource loginButton}" Width="95" Height="30" Content="Сохранить"
                                 HorizontalAlignment="Left"/>
-                            </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Grid.Column="2" Margin="10">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8">
+                                            <Run Text="Имя"/>
+                            </TextBlock>
                         </StackPanel>
+                        <TextBox Name="UserFirstNameTextBox" Style="{DynamicResource inputCurrentUserFirstNameTextBox}"
+                                 GotFocus="UserFirstNameTextBox_GotFocus"/>
+                        <TextBlock x:Name="InvalidCurrentUserFirstNameError" Margin="0 10 0 0"
+                                    FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0 20 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8">
+                                            <Run Text="Номер телефона"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBox Name="UserPhoneNumberTextBox" Style="{DynamicResource inputCurrentUserPhoneNumberTextBox}"
+                                 GotFocus="UserPhoneNumberTextBox_GotFocus"/>
+                        <TextBlock x:Name="InvalidCurrentUserPhoneNumberError" Margin="0 10 0 0"
+                                    FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0 20 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8">
+                                            <Run Text="Логин"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBox Name="UserLoginTextBox" Style="{DynamicResource inputCurrentUserLoginTextBox}"
+                                 GotFocus="UserLoginTextBox_GotFocus"/>
+                        <TextBlock x:Name="InvalidCurrentLoginError" Margin="0 10 0 0"
+                                    FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0 20 0 0">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 0 0 8">
+                                <Run Text="Текущий пароль"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <PasswordBox Name="UserCurrentPasswordTextBox" Style="{DynamicResource loginPasswordBox}"
+                                 GotFocus="UserCurrentPasswordTextBox_GotFocus"/>
+                        <TextBlock x:Name="InvalidCurrentPaswwordError" Margin="0 10 0 0"
+                                FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

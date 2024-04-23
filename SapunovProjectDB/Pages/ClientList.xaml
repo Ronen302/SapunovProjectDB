@@ -60,17 +60,22 @@
         </Border>
 
         <DataGrid Grid.Row="5" x:Name="ClientListDataGrid" ItemsSource="{Binding Client}" IsReadOnly="True"
-                  CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
+                  CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}"
+                  VirtualizingPanel.ScrollUnit="Pixel">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding IdClient}" Width="auto"/>
                 <DataGridTemplateColumn Header="ФИО" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <Icons:PackIconMaterial x:Name="NoPassportClientIcon" Kind="AlertCircleOutline" VerticalAlignment="Center" Style="{DynamicResource NoPassportClientIcon}"/>
+                                <TextBlock Text=" "/>
+                                <TextBlock>
                                 <Run Text="{Binding LastNameClient}"/>
                                 <Run Text="{Binding NameClient}"/>
                                 <Run Text="{Binding MiddleNameClient}"/>
-                            </TextBlock>
+                                </TextBlock>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

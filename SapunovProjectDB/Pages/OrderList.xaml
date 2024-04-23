@@ -41,7 +41,8 @@
         </Border>
 
         <DataGrid Grid.Row="5" x:Name="OrderListDataGrid" ItemsSource="{Binding Order}" IsReadOnly="True"
-                  CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}">
+                  CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}"
+                  VirtualizingPanel.ScrollUnit="Pixel">
             <DataGrid.ContextMenu>
                 <ContextMenu Name="statusMenu">
                     <MenuItem Header="Принят" Name="AcceptMi" Click="AcceptMi_Click"

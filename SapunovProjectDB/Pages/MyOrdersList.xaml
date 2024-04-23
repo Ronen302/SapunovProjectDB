@@ -24,9 +24,6 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Frame x:Name="TypeOfServiceListFrame" NavigationUIVisibility="Hidden"
-               Grid.RowSpan="6" Panel.ZIndex="1"/>
-
         <TextBlock Text="Мои заказы" FontSize="32" FontWeight="SemiBold"
                            Margin="0 20 0 0" HorizontalAlignment="Left" Style="{DynamicResource loginNormalTitleText}"/>
 
@@ -41,7 +38,8 @@
             </Grid>
         </Border>
 
-        <ListView x:Name="MyOrdersListView" Grid.Row="5" HorizontalContentAlignment="Stretch" Style="{DynamicResource ListViewStyle}" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
+        <ListView x:Name="MyOrdersListView" Grid.Row="5" HorizontalContentAlignment="Stretch" Style="{DynamicResource ListViewStyle}" ItemContainerStyle="{DynamicResource ListViewItemStyle}"
+                  VirtualizingPanel.ScrollUnit="Pixel">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>

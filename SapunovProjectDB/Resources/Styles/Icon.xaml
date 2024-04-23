@@ -74,4 +74,19 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="NoPassportClientIcon" TargetType="Icons:PackIconMaterial">
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IdPassportClient}" Value="{x:Null}">
+                <Setter Property="Visibility" Value="Visible"/>
+                <Setter Property="Foreground" Value="#ff8b00"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IdPassportClient}" Value="">
+                <Setter Property="Kind" Value="CheckCircleOutline"/>
+                <Setter Property="Visibility" Value="Visible"/>
+                <Setter Property="Foreground" Value="#05b450"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

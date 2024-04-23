@@ -17,6 +17,7 @@ namespace SapunovProjectDB.Windows.AddEditWindows
             if (selectedTypeOfWork != null)
             {
                 _currentTypeOfWork = selectedTypeOfWork;
+                CancelChangesButton.Visibility = Visibility.Visible;
                 ServiceNameTextBox.Text = selectedTypeOfWork.NameTypeOfWork;
                 ServicePriceTextBox.Text = selectedTypeOfWork.PriceOfWork.ToString();
                 ServiceDescriptionTextBox.Text = selectedTypeOfWork.DescriptionOfWork;
