@@ -53,8 +53,9 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" Binding="{Binding IdOrder}" Width="auto"/>
-                <DataGridTemplateColumn Header="Клиент" Width="auto">
+                <DataGridTextColumn CanUserResize="False" Width="auto" CellStyle="{DynamicResource DataGridCellStyleCheckBox}"/>
+                <DataGridTextColumn Header="#" Binding="{Binding IdOrder}" Width="auto" CanUserResize="False"/>
+                <DataGridTemplateColumn Header="Клиент" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -72,8 +73,8 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Дата создания" Binding="{Binding DateOfCreate, StringFormat=dd/MM/yyyy}" Width="*"/>
-                <DataGridTemplateColumn Header="Статус" Width="auto">
+                <DataGridTextColumn Header="Дата создания" Binding="{Binding DateOfCreate, StringFormat=dd/MM/yyyy}" Width="0.6*"/>
+                <DataGridTemplateColumn Header="Статус" Width="0.4*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Border  CornerRadius="5" Style="{DynamicResource statusOrderBorder}"

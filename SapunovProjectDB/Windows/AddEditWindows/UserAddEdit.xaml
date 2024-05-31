@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Детали пользователя" Height="660" Width="550" WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True"
-        Background="Transparent">
+        Background="Transparent" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Border Margin="30" x:Name="MainBorder" Style="{DynamicResource thirdyDialogBorder}"
             MouseLeftButtonDown="MainBorder_MouseLeftButtonDown">
         <Grid>
@@ -47,8 +47,11 @@
                                 <Run Text="*" Foreground="#e64646"/>
                             </TextBlock>
                         </StackPanel>
-                        <TextBox Name="UserLoginTextBox" Style="{DynamicResource inputTextBox}"
+                        <TextBox Name="UserLoginTextBox" Style="{DynamicResource inputUserLoginTextBox}"
                                       TextChanged="UserLoginTextBox_TextChanged"/>
+                        <TextBlock x:Name="InvalidUserLoginError" Margin="0 4 0 0"
+                                FontSize="14" Foreground="#e64646" Visibility="Collapsed" TextWrapping="Wrap"
+                                   Text="Такой логин уже существует"/>
                     </StackPanel>
 
                     <StackPanel Margin="20 10" x:Name="UserLoginPanel">
@@ -75,8 +78,24 @@
                                 </Button.ToolTip>
                             </Button>
                         </StackPanel>
-                        <TextBox Name="UserPasswordTextBox" Style="{DynamicResource inputTextBox}"
-                                      TextChanged="UserPasswordTextBox_TextChanged"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="VisibilityPasswordButton" Grid.Column="2" Panel.ZIndex="1" Style="{DynamicResource visiblePasswordButton}"
+                                HorizontalAlignment="Center" Click="VisibilityPasswordButton_Click">
+                                <Icons:PackIconMaterial x:Name="VisiblePasswordIcon" Width="18" Height="18" 
+                                        Kind="EyeOutline" Style="{DynamicResource authPageIcon}"/>
+                            </Button>
+                            <PasswordBox Name="UserPasswordPasswordBox" Style="{DynamicResource loginUserPasswordBox}" Grid.ColumnSpan="2"
+                                      PasswordChanged="UserPasswordPasswordBox_PasswordChanged"/>
+                            <TextBox Name="UserPasswordTextBox" Style="{DynamicResource inputUserPasswordTextBox}" Grid.ColumnSpan="2"
+                                      TextChanged="UserPasswordTextBox_TextChanged" Visibility="Collapsed"/>
+                        </Grid>
+                        <TextBlock x:Name="InvalidUserPasswordError" Margin="0 4 0 0"
+                                FontSize="14" Foreground="#e64646" Visibility="Collapsed" TextWrapping="Wrap"
+                                   Text="Не менее 8 символов, как минимум 1 заглавная буква, 1 строчная буква и число"/>
                     </StackPanel>
 
                     <StackPanel Margin="20 10">

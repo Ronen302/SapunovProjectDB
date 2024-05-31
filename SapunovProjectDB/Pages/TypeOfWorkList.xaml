@@ -24,9 +24,6 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <!--<Frame x:Name="TypeOfServiceListFrame" NavigationUIVisibility="Hidden"
-               Grid.RowSpan="6" Panel.ZIndex="1"/>-->
-
         <TextBlock Text="Виды работ и стоимость" FontSize="32" FontWeight="SemiBold"
                            Margin="0 20 0 0" HorizontalAlignment="Left" Style="{DynamicResource loginNormalTitleText}"/>
 

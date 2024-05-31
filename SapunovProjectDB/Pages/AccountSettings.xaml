@@ -72,7 +72,7 @@
                         <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 15 0 0"
                                            Text="Выдан"/>
                         <TextBlock x:Name="PassportIssuedByTb" Style="{DynamicResource loginNormalTitleText}" FontSize="14" Margin="0 5 10 0"
-                                           TextWrapping="Wrap" HorizontalAlignment="Left"/>
+                                           TextWrapping="Wrap" HorizontalAlignment="Left" TextAlignment="Left"/>
                         <TextBlock Style="{DynamicResource textHintAddWindow}" FontSize="14" Margin="0 10 0 0"
                                            Text="Код подразделения"/>
                         <TextBlock x:Name="PassportDepartmentCodeTb" Style="{DynamicResource loginNormalTitleText}" FontSize="14" Margin="0 5 0 0"
@@ -94,8 +94,8 @@
                         </StackPanel>
                         <TextBox Name="UserLastNameTextBox" Style="{DynamicResource inputCurrentUserLastNameTextBox}"
                                  GotFocus="UserLastNameTextBox_GotFocus"/>
-                        <TextBlock x:Name="InvalidCurrentUserLastNameError" Margin="0 10 0 0"
-                                    FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                        <TextBlock x:Name="InvalidCurrentUserLastNameError" Margin="0 4 0 0"
+                                    FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 20 0 0">
@@ -105,8 +105,8 @@
                             </TextBlock>
                         </StackPanel>
                         <TextBox Name="UserMiddleNameTextBox" Style="{DynamicResource inputTextBox}"/>
-                        <TextBlock x:Name="InvalidCurrentUserMiddleNameError" Margin="0 10 0 0"
-                                    FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                        <TextBlock x:Name="InvalidCurrentUserMiddleNameError" Margin="0 4 0 0"
+                                    FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 20 0 0">
@@ -117,8 +117,8 @@
                         </StackPanel>
                         <TextBox Name="UserEmailTextBox" Style="{DynamicResource inputCurrentUserEmailTextBox}"
                                  GotFocus="UserEmailTextBox_GotFocus"/>
-                        <TextBlock x:Name="InvalidCurrentUserEmailError" Margin="0 10 0 0"
-                                    FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                        <TextBlock x:Name="InvalidCurrentUserEmailError" Margin="0 4 0 0"
+                                    FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 18 0 30">
@@ -144,11 +144,26 @@
                                 </Button.ToolTip>
                             </Button>
                         </StackPanel>
-                        <PasswordBox Name="UserNewPasswordTextBox" Style="{DynamicResource loginRepeatPasswordBox}"
-                                 GotFocus="UserNewPasswordTextBox_GotFocus"/>
-                        <TextBlock x:Name="InvalidNewPaswwordError" Margin="0 10 0 0"
-                                FontSize="16" Foreground="#e64646" Visibility="Collapsed"
-                                           TextWrapping="Wrap"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="VisibilityPasswordButton" Grid.Column="2" Panel.ZIndex="1" Style="{DynamicResource visiblePasswordButton}"
+                                HorizontalAlignment="Center" Click="VisibilityPasswordButton_Click">
+                                <Icons:PackIconMaterial x:Name="VisiblePasswordIcon" Width="18" Height="18" 
+                                        Kind="EyeOutline" Style="{DynamicResource authPageIcon}"/>
+                            </Button>
+
+                            <PasswordBox Name="UserNewPasswordTextBox" Style="{DynamicResource loginRepeatPasswordBox}"
+                                 Grid.ColumnSpan="2" Padding="10 8 36 8" PasswordChanged="UserNewPasswordTextBox_PasswordChanged"/>
+
+                            <TextBox Name="UserNewVisiblePasswordTextBox" Style="{DynamicResource inputNewVisiblePasswordTextBox}"
+                                 Grid.ColumnSpan="2" Padding="10 8 36 8" Visibility="Collapsed" TextChanged="UserNewVisiblePasswordTextBox_TextChanged"/>
+                        </Grid>
+                        <TextBlock x:Name="InvalidNewPaswwordError" Margin="0 4 0 0"
+                                FontSize="14" Foreground="#e64646" Visibility="Collapsed" TextWrapping="Wrap"
+                                   Text="Не менее 8 символов, как минимум 1 заглавная буква, 1 строчная буква и число"/>
                     </StackPanel>
 
                     <Button x:Name="userSaveButton" Click="userSaveButton_Click" Margin="0" FontSize="15"
@@ -165,8 +180,8 @@
                         </StackPanel>
                         <TextBox Name="UserFirstNameTextBox" Style="{DynamicResource inputCurrentUserFirstNameTextBox}"
                                  GotFocus="UserFirstNameTextBox_GotFocus"/>
-                        <TextBlock x:Name="InvalidCurrentUserFirstNameError" Margin="0 10 0 0"
-                                    FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                        <TextBlock x:Name="InvalidCurrentUserFirstNameError" Margin="0 4 0 0"
+                                    FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 20 0 0">
@@ -177,8 +192,8 @@
                         </StackPanel>
                         <TextBox Name="UserPhoneNumberTextBox" Style="{DynamicResource inputCurrentUserPhoneNumberTextBox}"
                                  GotFocus="UserPhoneNumberTextBox_GotFocus"/>
-                        <TextBlock x:Name="InvalidCurrentUserPhoneNumberError" Margin="0 10 0 0"
-                                    FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                        <TextBlock x:Name="InvalidCurrentUserPhoneNumberError" Margin="0 4 0 0"
+                                    FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 20 0 0">
@@ -189,8 +204,8 @@
                         </StackPanel>
                         <TextBox Name="UserLoginTextBox" Style="{DynamicResource inputCurrentUserLoginTextBox}"
                                  GotFocus="UserLoginTextBox_GotFocus"/>
-                        <TextBlock x:Name="InvalidCurrentLoginError" Margin="0 10 0 0"
-                                    FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                        <TextBlock x:Name="InvalidCurrentLoginError" Margin="0 4 0 0"
+                                    FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 20 0 0">
@@ -201,8 +216,8 @@
                         </StackPanel>
                         <PasswordBox Name="UserCurrentPasswordTextBox" Style="{DynamicResource loginPasswordBox}"
                                  GotFocus="UserCurrentPasswordTextBox_GotFocus"/>
-                        <TextBlock x:Name="InvalidCurrentPaswwordError" Margin="0 10 0 0"
-                                FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                        <TextBlock x:Name="InvalidCurrentPaswwordError" Margin="0 4 0 0"
+                                FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

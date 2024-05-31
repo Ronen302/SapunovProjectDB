@@ -76,34 +76,35 @@ namespace SapunovProjectDB.Pages
 
         private void userSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            string upperCaseLetters = "QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ",
-                lowerCaseLetters = "qwertyuiopasdfghjklzxcvbnmйцукенгшщзхъфывапролджэячсмитьбю",
-                numbers = "1234567890",
-                enteredPassword = UserNewPasswordTextBox.Password;
             if (string.IsNullOrWhiteSpace(UserLastNameTextBox.Text))
             {
                 InvalidCurrentUserLastNameError.Text = "Поле не может быть пустым";
                 InvalidCurrentUserLastNameError.Visibility = Visibility.Visible;
+                return;
             }
             else if (string.IsNullOrWhiteSpace(UserFirstNameTextBox.Text))
             {
                 InvalidCurrentUserFirstNameError.Text = "Поле не может быть пустым";
                 InvalidCurrentUserFirstNameError.Visibility = Visibility.Visible;
+                return;
             }
             else if (string.IsNullOrWhiteSpace(UserPhoneNumberTextBox.Text))
             {
                 InvalidCurrentUserPhoneNumberError.Text = "Поле не может быть пустым";
                 InvalidCurrentUserPhoneNumberError.Visibility = Visibility.Visible;
+                return;
             }
             else if (string.IsNullOrWhiteSpace(UserEmailTextBox.Text))
             {
                 InvalidCurrentUserEmailError.Text = "Поле не может быть пустым";
                 InvalidCurrentUserEmailError.Visibility = Visibility.Visible;
+                return;
             }
             else if (string.IsNullOrWhiteSpace(UserLoginTextBox.Text))
             {
                 InvalidCurrentLoginError.Text = "Поле не может быть пустым";
                 InvalidCurrentLoginError.Visibility = Visibility.Visible;
+                return;
             }
             else
             {
@@ -111,7 +112,8 @@ namespace SapunovProjectDB.Pages
                 {
                     Staff staff = DBEntities.GetContext().Staff.FirstOrDefault(u => u.IdUser == _currentUser.IdUser);
                     Client client = DBEntities.GetContext().Client.FirstOrDefault(u => u.IdUser == _currentUser.IdUser);
-                    if (staff != null & string.IsNullOrWhiteSpace(UserNewPasswordTextBox.Password))
+                    if (staff != null & string.IsNullOrWhiteSpace(UserNewPasswordTextBox.Password) &&
+                        staff != null & string.IsNullOrWhiteSpace(UserNewVisiblePasswordTextBox.Text))
                     {
                         staff.LastNameStaff = UserLastNameTextBox.Text;
                         staff.FirstNameStaff = UserFirstNameTextBox.Text;
@@ -129,13 +131,24 @@ namespace SapunovProjectDB.Pages
                             client.MiddleNameClient = UserMiddleNameTextBox.Text;
                         client.PhoneNumberClient = UserPhoneNumberTextBox.Text;
                         client.EmailClient = UserEmailTextBox.Text;
-                        _currentUser.LoginUser = UserLoginTextBox.Text;
+                        if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == UserLoginTextBox.Text) == null ||
+                            _currentUser.LoginUser == UserLoginTextBox.Text)
+                        {
+                            _currentUser.LoginUser = UserLoginTextBox.Text;
+                        }
+                        else
+                        {
+                            InvalidCurrentLoginError.Text = "Такой логин уже существует";
+                            InvalidCurrentLoginError.Visibility = Visibility.Visible;
+                            return;
+                        }
                         DBEntities.GetContext().SaveChanges();
                         Properties.Settings.Default.CurrentUser = UserLoginTextBox.Text;
                         Properties.Settings.Default.Save();
                         DataIsSaved();
                     }
-                    else if (staff == null & string.IsNullOrWhiteSpace(UserNewPasswordTextBox.Password))
+                    else if (staff == null & string.IsNullOrWhiteSpace(UserNewPasswordTextBox.Password) &&
+                        staff == null & string.IsNullOrWhiteSpace(UserNewVisiblePasswordTextBox.Text))
                     {
                         client.LastNameClient = UserLastNameTextBox.Text;
                         client.NameClient = UserFirstNameTextBox.Text;
@@ -145,7 +158,17 @@ namespace SapunovProjectDB.Pages
                             client.MiddleNameClient = UserMiddleNameTextBox.Text;
                         client.PhoneNumberClient = UserPhoneNumberTextBox.Text;
                         client.EmailClient = UserEmailTextBox.Text;
-                        _currentUser.LoginUser = UserLoginTextBox.Text;
+                        if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == UserLoginTextBox.Text) == null ||
+                            _currentUser.LoginUser == UserLoginTextBox.Text)
+                        {
+                            _currentUser.LoginUser = UserLoginTextBox.Text;
+                        }
+                        else
+                        {
+                            InvalidCurrentLoginError.Text = "Такой логин уже существует";
+                            InvalidCurrentLoginError.Visibility = Visibility.Visible;
+                            return;
+                        }
                         DBEntities.GetContext().SaveChanges();
                         Properties.Settings.Default.CurrentUser = UserLoginTextBox.Text;
                         Properties.Settings.Default.Save();
@@ -155,30 +178,11 @@ namespace SapunovProjectDB.Pages
                     {
                         if (!string.IsNullOrWhiteSpace(UserNewPasswordTextBox.Password))
                         {
-                            if (upperCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
-                            {
-                                InvalidNewPaswwordError.Text = "Пароль должен содержать заглавные буквы";
-                                InvalidNewPaswwordError.Visibility = Visibility.Visible;
-                            }
-                            else if (lowerCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
-                            {
-                                InvalidNewPaswwordError.Text = "Пароль должен содержать маленькие буквы";
-                                InvalidNewPaswwordError.Visibility = Visibility.Visible;
-                            }
-                            else if (numbers.IndexOfAny(enteredPassword.ToCharArray()) == -1)
-                            {
-                                InvalidNewPaswwordError.Text = "Пароль должен содержать цифры";
-                                InvalidNewPaswwordError.Visibility = Visibility.Visible;
-                            }
-                            else if (enteredPassword.Length > 30)
-                            {
-                                InvalidNewPaswwordError.Text = "Пароль должен быть не более 30 символов";
-                                InvalidNewPaswwordError.Visibility = Visibility.Visible;
-                            }
-                            else if (_currentUser.PasswordUser != UserCurrentPasswordTextBox.Password)
+                            if (_currentUser.PasswordUser != UserCurrentPasswordTextBox.Password)
                             {
                                 InvalidCurrentPaswwordError.Text = "Неверный пароль";
                                 InvalidCurrentPaswwordError.Visibility = Visibility.Visible;
+                                return;
                             }
                             else
                             {
@@ -202,7 +206,17 @@ namespace SapunovProjectDB.Pages
                                             client.MiddleNameClient = UserMiddleNameTextBox.Text;
                                         client.PhoneNumberClient = UserPhoneNumberTextBox.Text;
                                         client.EmailClient = UserEmailTextBox.Text;
-                                        _currentUser.LoginUser = UserLoginTextBox.Text;
+                                        if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == UserLoginTextBox.Text) == null ||
+                                            _currentUser.LoginUser == UserLoginTextBox.Text)
+                                        {
+                                            _currentUser.LoginUser = UserLoginTextBox.Text;
+                                        }
+                                        else
+                                        {
+                                            InvalidCurrentLoginError.Text = "Такой логин уже существует";
+                                            InvalidCurrentLoginError.Visibility = Visibility.Visible;
+                                            return;
+                                        }
                                         _currentUser.PasswordUser = UserNewPasswordTextBox.Password;
                                         DBEntities.GetContext().SaveChanges();
                                         Properties.Settings.Default.CurrentUser = UserLoginTextBox.Text;
@@ -219,8 +233,99 @@ namespace SapunovProjectDB.Pages
                                             client.MiddleNameClient = UserMiddleNameTextBox.Text;
                                         client.PhoneNumberClient = UserPhoneNumberTextBox.Text;
                                         client.EmailClient = UserEmailTextBox.Text;
-                                        _currentUser.LoginUser = UserLoginTextBox.Text;
+                                        if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == UserLoginTextBox.Text) == null ||
+                                            _currentUser.LoginUser == UserLoginTextBox.Text)
+                                        {
+                                            _currentUser.LoginUser = UserLoginTextBox.Text;
+                                        }
+                                        else
+                                        {
+                                            InvalidCurrentLoginError.Text = "Такой логин уже существует";
+                                            InvalidCurrentLoginError.Visibility = Visibility.Visible;
+                                            return;
+                                        }
                                         _currentUser.PasswordUser = UserNewPasswordTextBox.Password;
+                                        DBEntities.GetContext().SaveChanges();
+                                        Properties.Settings.Default.CurrentUser = UserLoginTextBox.Text;
+                                        Properties.Settings.Default.Save();
+                                        DataIsSaved();
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Error.ErrorMB(ex);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (_currentUser.PasswordUser != UserCurrentPasswordTextBox.Password)
+                            {
+                                InvalidCurrentPaswwordError.Text = "Неверный пароль";
+                                InvalidCurrentPaswwordError.Visibility = Visibility.Visible;
+                                return;
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    if (staff != null)
+                                    {
+                                        staff.LastNameStaff = UserLastNameTextBox.Text;
+                                        staff.FirstNameStaff = UserFirstNameTextBox.Text;
+                                        if (string.IsNullOrWhiteSpace(UserMiddleNameTextBox.Text))
+                                            staff.MiddleNameStaff = null;
+                                        else
+                                            staff.MiddleNameStaff = UserMiddleNameTextBox.Text;
+                                        staff.PhoneNumberStaff = UserPhoneNumberTextBox.Text;
+                                        staff.EmailStaff = UserEmailTextBox.Text;
+                                        client.LastNameClient = UserLastNameTextBox.Text;
+                                        client.NameClient = UserFirstNameTextBox.Text;
+                                        if (string.IsNullOrWhiteSpace(UserMiddleNameTextBox.Text))
+                                            client.MiddleNameClient = null;
+                                        else
+                                            client.MiddleNameClient = UserMiddleNameTextBox.Text;
+                                        client.PhoneNumberClient = UserPhoneNumberTextBox.Text;
+                                        client.EmailClient = UserEmailTextBox.Text;
+                                        if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == UserLoginTextBox.Text) == null ||
+                                            _currentUser.LoginUser == UserLoginTextBox.Text)
+                                        {
+                                            _currentUser.LoginUser = UserLoginTextBox.Text;
+                                        }
+                                        else
+                                        {
+                                            InvalidCurrentLoginError.Text = "Такой логин уже существует";
+                                            InvalidCurrentLoginError.Visibility = Visibility.Visible;
+                                            return;
+                                        }
+                                        _currentUser.PasswordUser = UserNewVisiblePasswordTextBox.Text;
+                                        DBEntities.GetContext().SaveChanges();
+                                        Properties.Settings.Default.CurrentUser = UserLoginTextBox.Text;
+                                        Properties.Settings.Default.Save();
+                                        DataIsSaved();
+                                    }
+                                    else
+                                    {
+                                        client.LastNameClient = UserLastNameTextBox.Text;
+                                        client.NameClient = UserFirstNameTextBox.Text;
+                                        if (string.IsNullOrWhiteSpace(UserMiddleNameTextBox.Text))
+                                            client.MiddleNameClient = null;
+                                        else
+                                            client.MiddleNameClient = UserMiddleNameTextBox.Text;
+                                        client.PhoneNumberClient = UserPhoneNumberTextBox.Text;
+                                        client.EmailClient = UserEmailTextBox.Text;
+                                        if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == UserLoginTextBox.Text) == null ||
+                                            _currentUser.LoginUser == UserLoginTextBox.Text)
+                                        {
+                                            _currentUser.LoginUser = UserLoginTextBox.Text;
+                                        }
+                                        else
+                                        {
+                                            InvalidCurrentLoginError.Text = "Такой логин уже существует";
+                                            InvalidCurrentLoginError.Visibility = Visibility.Visible;
+                                            return;
+                                        }
+                                        _currentUser.PasswordUser = UserNewVisiblePasswordTextBox.Text;
                                         DBEntities.GetContext().SaveChanges();
                                         Properties.Settings.Default.CurrentUser = UserLoginTextBox.Text;
                                         Properties.Settings.Default.Save();
@@ -245,11 +350,6 @@ namespace SapunovProjectDB.Pages
         private void UserCurrentPasswordTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             InvalidCurrentPaswwordError.Visibility = Visibility.Collapsed;
-        }
-
-        private void UserNewPasswordTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            InvalidNewPaswwordError.Visibility = Visibility.Collapsed;
         }
         private async void DataIsSaved()
         {
@@ -297,6 +397,104 @@ namespace SapunovProjectDB.Pages
         private void UserLoginTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             InvalidCurrentLoginError.Visibility = Visibility.Collapsed;
+        }
+
+        private void VisibilityPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (UserNewPasswordTextBox.Visibility == Visibility.Visible)
+            {
+                UserNewVisiblePasswordTextBox.Text = UserNewPasswordTextBox.Password;
+                VisiblePasswordIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.EyeOffOutline;
+                VisiblePasswordIcon.Margin = new Thickness(0, 1.5, 0, 0);
+                UserNewVisiblePasswordTextBox.Visibility = Visibility.Visible;
+                UserNewPasswordTextBox.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                UserNewPasswordTextBox.Password = UserNewVisiblePasswordTextBox.Text;
+                VisiblePasswordIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.EyeOutline;
+                VisiblePasswordIcon.Margin = new Thickness(0, 0, 0, 0);
+                UserNewPasswordTextBox.Visibility = Visibility.Visible;
+                UserNewVisiblePasswordTextBox.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void UserNewPasswordTextBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            string upperCaseLetters = "QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ",
+                lowerCaseLetters = "qwertyuiopasdfghjklzxcvbnmйцукенгшщзхъфывапролджэячсмитьбю",
+                numbers = "1234567890",
+                enteredPassword = UserNewPasswordTextBox.Password;
+
+            if (upperCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                InvalidNewPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else if (lowerCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                InvalidNewPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else if (numbers.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                InvalidNewPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else if (enteredPassword.Length < 8)
+            {
+                InvalidNewPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else
+            {
+                InvalidNewPaswwordError.Visibility = Visibility.Collapsed;
+                userSaveButton.IsEnabled = true;
+            }
+            if (string.IsNullOrWhiteSpace(UserNewPasswordTextBox.Password))
+            {
+                userSaveButton.IsEnabled = true;
+                InvalidNewPaswwordError.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void UserNewVisiblePasswordTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string upperCaseLetters = "QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ",
+                lowerCaseLetters = "qwertyuiopasdfghjklzxcvbnmйцукенгшщзхъфывапролджэячсмитьбю",
+                numbers = "1234567890",
+                enteredPassword = UserNewVisiblePasswordTextBox.Text;
+
+            if (upperCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                InvalidNewPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else if (lowerCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                InvalidNewPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else if (numbers.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                InvalidNewPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else if (enteredPassword.Length < 8)
+            {
+                InvalidNewPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else
+            {
+                InvalidNewPaswwordError.Visibility = Visibility.Collapsed;
+                userSaveButton.IsEnabled = true;
+            }
+            if (string.IsNullOrWhiteSpace(UserNewVisiblePasswordTextBox.Text))
+            {
+                userSaveButton.IsEnabled = true;
+                InvalidNewPaswwordError.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

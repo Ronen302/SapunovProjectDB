@@ -38,7 +38,7 @@
             </Grid>
             <Border Style="{DynamicResource secondaryAuthBorder}"
                     Grid.Row="1" BorderThickness="0">
-                <StackPanel Orientation="Vertical" Grid.Row="2" Height="450">
+                <StackPanel Margin="10 20 10 10">
 
                     <StackPanel Margin="20 10">
                         <StackPanel Orientation="Horizontal">

@@ -70,7 +70,7 @@
         <Setter Property="Foreground" Value="#757575"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
-                <Setter Property="Foreground" Value="#757575"/>
+                <Setter Property="Foreground" Value="#76787a"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>

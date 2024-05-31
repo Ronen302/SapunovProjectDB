@@ -49,6 +49,7 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 StaffSalaryTextBox.Text = selectedStaff.SalaryStaff.ToString();
                 StaffHireDateDatePicker.SelectedDate = selectedStaff.HireDateStaff;
                 StaffLoginTextBox.Text = selectedStaff.User.LoginUser;
+                StaffPasswordPasswordBox.Password = selectedStaff.User.PasswordUser;
                 StaffPasswordTextBox.Text = selectedStaff.User.PasswordUser;
                 RoleStaffComboBox.SelectedItem = selectedStaff.User.Role;
                 StaffSerialPassportTextBox.Text = selectedStaff.PassportStaff.SerialPassportStaff.ToString();
@@ -74,6 +75,14 @@ namespace SapunovProjectDB.Windows.AddEditWindows
 
         private void userSaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (StaffPasswordPasswordBox.Visibility == Visibility.Visible)
+            {
+                StaffPasswordTextBox.Text = StaffPasswordPasswordBox.Password;
+            }
+            else
+            {
+                StaffPasswordPasswordBox.Password = StaffPasswordTextBox.Text;
+            }
             string upperCaseLetters = "QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ",
                 lowerCaseLetters = "qwertyuiopasdfghjklzxcvbnmйцукенгшщзхъфывапролджэячсмитьбю",
                 numbers = "1234567890",
@@ -349,7 +358,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -378,7 +389,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -407,10 +420,13 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
+            Keyboard.ClearFocus();
         }
 
         private void EducationStaffComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -436,10 +452,13 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
+            Keyboard.ClearFocus();
         }
 
         private void StaffDateOfBirthDatePicker_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -465,7 +484,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -494,7 +515,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -523,7 +546,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -552,10 +577,13 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
+            Keyboard.ClearFocus();
         }
 
         private void StaffSalaryTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -581,7 +609,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -610,7 +640,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -618,35 +650,134 @@ namespace SapunovProjectDB.Windows.AddEditWindows
 
         private void StaffLoginTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
-                GenderStaffComboBox.SelectedValue == null |
-                EducationStaffComboBox.SelectedValue == null |
-                StaffDateOfBirthDatePicker.SelectedDate == null |
-                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
-                PositionAtWorkStaffComboBox.SelectedValue == null |
-                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
-                StaffHireDateDatePicker.SelectedDate == null |
-                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
-                RoleStaffComboBox.SelectedValue == null |
-                string.IsNullOrWhiteSpace(StaffSerialPassportTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffNumberPassportTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffPassportIssuedByTextBox.Text) |
-                StaffPassportIssueDateDatePicker.SelectedDate == null |
-                string.IsNullOrWhiteSpace(StaffDepartmentCodeTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
-                userSaveButton.IsEnabled = false;
+            if (_currentStaff == null)
+            {
+                if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == StaffLoginTextBox.Text) == null)
+                {
+                    InvalidStaffLoginError.Visibility = Visibility.Collapsed;
+                    userSaveButton.IsEnabled = true;
+                }
+                else
+                {
+                    InvalidStaffLoginError.Visibility = Visibility.Visible;
+                    userSaveButton.IsEnabled = false;
+                }
+                if (string.IsNullOrWhiteSpace(StaffLoginTextBox.Text))
+                {
+                    InvalidStaffLoginError.Visibility = Visibility.Collapsed;
+                }
+                if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                    GenderStaffComboBox.SelectedValue == null |
+                    EducationStaffComboBox.SelectedValue == null |
+                    StaffDateOfBirthDatePicker.SelectedDate == null |
+                    string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                    PositionAtWorkStaffComboBox.SelectedValue == null |
+                    string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                    StaffHireDateDatePicker.SelectedDate == null |
+                    string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                    RoleStaffComboBox.SelectedValue == null |
+                    string.IsNullOrWhiteSpace(StaffSerialPassportTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffNumberPassportTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffPassportIssuedByTextBox.Text) |
+                    StaffPassportIssueDateDatePicker.SelectedDate == null |
+                    string.IsNullOrWhiteSpace(StaffDepartmentCodeTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                    InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                    InvalidStaffLoginError.Visibility == Visibility.Visible)
+                    userSaveButton.IsEnabled = false;
+                else
+                    userSaveButton.IsEnabled = true;
+            }
             else
-                userSaveButton.IsEnabled = true;
+            {
+                if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == StaffLoginTextBox.Text) == null ||
+                    _currentStaff.User.LoginUser == StaffLoginTextBox.Text)
+                {
+                    InvalidStaffLoginError.Visibility = Visibility.Collapsed;
+                    userSaveButton.IsEnabled = true;
+                }
+                else
+                {
+                    InvalidStaffLoginError.Visibility = Visibility.Visible;
+                    userSaveButton.IsEnabled = false;
+                }
+                if (string.IsNullOrWhiteSpace(StaffLoginTextBox.Text))
+                {
+                    InvalidStaffLoginError.Visibility = Visibility.Collapsed;
+                }
+                if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                    GenderStaffComboBox.SelectedValue == null |
+                    EducationStaffComboBox.SelectedValue == null |
+                    StaffDateOfBirthDatePicker.SelectedDate == null |
+                    string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                    PositionAtWorkStaffComboBox.SelectedValue == null |
+                    string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                    StaffHireDateDatePicker.SelectedDate == null |
+                    string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                    RoleStaffComboBox.SelectedValue == null |
+                    string.IsNullOrWhiteSpace(StaffSerialPassportTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffNumberPassportTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffPassportIssuedByTextBox.Text) |
+                    StaffPassportIssueDateDatePicker.SelectedDate == null |
+                    string.IsNullOrWhiteSpace(StaffDepartmentCodeTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
+                    string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                    InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                    InvalidStaffLoginError.Visibility == Visibility.Visible)
+                    userSaveButton.IsEnabled = false;
+                else
+                    userSaveButton.IsEnabled = true;
+            }
         }
 
         private void StaffPasswordTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
+            string upperCaseLetters = "QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ",
+                lowerCaseLetters = "qwertyuiopasdfghjklzxcvbnmйцукенгшщзхъфывапролджэячсмитьбю",
+                numbers = "1234567890",
+                enteredPassword = StaffPasswordTextBox.Text;
+
+            if (upperCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                InvalidStaffPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else if (lowerCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                InvalidStaffPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else if (numbers.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                InvalidStaffPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else if (enteredPassword.Length < 8)
+            {
+                InvalidStaffPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else
+            {
+                InvalidStaffPaswwordError.Visibility = Visibility.Collapsed;
+                userSaveButton.IsEnabled = true;
+            }
+            if (string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text))
+            {
+                StaffPasswordPasswordBox.Password = null;
+                InvalidStaffPaswwordError.Visibility = Visibility.Collapsed;
+            }
             if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
                 GenderStaffComboBox.SelectedValue == null |
@@ -668,7 +799,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -697,10 +830,13 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
+            Keyboard.ClearFocus();
         }
 
         private void StaffSerialPassportTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -726,7 +862,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -755,7 +893,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -784,7 +924,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -813,7 +955,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -842,7 +986,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -871,7 +1017,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -900,7 +1048,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -929,7 +1079,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -958,7 +1110,9 @@ namespace SapunovProjectDB.Windows.AddEditWindows
                 string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
                 string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
-                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text))
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
                 userSaveButton.IsEnabled = false;
             else
                 userSaveButton.IsEnabled = true;
@@ -978,6 +1132,7 @@ namespace SapunovProjectDB.Windows.AddEditWindows
             StaffSalaryTextBox.Text = _currentStaff.SalaryStaff.ToString();
             StaffHireDateDatePicker.SelectedDate = _currentStaff.HireDateStaff;
             StaffLoginTextBox.Text = _currentStaff.User.LoginUser;
+            StaffPasswordPasswordBox.Password = _currentStaff.User.PasswordUser;
             StaffPasswordTextBox.Text = _currentStaff.User.PasswordUser;
             RoleStaffComboBox.SelectedItem = _currentStaff.User.Role;
             StaffSerialPassportTextBox.Text = _currentStaff.PassportStaff.SerialPassportStaff.ToString();
@@ -989,6 +1144,96 @@ namespace SapunovProjectDB.Windows.AddEditWindows
             StaffStreetNameTextBox.Text = _currentStaff.AdressStaff.StreetNameStaff;
             StaffHouseNumberTextBox.Text = _currentStaff.AdressStaff.HouseNumberStaff.ToString();
             StaffApartmentNumberTextBox.Text = _currentStaff.AdressStaff.ApartmentNumberStaff.ToString();
+        }
+
+        private void StaffPasswordPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            string upperCaseLetters = "QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ",
+                lowerCaseLetters = "qwertyuiopasdfghjklzxcvbnmйцукенгшщзхъфывапролджэячсмитьбю",
+                numbers = "1234567890",
+                enteredPassword = StaffPasswordPasswordBox.Password;
+
+            if (upperCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                InvalidStaffPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else if (lowerCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                InvalidStaffPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else if (numbers.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                InvalidStaffPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else if (enteredPassword.Length < 8)
+            {
+                InvalidStaffPaswwordError.Visibility = Visibility.Visible;
+                userSaveButton.IsEnabled = false;
+            }
+            else
+            {
+                InvalidStaffPaswwordError.Visibility = Visibility.Collapsed;
+                userSaveButton.IsEnabled = true;
+            }
+            if (string.IsNullOrWhiteSpace(StaffPasswordPasswordBox.Password))
+            {
+                StaffPasswordTextBox.Text = null;
+                InvalidStaffPaswwordError.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                StaffPasswordTextBox.Text = StaffPasswordPasswordBox.Password;
+            }
+            if (string.IsNullOrWhiteSpace(StaffLastNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffFirstNameTextBox.Text) |
+                GenderStaffComboBox.SelectedValue == null |
+                EducationStaffComboBox.SelectedValue == null |
+                StaffDateOfBirthDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffPhoneNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffEmailTextBox.Text) |
+                PositionAtWorkStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSalaryTextBox.Text) |
+                StaffHireDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffLoginTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPasswordTextBox.Text) |
+                RoleStaffComboBox.SelectedValue == null |
+                string.IsNullOrWhiteSpace(StaffSerialPassportTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffNumberPassportTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffPassportIssuedByTextBox.Text) |
+                StaffPassportIssueDateDatePicker.SelectedDate == null |
+                string.IsNullOrWhiteSpace(StaffDepartmentCodeTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffCityNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffStreetNameTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffHouseNumberTextBox.Text) |
+                string.IsNullOrWhiteSpace(StaffApartmentNumberTextBox.Text) |
+                InvalidStaffPaswwordError.Visibility == Visibility.Visible |
+                InvalidStaffLoginError.Visibility == Visibility.Visible)
+                userSaveButton.IsEnabled = false;
+            else
+                userSaveButton.IsEnabled = true;
+        }
+
+        private void VisibilityPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (StaffPasswordPasswordBox.Visibility == Visibility.Visible)
+            {
+                StaffPasswordTextBox.Text = StaffPasswordPasswordBox.Password;
+                VisiblePasswordIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.EyeOffOutline;
+                VisiblePasswordIcon.Margin = new Thickness(0, 1.5, 0, 0);
+                StaffPasswordTextBox.Visibility = Visibility.Visible;
+                StaffPasswordPasswordBox.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                StaffPasswordPasswordBox.Password = StaffPasswordTextBox.Text;
+                VisiblePasswordIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.EyeOutline;
+                VisiblePasswordIcon.Margin = new Thickness(0, 0, 0, 0);
+                StaffPasswordPasswordBox.Visibility = Visibility.Visible;
+                StaffPasswordTextBox.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

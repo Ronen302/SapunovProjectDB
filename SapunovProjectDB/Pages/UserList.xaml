@@ -64,9 +64,10 @@
 
         <DataGrid Grid.Row="5" x:Name="UserListDataGrid" ItemsSource="{Binding User}" IsReadOnly="True"
                   CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}"
-                  VirtualizingPanel.ScrollUnit="Pixel">
+                  VirtualizingPanel.ScrollUnit="Pixel" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding IdUser}" Width="auto"/>
+                <DataGridTextColumn CanUserResize="False" Width="auto" CellStyle="{DynamicResource DataGridCellStyleCheckBox}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding IdUser}" Width="auto" CanUserResize="False"/>
                 <DataGridTextColumn Header="Логин" Binding="{Binding LoginUser}" Width="*"/>
                 <DataGridTextColumn Header="Пароль" Binding="{Binding PasswordUser}" Width="*" x:Name="LoginUserColumn"/>
                 <DataGridTextColumn Header="Роль" Binding="{Binding Role.NameRole}" Width="*"/>

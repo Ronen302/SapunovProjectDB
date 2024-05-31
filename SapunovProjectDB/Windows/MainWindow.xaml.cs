@@ -132,5 +132,10 @@ namespace SapunovProjectDB.Windows
                 DragMove();
             }
         }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Keyboard.ClearFocus();
+        }
     }
 }

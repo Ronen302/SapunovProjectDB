@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="«АТОМСТРОЙРЕЗЕРВ»" Height="720" Width="1156" ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
-        Background="Transparent">
+        Background="Transparent" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0" CaptionHeight="0" ResizeBorderThickness="0"/>

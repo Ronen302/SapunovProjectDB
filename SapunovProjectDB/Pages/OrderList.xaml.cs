@@ -76,10 +76,5 @@ namespace SapunovProjectDB.Pages
         {
             statusMenu.IsOpen = true;
         }
-
-        private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }

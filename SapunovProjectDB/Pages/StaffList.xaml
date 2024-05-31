@@ -75,8 +75,9 @@
                   CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}"
                   VirtualizingPanel.ScrollUnit="Pixel">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding IdStaff}" Width="auto"/>
-                <DataGridTemplateColumn Header="ФИО" Width="auto">
+                <DataGridTextColumn CanUserResize="False" Width="auto" CellStyle="{DynamicResource DataGridCellStyleCheckBox}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding IdStaff}" Width="auto" CanUserResize="False"/>
+                <DataGridTemplateColumn Header="ФИО" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -87,15 +88,15 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Должность" Binding="{Binding PositionAtWork.NameOfPosition}" Width="*">
+                <DataGridTextColumn Header="Должность" Binding="{Binding PositionAtWork.NameOfPosition}" Width="0.7*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="Wrap"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Оклад" Binding="{Binding SalaryStaff, StringFormat={}{0:C0}, ConverterCulture=ru-RU}" Width="*"/>
-                <DataGridTemplateColumn Header="Последний визит" Width="*">
+                <DataGridTextColumn Header="Оклад" Binding="{Binding SalaryStaff, StringFormat={}{0:C0}, ConverterCulture=ru-RU}" Width="0.3*"/>
+                <DataGridTemplateColumn Header="Последний визит" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -132,84 +133,103 @@
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-                    <Grid Margin="18 10 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
+                    <Grid Margin="10 20 10 0">
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Margin="0 0 0 5">
-                            <Run Text="Пол: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding GenderStaff.NameGender}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="0 0 0 5" Grid.Row="1">
-                            <Run Text="Дата рождения: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding DateOfBirthStaff, StringFormat=dd/MM/yyyy}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="0 0 0 5" Grid.Row="2">
-                            <Run Text="Номер телефона: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding PhoneNumberStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="0 0 0 5" Grid.Row="3">
-                            <Run Text="Эл.почта: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding EmailStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Grid.Row="4">
-                            <Run Text="Дата принятия на работу: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding HireDateStaff, StringFormat=dd/MM/yyyy}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1">
-                            <Run Text="Логин: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding User.LoginUser}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="1">
-                            <Run Text="Роль: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding User.Role.NameRole}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="2">
-                            <Run Text="Образование: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding Education.NameEducation}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="3">
-                            <Run Text="Серия паспорта: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding PassportStaff.SerialPassportStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="4">
-                            <Run Text="Номер паспорта: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding PassportStaff.NumberPassportStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="2">
-                            <Run Text="Выдан: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding PassportStaff.PassportIssuedByStaff}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="2" Grid.Row="1">
-                            <Run Text="Дата выдачи: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding PassportStaff.PassportIssueDateStaff, StringFormat=dd/MM/yyyy}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="2" Grid.Row="2">
-                            <Run Text="Код подразделения: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding PassportStaff.DepartmentCodeStaff, StringFormat={}{0:###-###}}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="2" Grid.Row="3">
-                            <Run Text="Адрес регистрации: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Style="{DynamicResource normalTextListView}" FontSize="14">
-                                <Run.Text>
-                                    <MultiBinding StringFormat="г. {0}, ул. {1}, д. {2}, кв. {3}">
-                                    <Binding Path="AdressStaff.CityNameStaff"/>
-                                    <Binding Path="AdressStaff.StreetNameStaff"/>
-                                    <Binding Path="AdressStaff.HouseNumberStaff"/>
-                                    <Binding Path="AdressStaff.ApartmentNumberStaff"/>
-                                </MultiBinding>
-                                </Run.Text>
-                            </Run>
-                        </TextBlock>
+                        <Border Style="{DynamicResource rowDetailsBorder}">
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="StaffBasicInfoButton" Style="{DynamicResource staffBasicInfoButton}">
+                                    <StackPanel Orientation="Horizontal" Margin="15 4 15 0">
+                                        <Icons:PackIconMaterial Kind="InformationOutline" Width="16" Height="16" Margin="0 4 10 0"/>
+                                        <TextBlock Text="Основная информация" Style="{DynamicResource loginNormalTitleText}"/>
+                                    </StackPanel>
+                                    <Button.Triggers>
+                                        <EventTrigger RoutedEvent="Button.Click">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaffPassportInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaffBasicInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button x:Name="StaffPassportInfoButton" Style="{DynamicResource staffPassportInfoButton}">
+                                    <StackPanel Orientation="Horizontal" Margin="15 4 15 0">
+                                        <Icons:PackIconMaterial Kind="CardAccountDetailsOutline" Width="16" Height="16" Margin="0 4 10 0"/>
+                                        <TextBlock Text="Паспортные данные" Style="{DynamicResource loginNormalTitleText}"/>
+                                    </StackPanel>
+                                    <Button.Triggers>
+                                        <EventTrigger RoutedEvent="Button.Click">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaffBasicInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaffPassportInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                        <StackPanel x:Name="StaffBasicInfoStackPanel" Orientation="Horizontal" Grid.Row="1" Margin="10 0 0 0" Visibility="Visible">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Пол" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding GenderStaff.NameGender}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Дата рождения" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding DateOfBirthStaff, StringFormat=dd/MM/yyyy}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Образование" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding Education.NameEducation}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="100 0 0 0">
+                                <TextBlock Text="Дата принятия на работу" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding HireDateStaff, StringFormat=dd/MM/yyyy}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Логин" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding User.LoginUser}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Роль" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding User.Role.NameRole}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel x:Name="StaffPassportInfoStackPanel" Orientation="Horizontal" Grid.Row="1" Margin="10 0 0 0" Visibility="Collapsed">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock x:Name="StaffSerialPassportTextBlock" Text="Серия" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding PassportStaff.SerialPassportStaff}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Номер" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding PassportStaff.NumberPassportStaff}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Дата выдачи" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding PassportStaff.PassportIssueDateStaff, StringFormat=dd/MM/yyyy}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="100 0 0 0">
+                                <TextBlock Text="Выдан" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding PassportStaff.PassportIssuedByStaff}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Код подразделения" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding PassportStaff.DepartmentCodeStaff, StringFormat={}{0:###-###}}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Адрес регистрации" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Margin="0 5 0 0" FontSize="15" HorizontalAlignment="Left">
+                                    <Run Style="{DynamicResource normalTextListView}" FontSize="15">
+                                        <Run.Text>
+                                            <MultiBinding StringFormat="г. {0}, ул. {1}, д. {2}, кв. {3}">
+                                                <Binding Path="AdressStaff.CityNameStaff"/>
+                                                <Binding Path="AdressStaff.StreetNameStaff"/>
+                                                <Binding Path="AdressStaff.HouseNumberStaff"/>
+                                                <Binding Path="AdressStaff.ApartmentNumberStaff"/>
+                                            </MultiBinding>
+                                        </Run.Text>
+                                    </Run>
+                                </TextBlock>
+                            </StackPanel>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>

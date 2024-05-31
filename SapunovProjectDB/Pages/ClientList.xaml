@@ -24,9 +24,6 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Frame x:Name="StaffListFrame" NavigationUIVisibility="Hidden"
-               Grid.RowSpan="6" Panel.ZIndex="1"/>
-
         <TextBlock Text="Клиенты" FontSize="32" FontWeight="SemiBold"
                            Margin="0 20 0 0" HorizontalAlignment="Left" Style="{DynamicResource loginNormalTitleText}"/>
 
@@ -63,8 +60,9 @@
                   CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Style="{DynamicResource DataGridStyle1}"
                   VirtualizingPanel.ScrollUnit="Pixel">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding IdClient}" Width="auto"/>
-                <DataGridTemplateColumn Header="ФИО" Width="auto">
+                <DataGridTextColumn CanUserResize="False" Width="auto" CellStyle="{DynamicResource DataGridCellStyleCheckBox}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding IdClient}" Width="auto" CanUserResize="False"/>
+                <DataGridTemplateColumn Header="ФИО" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -79,15 +77,15 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Номер телефона" Binding="{Binding PhoneNumberClient, FallbackValue=Не указано}" Width="*"/>
-                <DataGridTextColumn Header="Эл. почта" Binding="{Binding EmailClient}" Width="*"/>
-                <DataGridTemplateColumn Header="Последний визит" Width="*">
+                <DataGridTextColumn Header="Номер телефона" Binding="{Binding PhoneNumberClient, FallbackValue=Не указано}" Width="0.75*"/>
+                <DataGridTextColumn Header="Эл. почта" Binding="{Binding EmailClient}" Width="0.7*"/>
+                <DataGridTemplateColumn Header="Последний визит" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock>
                                 <Run>
                                     <Run.Text>
-                                        <Binding Path="User.DateOfLastVisit" StringFormat="{}{0:ddd}," ConverterCulture="ru-RU"/>
+                                        <Binding Path="User.DateOfLastVisit" StringFormat="{}{0:ddd}," ConverterCulture="ru-RU" TargetNullValue="—"/>
                                     </Run.Text>
                                 </Run>
                                 <Run>
@@ -118,60 +116,152 @@
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-                    <Grid Margin="18 10 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
+                    <Grid Margin="10 20 10 0">
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Margin="0 0 0 5">
-                            <Run Text="Серия паспорта: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding PassportClient.SerialPassportClient, FallbackValue=Не указано}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="0 0 0 5" Grid.Row="1">
-                            <Run Text="Номер паспорта: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding PassportClient.NumberPassportClient, FallbackValue=Не указано}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="0 0 0 5" Grid.Row="2">
-                            <Run Text="Выдан: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding PassportClient.PassportIssuedByClient, FallbackValue=Не указано}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="0 0 0 5" Grid.Row="3">
-                            <Run Text="Дата выдачи: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding PassportClient.PassportIssueDateClient, StringFormat=dd/MM/yyyy, FallbackValue=Не указано}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Grid.Row="4">
-                            <Run Text="Код подразделения: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding PassportClient.DepartmentCodeClient, StringFormat={}{0:###-###}, FallbackValue=Не указано}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1">
-                            <Run Text="Адрес регистрации: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Style="{DynamicResource normalTextListView}" FontSize="14">
-                                <Run.Text>
-                                    <MultiBinding StringFormat="г. {0}, ул. {1}, д. {2}, кв. {3}" FallbackValue="Не указано">
-                                    <Binding Path="AdressClient.CityNameClient"/>
-                                    <Binding Path="AdressClient.StreetNameClient"/>
-                                    <Binding Path="AdressClient.HouseNumberClient"/>
-                                    <Binding Path="AdressClient.ApartmentNumberClient"/>
-                                </MultiBinding>
-                                </Run.Text>
-                            </Run>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="1">
-                            <Run Text="Логин: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding User.LoginUser}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
-                        <TextBlock Margin="20 0 0 0" Grid.Column="1" Grid.Row="2">
-                            <Run Text="Дата регистрации: " Style="{DynamicResource normalTextListView}" FontSize="14" FontWeight="SemiBold"/>
-                            <Run Text="{Binding DateOfRegistration, StringFormat=dd/MM/yyyy}" Style="{DynamicResource normalTextListView}" FontSize="14"/>
-                        </TextBlock>
+                        <Border Style="{DynamicResource rowDetailsBorder}">
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="StaffBasicInfoButton" Style="{DynamicResource staffBasicInfoButton}">
+                                    <StackPanel Orientation="Horizontal" Margin="15 4 15 0">
+                                        <Icons:PackIconMaterial Kind="InformationOutline" Width="16" Height="16" Margin="0 4 10 0"/>
+                                        <TextBlock Text="Основная информация" Style="{DynamicResource loginNormalTitleText}"/>
+                                    </StackPanel>
+                                    <Button.Triggers>
+                                        <EventTrigger RoutedEvent="Button.Click">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClientOrderInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaffPassportInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaffBasicInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button x:Name="StaffPassportInfoButton" Style="{DynamicResource staffPassportInfoButton}">
+                                    <StackPanel Orientation="Horizontal" Margin="15 4 15 0">
+                                        <Icons:PackIconMaterial Kind="CardAccountDetailsOutline" Width="16" Height="16" Margin="0 4 10 0"/>
+                                        <TextBlock Text="Паспортные данные" Style="{DynamicResource loginNormalTitleText}"/>
+                                    </StackPanel>
+                                    <Button.Triggers>
+                                        <EventTrigger RoutedEvent="Button.Click">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClientOrderInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaffBasicInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaffPassportInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button x:Name="ClientOrderInfoButton" Style="{DynamicResource clientOrderInfoButton}">
+                                    <StackPanel Orientation="Horizontal" Margin="15 4 15 0">
+                                        <Icons:PackIconMaterial Kind="FormatListNumbered" Width="16" Height="16" Margin="0 4 10 0"/>
+                                        <TextBlock Text="Заказы" Style="{DynamicResource loginNormalTitleText}"/>
+                                    </StackPanel>
+                                    <Button.Triggers>
+                                        <EventTrigger RoutedEvent="Button.Click">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaffPassportInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaffBasicInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClientOrderInfoStackPanel" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                        <StackPanel x:Name="StaffBasicInfoStackPanel" Orientation="Horizontal" Grid.Row="1" Margin="10 0 0 0" Visibility="Visible">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Логин" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding User.LoginUser}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Дата регистрации" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding DateOfRegistration, StringFormat=dd/MM/yyyy}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel x:Name="StaffPassportInfoStackPanel" Orientation="Horizontal" Grid.Row="1" Margin="10 0 0 0" Visibility="Collapsed">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock x:Name="StaffSerialPassportTextBlock" Text="Серия" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding PassportClient.SerialPassportClient, FallbackValue=Не указано}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Номер" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding PassportClient.NumberPassportClient, FallbackValue=Не указано}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Дата выдачи" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding PassportClient.PassportIssueDateClient, StringFormat=dd/MM/yyyy, FallbackValue=Не указано}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="100 0 0 0">
+                                <TextBlock Text="Выдан" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding PassportClient.PassportIssuedByClient, FallbackValue=Не указано}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Код подразделения" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Text="{Binding PassportClient.DepartmentCodeClient, StringFormat={}{0:###-###}, FallbackValue=Не указано}" Margin="0 5 0 0" Style="{DynamicResource loginNormalTitleText}" FontSize="15" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Адрес регистрации" Margin="0 10 0 0" Style="{DynamicResource textHintAddWindow}" FontSize="15"/>
+                                <TextBlock Margin="0 5 0 0" FontSize="15" HorizontalAlignment="Left">
+                                    <Run Style="{DynamicResource normalTextListView}" FontSize="15">
+                                        <Run.Text>
+                                            <MultiBinding StringFormat="г. {0}, ул. {1}, д. {2}, кв. {3}" FallbackValue="Не указано">
+                                                <Binding Path="AdressClient.CityNameClient"/>
+                                                <Binding Path="AdressClient.StreetNameClient"/>
+                                                <Binding Path="AdressClient.HouseNumberClient"/>
+                                                <Binding Path="AdressClient.ApartmentNumberClient"/>
+                                            </MultiBinding>
+                                        </Run.Text>
+                                    </Run>
+                                </TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel x:Name="ClientOrderInfoStackPanel" Orientation="Horizontal" Grid.Row="1" Margin="10 10 0 0" Visibility="Collapsed">
+                            <ListView ItemsSource="{Binding Order}" ItemContainerStyle="{DynamicResource ListViewClientOrderItemStyle}" Background="Transparent" BorderThickness="0" MaxHeight="186" VirtualizingPanel.ScrollUnit="Pixel">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock FontSize="15" Style="{DynamicResource loginNormalTitleText}">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}Заказ номер {0} от {1:D} на сумму {2:C0}" ConverterCulture="ru-RU">
+                                                        <Binding Path="IdOrder"/>
+                                                        <Binding Path="DateOfCreate"/>
+                                                        <Binding Path="TypeOfWork.PriceOfWork"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Text="{Binding TypeOfWork.NameTypeOfWork, FallbackValue=Услуга удалена}" Margin="0 0 0 0" Style="{DynamicResource loginNormalTitleText}"
+                                                       FontSize="15" HorizontalAlignment="Left"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0 -8 0 0">
+                                                <TextBlock Text="Статус: " Style="{DynamicResource loginNormalTitleText}"
+                                                            FontSize="15" Margin="0 8 0 0" HorizontalAlignment="Left"/>
+                                                <Border  CornerRadius="5" Style="{DynamicResource statusOrderBorder}"
+                                                        Padding="2 1" VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding StatusOrder.NameStatusOrder}" Foreground="#ffffff"
+                                                                FontSize="14"/>
+                                                </Border>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>

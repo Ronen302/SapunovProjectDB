@@ -43,12 +43,12 @@
                                IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
                                Text="Логин" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegLoginTb}"/>
 
-                            <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="RegLoginTb" Style="{StaticResource inputTextBox}"
+                            <TextBox Padding="36 8 10 8" Grid.ColumnSpan="2" x:Name="RegLoginTb" Style="{StaticResource inputRegLoginTextBox}"
                              GotFocus="RegLoginTb_GotFocus" TextChanged="RegLoginTb_TextChanged"/>
                         </Grid>
 
                         <TextBlock x:Name="EmptyRegLoginError" Text="Не указан логин" Margin="25,4,25,0"
-                       FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                       FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
 
                         <Grid MaxWidth="350" Margin="0 10 0 0">
                             <Grid.ColumnDefinitions>
@@ -56,34 +56,29 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="40"/>
                             </Grid.ColumnDefinitions>
+                            <Button x:Name="VisibilityPasswordButton" Grid.Column="2" Panel.ZIndex="1" Style="{DynamicResource visiblePasswordButton}"
+                                HorizontalAlignment="Center" Click="VisibilityPasswordButton_Click">
+                                <Icons:PackIconMaterial x:Name="VisiblePasswordIcon" Width="18" Height="18" 
+                                        Kind="EyeOutline" Style="{DynamicResource authPageIcon}"/>
+                            </Button>
+                            
                             <Icons:PackIconMaterial Width="15" Height="15" Panel.ZIndex="1" Grid.Column="0"
                                         Kind="LockOutline" Style="{DynamicResource authPageIcon}" Margin="15,12,0,0"/>
                             <TextBlock Grid.Column="1" x:Name="RegPasswordTb" MouseDown="RegPasswordTb_MouseDown" VerticalAlignment="Center" Style="{DynamicResource authPageTextHint}"
                                IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
-                               Text="Пароль" Visibility="{Binding Password.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegPasswordTb}"/>
+                               Text="Пароль" Visibility="{Binding Password.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegPasswordPb}"/>
 
-                            <PasswordBox x:Name="RegPasswordPb" Padding="36 8" Grid.ColumnSpan="3" PasswordChanged="RegPasswordPb_PasswordChanged" Style="{StaticResource loginPasswordBox}"
-                             GotFocus="RegPasswordPb_GotFocus"/>
+                            <PasswordBox x:Name="RegPasswordPb" Padding="36 8" Grid.ColumnSpan="3" PasswordChanged="RegPasswordPb_PasswordChanged" Style="{StaticResource loginPasswordBox}"/>
 
-                            <Button Panel.ZIndex="1" Grid.Column="2" Width="25" Height="25"
-                                    Style="{DynamicResource toolTipPasswordButton}" ToolTipService.InitialShowDelay="1">
-                                <Icons:PackIconMaterial Width="15" Height="15"
-                                        Kind="LockQuestion"/>
-                                <Button.ToolTip>
-                                    <ToolTip>
-                                        <ToolTip.Content>
-                                            <StackPanel Orientation="Vertical" Margin="10">
-                                                <TextBlock Text="Пароль" Margin="0 0 0 5" FontWeight="SemiBold"/>
-                                                <TextBlock Text="Пароль должен содержать маленькие и заглавные буквы, а также цифры"
-                                               TextWrapping="Wrap"/>
-                                            </StackPanel>
-                                        </ToolTip.Content>
-                                    </ToolTip>
-                                </Button.ToolTip>
-                            </Button>
+                            <TextBlock Grid.Column="1" x:Name="VisibleRegPasswordTb" MouseDown="VisibleRegPasswordTb_MouseDown" VerticalAlignment="Center" Style="{DynamicResource authPageTextHint}"
+                               IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
+                               Text="Пароль" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=VisibleRegPasswordTextBox}"/>
+
+                            <TextBox x:Name="VisibleRegPasswordTextBox" Padding="36 8" Grid.ColumnSpan="3" TextChanged="VisibleRegPasswordTextBox_TextChanged" Style="{StaticResource inputVisibleRegPasswordTextBox}"
+                                     Visibility="Collapsed"/>
                         </Grid>
-                        <TextBlock x:Name="EmptyPasswordError" Text="Не указан пароль" Margin="25,4,25,0"
-                       FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                        <TextBlock x:Name="EmptyPasswordError" Text="Не менее 8 символов, как минимум 1 заглавная буква, 1 строчная буква и число" Margin="25,4,25,0"
+                       FontSize="14" Foreground="#e64646" Visibility="Collapsed" TextWrapping="Wrap"/>
 
                         <Grid MaxWidth="350" Margin="0 10 0 0">
                             <Grid.ColumnDefinitions>
@@ -94,19 +89,19 @@
                                         Kind="LockOutline" Style="{DynamicResource authPageIcon}" Margin="15,12,0,0"/>
                             <TextBlock Grid.Column="1" x:Name="RegRepeatPasswordTb" MouseDown="RegPasswordTb_MouseDown" VerticalAlignment="Center" Style="{DynamicResource authPageTextHint}"
                                IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
-                               Text="Повторить пароль" Visibility="{Binding Password.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegRepeatPasswordTb}"/>
+                               Text="Повторить пароль" Visibility="{Binding Password.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegRepeatPasswordPb}"/>
 
-                            <PasswordBox x:Name="RegRepeatPasswordPb" Padding="36 8" Grid.ColumnSpan="2" PasswordChanged="RegRepeatPasswordPb_PasswordChanged" Style="{StaticResource loginRepeatPasswordBox}"
+                            <PasswordBox x:Name="RegRepeatPasswordPb" Padding="36 8 10 8" Grid.ColumnSpan="2" PasswordChanged="RegRepeatPasswordPb_PasswordChanged" Style="{StaticResource loginRepeatPasswordBox}"
                              GotFocus="RegRepeatPasswordPb_GotFocus"/>
                         </Grid>
                         <TextBlock x:Name="EmptyRepeatPasswordError" Text="Повторите пароль" Margin="25,4,25,0"
-                       FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                       FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
 
                         <StackPanel Orientation="Horizontal" Margin="25,20,0,0">
                             <CheckBox Content="Запомнить логин" FontSize="16" VerticalContentAlignment="Center"
                                   VerticalAlignment="Center"
                               Style="{DynamicResource authPageCheckBox}" Cursor="Hand"
-                              x:Name="SaveLoginCb" Template="{DynamicResource CheckBoxControlTemplate}" Width="155"/>
+                              x:Name="SaveLoginCb" Width="155"/>
                             <Button Width="25" Height="25" Margin="0 2 0 0"
                                     Style="{DynamicResource toolTipPasswordButton}" ToolTipService.InitialShowDelay="1">
                                 <Icons:PackIconMaterial Width="13" Height="13"
@@ -137,12 +132,12 @@
                                IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
                                Text="Ваше имя" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegNameTb}"/>
 
-                            <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="RegNameTb" Style="{StaticResource inputTextBox}"
-                             GotFocus="RegNameTb_GotFocus" TextChanged="RegNameTb_TextChanged"/>
+                            <TextBox Padding="36 8 10 8" Grid.ColumnSpan="2" x:Name="RegNameTb" Style="{StaticResource inputTextBox}"
+                             TextChanged="RegNameTb_TextChanged"/>
                         </Grid>
 
                         <TextBlock x:Name="EmptyRegNameError" Text="Не указано имя" Margin="25,4,25,0"
-                       FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                       FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
 
                         <Grid MaxWidth="350" Margin="0 10 0 0">
                             <Grid.ColumnDefinitions>
@@ -155,11 +150,11 @@
                                IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
                                Text="Номер телефона" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegPhoneTb}"/>
 
-                            <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="RegPhoneTb" Style="{StaticResource inputTextBox}"
-                             GotFocus="RegPhoneTb_GotFocus" TextChanged="RegPhoneTb_TextChanged" MaxLength="11"/>
+                            <TextBox Padding="36 8 10 8" Grid.ColumnSpan="2" x:Name="RegPhoneTb" Style="{StaticResource inputTextBox}"
+                             TextChanged="RegPhoneTb_TextChanged" MaxLength="11"/>
                         </Grid>
                         <TextBlock x:Name="EmptyRegPhoneError" Text="Не указан номер телефона" Margin="25,4,25,0"
-                       FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                       FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
 
                         <Grid MaxWidth="350" Margin="0 10 0 0">
                             <Grid.ColumnDefinitions>
@@ -172,8 +167,8 @@
                                IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
                                Text="Email" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=RegEmailTb}"/>
 
-                            <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="RegEmailTb" Style="{StaticResource inputTextBox}"
-                             GotFocus="RegEmailTb_GotFocus" TextChanged="RegEmailTb_TextChanged"/>
+                            <TextBox Padding="36 8 10 8" Grid.ColumnSpan="2" x:Name="RegEmailTb" Style="{StaticResource inputTextBox}"
+                             TextChanged="RegEmailTb_TextChanged"/>
                         </Grid>
                     </StackPanel>
                 </StackPanel>

@@ -13,11 +13,11 @@ namespace SapunovProjectDB.Pages
 {
     public partial class Registration : Page
     {
-        private readonly Client _currentClient = new Client();
-        private readonly User _currentUser = new User();
+        User _newUser = new User();
         public Registration()
         {
             InitializeComponent();
+            VisibleRegPasswordTb.Visibility = Visibility.Collapsed;
             RegLoginTb.Focus();
         }
 
@@ -28,23 +28,73 @@ namespace SapunovProjectDB.Pages
 
         private void RegPasswordPb_PasswordChanged(object sender, RoutedEventArgs e)
         {
+            string upperCaseLetters = "QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ",
+                lowerCaseLetters = "qwertyuiopasdfghjklzxcvbnmйцукенгшщзхъфывапролджэячсмитьбю",
+                numbers = "1234567890",
+                enteredPassword = RegPasswordPb.Password;
+
             if (!string.IsNullOrWhiteSpace(RegPasswordPb.Password) && RegPasswordPb.Password.Length > 0)
             {
                 RegPasswordTb.Visibility = Visibility.Collapsed;
+                VisibleRegPasswordTb.Visibility = Visibility.Collapsed;
             }
             else
             {
                 RegPasswordTb.Visibility = Visibility.Visible;
             }
-            if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
-                string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegNameTb.Text) |
-                string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
-                string.IsNullOrWhiteSpace(RegEmailTb.Text))
+
+            if (upperCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                EmptyPasswordError.Visibility = Visibility.Visible;
                 RegistrationBtn.IsEnabled = false;
+            }
+            else if (lowerCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                EmptyPasswordError.Visibility = Visibility.Visible;
+                RegistrationBtn.IsEnabled = false;
+            }
+            else if (numbers.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                EmptyPasswordError.Visibility = Visibility.Visible;
+                RegistrationBtn.IsEnabled = false;
+            }
+            else if (enteredPassword.Length < 8)
+            {
+                EmptyPasswordError.Visibility = Visibility.Visible;
+                RegistrationBtn.IsEnabled = false;
+            }
             else
-                RegistrationBtn.IsEnabled = true;
+            {
+                EmptyPasswordError.Visibility = Visibility.Collapsed;
+                if (RegPasswordPb.Visibility == Visibility.Visible)
+                {
+                    if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                        string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
+                        string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                        string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                        string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                        string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                        EmptyPasswordError.Visibility == Visibility.Visible)
+                        RegistrationBtn.IsEnabled = false;
+                    else
+                        RegistrationBtn.IsEnabled = true;
+                }
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                        string.IsNullOrWhiteSpace(VisibleRegPasswordTextBox.Text) |
+                        string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                        string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                        string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                        string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                        EmptyPasswordError.Visibility == Visibility.Visible)
+                        RegistrationBtn.IsEnabled = false;
+                    else
+                        RegistrationBtn.IsEnabled = true;
+                }
+            }
+            if (string.IsNullOrWhiteSpace(RegPasswordPb.Password))
+                EmptyPasswordError.Visibility = Visibility.Collapsed;
         }
 
         private void RegRepeatPasswordTb_MouseDown(object sender, MouseButtonEventArgs e)
@@ -62,15 +112,32 @@ namespace SapunovProjectDB.Pages
             {
                 RegRepeatPasswordTb.Visibility = Visibility.Visible;
             }
-            if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
-                string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegNameTb.Text) |
-                string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
-                string.IsNullOrWhiteSpace(RegEmailTb.Text))
-                RegistrationBtn.IsEnabled = false;
+            if (RegPasswordPb.Visibility == Visibility.Visible)
+            {
+                if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                    string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                    EmptyPasswordError.Visibility == Visibility.Visible)
+                    RegistrationBtn.IsEnabled = false;
+                else
+                    RegistrationBtn.IsEnabled = true;
+            }
             else
-                RegistrationBtn.IsEnabled = true;
+            {
+                if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                    string.IsNullOrWhiteSpace(VisibleRegPasswordTextBox.Text) |
+                    string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                    string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                    EmptyPasswordError.Visibility == Visibility.Visible)
+                    RegistrationBtn.IsEnabled = false;
+                else
+                    RegistrationBtn.IsEnabled = true;
+            }
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
@@ -80,37 +147,13 @@ namespace SapunovProjectDB.Pages
 
         private async void RegistrationBtn_Click(object sender, RoutedEventArgs e)
         {
-            string upperCaseLetters = "QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ",
-                lowerCaseLetters = "qwertyuiopasdfghjklzxcvbnmйцукенгшщзхъфывапролджэячсмитьбю",
-                numbers = "1234567890",
-                enteredPassword = RegPasswordPb.Password;
-
             if (DBEntities.GetContext().User.FirstOrDefault(u => u.LoginUser == RegLoginTb.Text) != null)
             {
                 EmptyRegLoginError.Text = "Такой логин уже существует";
                 EmptyRegLoginError.Visibility = Visibility.Visible;
             }
-            else if (upperCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
-            {
-                EmptyPasswordError.Text = "Пароль должен содержать заглавные буквы";
-                EmptyPasswordError.Visibility = Visibility.Visible;
-            }
-            else if (lowerCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
-            {
-                EmptyPasswordError.Text = "Пароль должен содержать маленькие буквы";
-                EmptyPasswordError.Visibility = Visibility.Visible;
-            }
-            else if (numbers.IndexOfAny(enteredPassword.ToCharArray()) == -1)
-            {
-                EmptyPasswordError.Text = "Пароль должен содержать цифры";
-                EmptyPasswordError.Visibility = Visibility.Visible;
-            }
-            else if (enteredPassword.Length > 30)
-            {
-                EmptyPasswordError.Text = "Пароль должен быть не более 30 символов";
-                EmptyPasswordError.Visibility = Visibility.Visible;
-            }
-            else if (RegPasswordPb.Password != RegRepeatPasswordPb.Password)
+            else if (RegPasswordPb.Password != RegRepeatPasswordPb.Password &&
+                VisibleRegPasswordTextBox.Text != RegRepeatPasswordPb.Password)
             {
                 EmptyRepeatPasswordError.Text = "Пароли не совпадают";
                 EmptyRepeatPasswordError.Visibility = Visibility.Visible;
@@ -134,15 +177,18 @@ namespace SapunovProjectDB.Pages
                         Properties.Settings.Default.Save();
                     }
 
-                    User newUser = new User()
+                    _newUser.LoginUser = RegLoginTb.Text;
+                    if (RegPasswordPb.Visibility == Visibility.Visible)
                     {
-                        LoginUser = RegLoginTb.Text,
-                        PasswordUser = RegPasswordPb.Password,
-                        IdRole = 4
-                    };
-                    DBEntities.GetContext().User.Add(newUser);
+                        _newUser.PasswordUser = RegPasswordPb.Password;
+                    }
+                    else
+                    {
+                        _newUser.PasswordUser = VisibleRegPasswordTextBox.Text;
+                    }
+                    _newUser.IdRole = 4;
+                    DBEntities.GetContext().User.Add(_newUser);
                     DBEntities.GetContext().SaveChanges();
-                    _currentUser.IdUser = newUser.IdUser;
 
                     Client newClient = new Client()
                     {
@@ -150,7 +196,7 @@ namespace SapunovProjectDB.Pages
                         PhoneNumberClient = RegPhoneTb.Text,
                         EmailClient = RegEmailTb.Text,
                         DateOfRegistration = DateTime.Now,
-                        IdUser = _currentUser.IdUser
+                        IdUser = _newUser.IdUser
                     };
                     DBEntities.GetContext().Client.Add(newClient);
                     DBEntities.GetContext().SaveChanges();
@@ -181,11 +227,6 @@ namespace SapunovProjectDB.Pages
             }
         }
 
-        private void RegPasswordPb_GotFocus(object sender, RoutedEventArgs e)
-        {
-            EmptyPasswordError.Visibility = Visibility.Collapsed;
-        }
-
         private void RegLoginTb_GotFocus(object sender, RoutedEventArgs e)
         {
             EmptyRegLoginError.Visibility = Visibility.Collapsed;
@@ -201,95 +242,219 @@ namespace SapunovProjectDB.Pages
             MainRegBorder.Height = MainStackPannel.ActualHeight;
         }
 
-        private void RegNameTb_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
-                string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegNameTb.Text) |
-                string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
-                string.IsNullOrWhiteSpace(RegEmailTb.Text))
-                RegistrationBtn.IsEnabled = false;
-            else
-                RegistrationBtn.IsEnabled = true;
-        }
-
-        private void RegPhoneTb_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
-                string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegNameTb.Text) |
-                string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
-                string.IsNullOrWhiteSpace(RegEmailTb.Text))
-                RegistrationBtn.IsEnabled = false;
-            else
-                RegistrationBtn.IsEnabled = true;
-        }
-
-        private void RegEmailTb_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
-                string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegNameTb.Text) |
-                string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
-                string.IsNullOrWhiteSpace(RegEmailTb.Text))
-                RegistrationBtn.IsEnabled = false;
-            else
-                RegistrationBtn.IsEnabled = true;
-        }
-
         private void RegLoginTb_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
-                string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegNameTb.Text) |
-                string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
-                string.IsNullOrWhiteSpace(RegEmailTb.Text))
-                RegistrationBtn.IsEnabled = false;
+            if (RegPasswordPb.Visibility == Visibility.Visible)
+            {
+                if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                    string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                    EmptyPasswordError.Visibility == Visibility.Visible)
+                    RegistrationBtn.IsEnabled = false;
+                else
+                    RegistrationBtn.IsEnabled = true;
+            }
             else
-                RegistrationBtn.IsEnabled = true;
+            {
+                if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                    string.IsNullOrWhiteSpace(VisibleRegPasswordTextBox.Text) |
+                    string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                    string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                    EmptyPasswordError.Visibility == Visibility.Visible)
+                    RegistrationBtn.IsEnabled = false;
+                else
+                    RegistrationBtn.IsEnabled = true;
+            }
         }
 
         private void RegNameTb_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
-                string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegNameTb.Text) |
-                string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
-                string.IsNullOrWhiteSpace(RegEmailTb.Text))
-                RegistrationBtn.IsEnabled = false;
+            if (RegPasswordPb.Visibility == Visibility.Visible)
+            {
+                if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                    string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                    EmptyPasswordError.Visibility == Visibility.Visible)
+                    RegistrationBtn.IsEnabled = false;
+                else
+                    RegistrationBtn.IsEnabled = true;
+            }
             else
-                RegistrationBtn.IsEnabled = true;
+            {
+                if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                    string.IsNullOrWhiteSpace(VisibleRegPasswordTextBox.Text) |
+                    string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                    string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                    EmptyPasswordError.Visibility == Visibility.Visible)
+                    RegistrationBtn.IsEnabled = false;
+                else
+                    RegistrationBtn.IsEnabled = true;
+            }
         }
 
         private void RegPhoneTb_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
-                string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegNameTb.Text) |
-                string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
-                string.IsNullOrWhiteSpace(RegEmailTb.Text))
-                RegistrationBtn.IsEnabled = false;
+            if (RegPasswordPb.Visibility == Visibility.Visible)
+            {
+                if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                    string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                    EmptyPasswordError.Visibility == Visibility.Visible)
+                    RegistrationBtn.IsEnabled = false;
+                else
+                    RegistrationBtn.IsEnabled = true;
+            }
             else
-                RegistrationBtn.IsEnabled = true;
+            {
+                if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                    string.IsNullOrWhiteSpace(VisibleRegPasswordTextBox.Text) |
+                    string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                    string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                    EmptyPasswordError.Visibility == Visibility.Visible)
+                    RegistrationBtn.IsEnabled = false;
+                else
+                    RegistrationBtn.IsEnabled = true;
+            }
         }
 
         private void RegEmailTb_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
-                string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
-                string.IsNullOrWhiteSpace(RegNameTb.Text) |
-                string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
-                string.IsNullOrWhiteSpace(RegEmailTb.Text))
-                RegistrationBtn.IsEnabled = false;
+            if (RegPasswordPb.Visibility == Visibility.Visible)
+            {
+                if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                    string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                    EmptyPasswordError.Visibility == Visibility.Visible)
+                    RegistrationBtn.IsEnabled = false;
+                else
+                    RegistrationBtn.IsEnabled = true;
+            }
             else
-                RegistrationBtn.IsEnabled = true;
+            {
+                if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                    string.IsNullOrWhiteSpace(VisibleRegPasswordTextBox.Text) |
+                    string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                    string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                    string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                    string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                    EmptyPasswordError.Visibility == Visibility.Visible)
+                    RegistrationBtn.IsEnabled = false;
+                else
+                    RegistrationBtn.IsEnabled = true;
+            }
+        }
+
+        private void VisibleRegPasswordTb_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            VisibleRegPasswordTextBox.Focus();
+        }
+
+        private void VisibleRegPasswordTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string upperCaseLetters = "QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ",
+                lowerCaseLetters = "qwertyuiopasdfghjklzxcvbnmйцукенгшщзхъфывапролджэячсмитьбю",
+                numbers = "1234567890",
+                enteredPassword = VisibleRegPasswordTextBox.Text;
+
+            if (!string.IsNullOrWhiteSpace(VisibleRegPasswordTextBox.Text) && VisibleRegPasswordTextBox.Text.Length > 0)
+            {
+                RegPasswordTb.Visibility = Visibility.Collapsed;
+                VisibleRegPasswordTb.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                VisibleRegPasswordTb.Visibility = Visibility.Visible;
+            }
+            if (upperCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                EmptyPasswordError.Visibility = Visibility.Visible;
+                RegistrationBtn.IsEnabled = false;
+            }
+            else if (lowerCaseLetters.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                EmptyPasswordError.Visibility = Visibility.Visible;
+                RegistrationBtn.IsEnabled = false;
+            }
+            else if (numbers.IndexOfAny(enteredPassword.ToCharArray()) == -1)
+            {
+                EmptyPasswordError.Visibility = Visibility.Visible;
+                RegistrationBtn.IsEnabled = false;
+            }
+            else if (enteredPassword.Length < 8)
+            {
+                EmptyPasswordError.Visibility = Visibility.Visible;
+                RegistrationBtn.IsEnabled = false;
+            }
+            else
+            {
+                EmptyPasswordError.Visibility = Visibility.Collapsed;
+                if (RegPasswordPb.Visibility == Visibility.Visible)
+                {
+                    if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                        string.IsNullOrWhiteSpace(RegPasswordPb.Password) |
+                        string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                        string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                        string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                        string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                        EmptyPasswordError.Visibility == Visibility.Visible)
+                        RegistrationBtn.IsEnabled = false;
+                    else
+                        RegistrationBtn.IsEnabled = true;
+                }
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(RegLoginTb.Text) |
+                        string.IsNullOrWhiteSpace(VisibleRegPasswordTextBox.Text) |
+                        string.IsNullOrWhiteSpace(RegRepeatPasswordPb.Password) |
+                        string.IsNullOrWhiteSpace(RegNameTb.Text) |
+                        string.IsNullOrWhiteSpace(RegPhoneTb.Text) |
+                        string.IsNullOrWhiteSpace(RegEmailTb.Text) |
+                        EmptyPasswordError.Visibility == Visibility.Visible)
+                        RegistrationBtn.IsEnabled = false;
+                    else
+                        RegistrationBtn.IsEnabled = true;
+                }
+            }
+            if (string.IsNullOrWhiteSpace(VisibleRegPasswordTextBox.Text))
+                EmptyPasswordError.Visibility = Visibility.Collapsed;
+        }
+
+        private void VisibilityPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (RegPasswordPb.Visibility == Visibility.Visible)
+            {
+                VisibleRegPasswordTextBox.Text = RegPasswordPb.Password;
+                VisiblePasswordIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.EyeOffOutline;
+                VisiblePasswordIcon.Margin = new Thickness(0, 1.5, 0, 0);
+                VisibleRegPasswordTextBox.Visibility = Visibility.Visible;
+                RegPasswordPb.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                RegPasswordPb.Password = VisibleRegPasswordTextBox.Text;
+                VisiblePasswordIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.EyeOutline;
+                VisiblePasswordIcon.Margin = new Thickness(0, 0, 0, 0);
+                RegPasswordPb.Visibility = Visibility.Visible;
+                VisibleRegPasswordTextBox.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

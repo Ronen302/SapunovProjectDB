@@ -28,8 +28,8 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation To="#d5e0ea" 
-                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
-                                    Duration="0:0:0.1"/>
+                                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                                            Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </MultiDataTrigger.EnterActions>
@@ -37,8 +37,8 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation To="#e5ebf1" 
-                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
-                                    Duration="0:0:0.1"/>
+                                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                                            Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </MultiDataTrigger.ExitActions>
@@ -140,7 +140,7 @@
                         <Storyboard>
                             <ColorAnimation To="#cacaca" 
                                     Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
-                                    Duration="0:0:0.1"/>
+                                    Duration="0:0:0.2"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </MultiDataTrigger.EnterActions>
@@ -149,7 +149,7 @@
                         <Storyboard>
                             <ColorAnimation To="#e1e3e6" 
                                     Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
-                                    Duration="0:0:0.1"/>
+                                    Duration="0:0:0.2"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </MultiDataTrigger.ExitActions>
@@ -184,7 +184,7 @@
                         <Storyboard>
                             <ColorAnimation To="#1f88ff" 
                                     Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
-                                    Duration="0:0:0.1"/>
+                                    Duration="0:0:0.2"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </MultiDataTrigger.EnterActions>
@@ -193,7 +193,7 @@
                         <Storyboard>
                             <ColorAnimation To="#0077ff" 
                                     Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
-                                    Duration="0:0:0.1"/>
+                                    Duration="0:0:0.2"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </MultiDataTrigger.ExitActions>
@@ -389,6 +389,34 @@
                     <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Background" Value="#dcdcdc"/>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="visiblePasswordButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Foreground" Value="#6e7783"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="3">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark"/>
+                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Foreground" Value="#b5bac1"/>
             </MultiDataTrigger>
         </Style.Triggers>
     </Style>
@@ -960,6 +988,158 @@
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Foreground" Value="#818181"/>
             </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="staffBasicInfoButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="#313338"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bd" BorderThickness="0 0 0 2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true">
+                            <Setter Property="BorderBrush" TargetName="bd" Value="#0077ff"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=StaffBasicInfoStackPanel, Path=Visibility}" Value="Visible">
+                            <Setter Property="BorderBrush" TargetName="bd" Value="#0077ff"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Foreground" Value="#d8dee1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="bd" BorderThickness="0 0 0 2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="bd" Value="#e1e3e6"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=StaffBasicInfoStackPanel, Path=Visibility}" Value="Visible">
+                                    <Setter Property="BorderBrush" TargetName="bd" Value="#e1e3e6"/>
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="staffPassportInfoButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="#313338"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bd" BorderThickness="0 0 0 2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true">
+                            <Setter Property="BorderBrush" TargetName="bd" Value="#0077ff"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=StaffPassportInfoStackPanel, Path=Visibility}" Value="Visible">
+                            <Setter Property="BorderBrush" TargetName="bd" Value="#0077ff"/>
+                            <Setter Property="IsHitTestVisible" Value="True"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Foreground" Value="#d8dee1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="bd" BorderThickness="0 0 0 2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="bd" Value="#e1e3e6"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=StaffPassportInfoStackPanel, Path=Visibility}" Value="Visible">
+                                    <Setter Property="BorderBrush" TargetName="bd" Value="#e1e3e6"/>
+                                    <Setter Property="IsHitTestVisible" Value="True"/>
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="clientOrderInfoButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="#313338"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bd" BorderThickness="0 0 0 2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true">
+                            <Setter Property="BorderBrush" TargetName="bd" Value="#0077ff"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=ClientOrderInfoStackPanel, Path=Visibility}" Value="Visible">
+                            <Setter Property="BorderBrush" TargetName="bd" Value="#0077ff"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Foreground" Value="#d8dee1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="bd" BorderThickness="0 0 0 2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="bd" Value="#e1e3e6"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=ClientOrderInfoStackPanel, Path=Visibility}" Value="Visible">
+                                    <Setter Property="BorderBrush" TargetName="bd" Value="#e1e3e6"/>
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

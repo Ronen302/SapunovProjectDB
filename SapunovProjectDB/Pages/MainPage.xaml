@@ -130,7 +130,7 @@
                                     <EventTrigger RoutedEvent="ToggleButton.Unchecked">
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="AccountSettingsGrid" BeginTime="0:0:0" Storyboard.TargetProperty="Height" To="0" Duration="0:0:0.1">
+                                                <DoubleAnimation Storyboard.TargetName="AccountSettingsGrid" Storyboard.TargetProperty="Height" To="0" Duration="0:0:0.07">
                                                 </DoubleAnimation>
                                             </Storyboard>
                                         </BeginStoryboard>
@@ -138,7 +138,7 @@
                                     <EventTrigger RoutedEvent="ToggleButton.Checked">
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="AccountSettingsGrid" BeginTime="0:0:0" Storyboard.TargetProperty="Height" From="0" To="130" Duration="0:0:0.1">
+                                                <DoubleAnimation Storyboard.TargetName="AccountSettingsGrid" Storyboard.TargetProperty="Height" To="130" Duration="0:0:0.07">
                                                 </DoubleAnimation>
                                             </Storyboard>
                                         </BeginStoryboard>

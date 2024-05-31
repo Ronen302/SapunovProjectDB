@@ -178,4 +178,13 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="rowDetailsBorder" TargetType="Border">
+        <Setter Property="Background" Value="#eaeaea"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                <Setter Property="Background" Value="#404040"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

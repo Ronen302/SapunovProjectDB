@@ -41,35 +41,48 @@
                                IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
                                Text="Логин" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=AuthLoginTb}"/>
 
-                        <TextBox Padding="36 8" Grid.ColumnSpan="2" x:Name="AuthLoginTb" Style="{StaticResource inputTextBox}"
+                        <TextBox Padding="36 8 10 8" Grid.ColumnSpan="2" x:Name="AuthLoginTb" Style="{StaticResource inputTextBox}"
                              GotFocus="AuthLoginTb_GotFocus" TextChanged="AuthLoginTb_TextChanged"/>
                     </Grid>
 
                     <TextBlock x:Name="EmptyLoginError" Text="Не указан логин" Margin="25,4,25,0"
-                       FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                       FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
 
                     <Grid MaxWidth="350" Margin="0 10 0 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="40"/>
                         </Grid.ColumnDefinitions>
+                        <Button x:Name="VisibilityPasswordButton" Grid.Column="2" Panel.ZIndex="1" Style="{DynamicResource visiblePasswordButton}"
+                                HorizontalAlignment="Center" Click="VisibilityPasswordButton_Click">
+                            <Icons:PackIconMaterial x:Name="VisiblePasswordIcon" Width="18" Height="18" 
+                                        Kind="EyeOutline" Style="{DynamicResource authPageIcon}"/>
+                        </Button>
                         <Icons:PackIconMaterial Width="15" Height="15" Panel.ZIndex="1" Grid.Column="0"
                                         Kind="LockOutline" Style="{DynamicResource authPageIcon}" Margin="15,12,0,0"/>
                         <TextBlock Grid.Column="1" x:Name="PasswordTb" MouseDown="PasswordTb_MouseDown" VerticalAlignment="Center" Style="{DynamicResource authPageTextHint}"
                                IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
                                Text="Пароль" Visibility="{Binding Password.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=AuthPasswordPb}"/>
 
-                        <PasswordBox x:Name="AuthPasswordPb" Padding="36 8" Grid.ColumnSpan="2" PasswordChanged="PasswordPb_PasswordChanged" Style="{StaticResource loginPasswordBox}"
+                        <PasswordBox x:Name="AuthPasswordPb" Padding="36 8" Grid.ColumnSpan="3" PasswordChanged="PasswordPb_PasswordChanged" Style="{StaticResource loginPasswordBox}"
                              GotFocus="AuthPasswordPb_GotFocus"/>
+
+                        <TextBlock Grid.Column="1" x:Name="VisiblePasswordTb" MouseDown="VisiblePasswordTb_MouseDown" VerticalAlignment="Center" Style="{DynamicResource authPageTextHint}"
+                               IsHitTestVisible="False" Panel.ZIndex="1" FontSize="15"
+                               Text="Пароль" Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVis}, ElementName=VisibleAuthPasswordTb}"/>
+
+                        <TextBox x:Name="VisibleAuthPasswordTb" Padding="36 8" Grid.ColumnSpan="3" TextChanged="VisibleAuthPasswordTb_TextChanged" Style="{StaticResource inputVisiblePasswordTextBox}"
+                             GotFocus="VisibleAuthPasswordTb_GotFocus" Visibility="Collapsed"/>
                     </Grid>
                     <TextBlock x:Name="InvalidPaswwordError" Text="Неверный пароль" Margin="25,4,25,0"
-                       FontSize="16" Foreground="#e64646" Visibility="Collapsed"/>
+                       FontSize="14" Foreground="#e64646" Visibility="Collapsed"/>
 
                     <StackPanel Orientation="Horizontal" Margin="25,20,0,0">
                         <CheckBox Content="Запомнить логин" FontSize="16" VerticalContentAlignment="Center"
                                   VerticalAlignment="Center"
                               Style="{DynamicResource authPageCheckBox}" Cursor="Hand"
-                              x:Name="SaveLoginCb" Template="{DynamicResource CheckBoxControlTemplate}" Width="155"/>
+                              x:Name="SaveLoginCb" Width="155"/>
                         <Button Width="25" Height="25" Margin="0 2 0 0"
                                     Style="{DynamicResource toolTipPasswordButton}" ToolTipService.InitialShowDelay="1">
                             <Icons:PackIconMaterial Width="13" Height="13"
